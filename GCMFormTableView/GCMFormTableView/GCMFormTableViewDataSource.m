@@ -7,6 +7,7 @@
 //
 
 #import "GCMFormTableViewDataSource.h"
+#import "NSString+GameChangerMedia.h"
 #import "GCMFormSectionConfig+Protected.h"
 
 @interface GCMFormTableViewDataSource () <GCMFormRowConfigDelegate>
@@ -246,16 +247,13 @@ static NSString *kRowValueKey = @"value";
 - (void)configureTableView:(UITableView *)tableView {
   [tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:kGCMFormSectionHeaderReuseId];
   [tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:kGCMFormSectionFooterReuseId];
-  Class cellClass = [UITableViewCell class];
-  if ( iPad ) {
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-  }
-  [tableView registerClass:cellClass forCellReuseIdentifier:kGCLabeledTextFieldCellReuseId];
-  [tableView registerClass:cellClass forCellReuseIdentifier:kGCLabeledDisclosureValueCellReuseId];
-  [tableView registerClass:cellClass forCellReuseIdentifier:kGCLabeledDatePickerCellReuseId];
-  [tableView registerClass:cellClass forCellReuseIdentifier:kGCLabeledTextViewCellReuseId];
-  [tableView registerClass:cellClass forCellReuseIdentifier:kGCActionButtonCellReuseId];
-  [tableView registerClass:cellClass forCellReuseIdentifier:kGCPreviousOpponentCellReuseId];
+  NSMutableSet *reuseIdentifiers = [[NSMutableSet alloc] init];
+  [self.allRowConfigs enumerateObjectsUsingBlock:^(GCMFormRowConfig *config, NSUInteger idx, BOOL *stop) {
+    [reuseIdentifiers addObject:config.cellReuseId];
+  }];
+  [reuseIdentifiers enumerateObjectsUsingBlock:^(NSString *reuseId, BOOL *stop) {
+    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseId];
+  }];
 }
 
 - (GCMFormSectionConfig *)sectionAtIndex:(NSInteger)index {
@@ -298,7 +296,7 @@ static NSString *kRowValueKey = @"value";
   GCMFormSectionConfig *sectionConfig = [self sectionAtIndex:section];
   if ( sectionConfig.footerTitle != nil ) {
     UITableViewHeaderFooterView *footerView = (UITableViewHeaderFooterView *)[sectionConfig makeFooterViewForTableView:tableView];
-    return [sectionConfig.footerTitle heightForStringUsingWidth:self.tableView.width andFont:footerView.textLabel.font] + 30.f;
+    return [sectionConfig.footerTitle heightForStringUsingWidth:self.tableView.bounds.size.width andFont:footerView.textLabel.font] + 30.f;
   } else {
     return 0.0;
   }
@@ -327,12 +325,6 @@ static NSString *kRowValueKey = @"value";
   GCMFormRowConfig *rowConfig = [self rowAtIndexPath:indexPath];
   if ( rowConfig.enabled ) {
     [rowConfig didTapCell:[tableView cellForRowAtIndexPath:indexPath]];
-  }
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-  if ( iPad ) {
-    [GCRoundedTableViewCellStyler styleTableViewCell:cell forIndexPath:indexPath inTableView:tableView];
   }
 }
 

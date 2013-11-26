@@ -7,6 +7,7 @@
 //
 
 #import "GCMFormTableViewController.h"
+#import "GCMDeviceInfo.h"
 
 NSString *kGCMFormTableViewControllerTagKey = @"controllerTag";;
 NSString *kGCMFormTableViewControllerUserInfoKey = @"controllerUserInfo";
@@ -79,7 +80,7 @@ NSString *kGCMFormTableViewActionTagKey = @"action.tag";
                                                MAX(0.0, self.tableView.contentSize.height - self.tableView.bounds.size.height));
   }
   if ( PRE_IOS7 ) {
-    [self resetContentInsetsOfView:self.tableView];
+//    [self resetContentInsetsOfView:self.tableView];
   }
 }
 
@@ -94,7 +95,7 @@ NSString *kGCMFormTableViewActionTagKey = @"action.tag";
 }
 
 - (void)handleKeyboardWillAppear:(NSNotification *)notification {
-  [self animateView:self.tableView toMatchKeyboardNotification:notification];
+//  [self animateView:self.tableView toMatchKeyboardNotification:notification];
 }
 
 - (void)handleKeyboardDidAppear:(NSNotification *)notification {
@@ -102,7 +103,7 @@ NSString *kGCMFormTableViewActionTagKey = @"action.tag";
 }
 
 - (void)handleKeyboardWillDisappear:(NSNotification *)notification {
-  [self animateView:self.tableView toMatchKeyboardNotification:notification];
+//  [self animateView:self.tableView toMatchKeyboardNotification:notification];
 }
 
 
@@ -127,11 +128,11 @@ NSString *kGCMFormTableViewActionTagKey = @"action.tag";
     self.tableView.dataSource = dataSource;
     self.tableView.delegate = dataSource;
 
-    __weak GCMFormTableViewController *weakSelf = self;
-    dataSource.completionBlock = ^(NSString *key, GCMFormTableViewDataSource *dataSource) {
-      [weakSelf handleActionWithKey:key];
-    };
-
+//    __weak GCMFormTableViewController *weakSelf = self;
+//    dataSource.completionBlock = ^(NSString *key, GCMFormTableViewDataSource *dataSource) {
+//      [weakSelf handleActionWithKey:key];
+//    };
+//
     [self.tableView reloadData];
   }
 }
@@ -191,9 +192,9 @@ NSString *kGCMFormTableViewActionTagKey = @"action.tag";
 }
 
 - (void)handleActionWithKey:(NSString *)key {
-  GCMFormTableViewDataSource *dataSource = self.dataSource;
-  GCActionButtonRowConfig *actionConfig = (id)[dataSource rowConfigWithKey:key];
-  [self reportResult:kGCMFormTableViewResultUser + actionConfig.tag];
+//  GCMFormTableViewDataSource *dataSource = self.dataSource;
+//  GCActionButtonRowConfig *actionConfig = (id)[dataSource rowConfigWithKey:key];
+//  [self reportResult:kGCMFormTableViewResultUser + actionConfig.tag];
 }
 
 - (void)reportResult:(GCMFormTableViewResult)result {

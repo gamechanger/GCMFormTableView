@@ -60,7 +60,7 @@ NSString *kGCMFormSectionFooterReuseId = @"sectionFooter";
     UITableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kGCMFormSectionHeaderReuseId];
     footerView.textLabel.text = self.footerTitle;
     footerView.textLabel.font = [UIFont systemFontOfSize:16.f];
-    footerView.textLabel.textColor = [GCPalette grayMediumDark];
+//    footerView.textLabel.textColor = [GCPalette grayMediumDark];
     footerView.textLabel.numberOfLines = 0;
     return footerView;
   } else {

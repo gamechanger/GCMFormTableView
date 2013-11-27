@@ -84,6 +84,8 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
   _dataSource = dataSource;
   dataSource.delegate = self;
   [dataSource addObserver:self forKeyPath:kDataSourceSelectedIndexPathKey options:NSKeyValueObservingOptionNew context:nil];
+  self.tableView.dataSource = dataSource;
+  self.tableView.delegate = dataSource;
   [self.tableView reloadData];
 }
 

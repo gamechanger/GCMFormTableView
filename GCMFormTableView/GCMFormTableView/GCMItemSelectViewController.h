@@ -31,7 +31,8 @@
 
 @protocol GCMItemSelectViewControllerDelegate <NSObject>
 
-- (void)cancelledItemSelectViewController:(GCMItemSelectViewController *)controller;
 - (void)selectedItemInItemSelectViewController:(GCMItemSelectViewController *)controller andConfirmedSelection:(BOOL)confirmed;
+@optional
+- (void)cancelledItemSelectViewController:(GCMItemSelectViewController *)controller;
 
 @end

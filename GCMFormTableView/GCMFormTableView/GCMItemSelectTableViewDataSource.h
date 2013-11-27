@@ -23,6 +23,8 @@ extern NSString *const kGCMItemSelectDisabledItemKey;
  * Returns NSNotFound if selectedIndexPath is nil and will set selectedIndexPath to nil if assigned NSNotFound.
  */
 @property (nonatomic, assign) NSUInteger selectedIndex;
+@property (nonatomic, readonly) NSInteger tagForSelectedItem;
+@property (nonatomic, readonly) id userInfoForSelectedItem;
 @property (nonatomic, strong) id userInfo;
 @property (nonatomic, readonly) BOOL hasItems;
 

@@ -116,6 +116,24 @@ NSString *const kGCMItemSelectDisabledItemKey = @"disabledItem";
   }
 }
 
+- (NSInteger)tagForSelectedItem {
+  NSIndexPath *selectedIndexPath = self.selectedIndexPath;
+  if ( selectedIndexPath ) {
+    return [self tagForItemAtIndexPath:selectedIndexPath];
+  } else {
+    return 0;
+  }
+}
+
+- (id)userInfoForSelectedItem {
+  NSIndexPath *selectedIndexPath = self.selectedIndexPath;
+  if ( selectedIndexPath ) {
+    return [self userInfoForItemAtIndexPath:selectedIndexPath];
+  } else {
+    return nil;
+  }
+}
+
 - (void)addItem:(NSString *)itemName withTag:(NSInteger)tag andUserInfo:(id)userInfo {
   [self addItem:itemName andConfig:nil withTag:tag andUserInfo:userInfo];
 }

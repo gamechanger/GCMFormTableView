@@ -3,7 +3,7 @@ PODS:
   - Kiwi (2.2)
 
 DEPENDENCIES:
-  - GCMCocoaExtensions (~> 0.1.2)
+  - GCMCocoaExtensions (~> 0.1.4)
   - Kiwi (= 2.2.0)
 
 SPEC CHECKSUMS:

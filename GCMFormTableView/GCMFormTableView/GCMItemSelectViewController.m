@@ -58,6 +58,7 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
   }
   NSIndexPath *selectedIndexPath = self.dataSource.selectedIndexPath;
   if ( selectedIndexPath && [self.dataSource itemAtIndexPath:selectedIndexPath] ) {
+    [self.tableView reloadData];
     [self.tableView scrollToRowAtIndexPath:selectedIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
   }
 }

@@ -1,3 +1,4 @@
 source 'https://rubygems.org'
-gem "cocoapods", "0.27.1"
+gem "cocoapods", "0.28.0"
 gem "erubis", "~> 2.7.0"
+gem "travis"

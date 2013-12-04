@@ -1,5 +1,6 @@
 GCMFormTableView
 ================
+[![Build Status](https://travis-ci.org/gamechanger/GCMFormTableView.png)](https://travis-ci.org/gamechanger/GCMFormTableView)
 
 `GCMFormTableView` is a framework to generate forms for data entry.
 Version 0.1 is being used in production, but has some architectural issues that will most likely

@@ -15,16 +15,10 @@
 		AB0A796A1844FEF300ABBBB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0A79691844FEF300ABBBB8 /* UIKit.framework */; };
 		AB0A796D1844FEF300ABBBB8 /* libGCMFormTableView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0A79551844FEF300ABBBB8 /* libGCMFormTableView.a */; };
 		AB0A79731844FEF300ABBBB8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB0A79711844FEF300ABBBB8 /* InfoPlist.strings */; };
-		AB0A798E184502E800ABBBB8 /* GCMFormTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A798B184502E800ABBBB8 /* GCMFormTableViewDataSource.m */; };
-		AB0A79931845031300ABBBB8 /* GCMFormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A79921845031300ABBBB8 /* GCMFormTableViewController.m */; };
-		AB0A79991845033300ABBBB8 /* GCMFormSectionConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A79961845033300ABBBB8 /* GCMFormSectionConfig.m */; };
-		AB0A799A1845033300ABBBB8 /* GCMFormRowConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A79981845033300ABBBB8 /* GCMFormRowConfig.m */; };
 		AB0A79FB1845503900ABBBB8 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0A79FA1845503900ABBBB8 /* SenTestingKit.framework */; };
 		AB0A79FC1845503900ABBBB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0A79581844FEF300ABBBB8 /* Foundation.framework */; };
 		AB0A79FD1845503900ABBBB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0A79691844FEF300ABBBB8 /* UIKit.framework */; };
 		AB0A7A031845503900ABBBB8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB0A7A011845503900ABBBB8 /* InfoPlist.strings */; };
-		AB0A7A0A1845512F00ABBBB8 /* GCMFormTableViewDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A798D184502E800ABBBB8 /* GCMFormTableViewDataSourceTests.m */; };
-		AB0A7A0B1845513700ABBBB8 /* GCMFormTableViewDataSourceMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A799C1845034100ABBBB8 /* GCMFormTableViewDataSourceMatcher.m */; };
 		AB0A7A0C1845518000ABBBB8 /* libGCMFormTableView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0A79551844FEF300ABBBB8 /* libGCMFormTableView.a */; };
 		AB0A7A1D1846661300ABBBB8 /* GCMItemSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A7A1A1846661300ABBBB8 /* GCMItemSelectViewController.m */; };
 		AB0A7A1E1846661300ABBBB8 /* GCMItemSelectTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A7A1C1846661300ABBBB8 /* GCMItemSelectTableViewDataSource.m */; };
@@ -67,19 +61,6 @@
 		AB0A79691844FEF300ABBBB8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		AB0A79701844FEF300ABBBB8 /* GCMFormTableViewTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GCMFormTableViewTests-Info.plist"; sourceTree = "<group>"; };
 		AB0A79721844FEF300ABBBB8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		AB0A798A184502E800ABBBB8 /* GCMFormTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCMFormTableViewDataSource.h; sourceTree = "<group>"; };
-		AB0A798B184502E800ABBBB8 /* GCMFormTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMFormTableViewDataSource.m; sourceTree = "<group>"; };
-		AB0A798C184502E800ABBBB8 /* GCMFormTableViewDataSource+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GCMFormTableViewDataSource+Testing.h"; sourceTree = "<group>"; };
-		AB0A798D184502E800ABBBB8 /* GCMFormTableViewDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMFormTableViewDataSourceTests.m; sourceTree = "<group>"; };
-		AB0A79911845031300ABBBB8 /* GCMFormTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GCMFormTableViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		AB0A79921845031300ABBBB8 /* GCMFormTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GCMFormTableViewController.m; sourceTree = "<group>"; };
-		AB0A79941845033300ABBBB8 /* GCMFormSectionConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GCMFormSectionConfig.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		AB0A79951845033300ABBBB8 /* GCMFormSectionConfig+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "GCMFormSectionConfig+Protected.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		AB0A79961845033300ABBBB8 /* GCMFormSectionConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GCMFormSectionConfig.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		AB0A79971845033300ABBBB8 /* GCMFormRowConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GCMFormRowConfig.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		AB0A79981845033300ABBBB8 /* GCMFormRowConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GCMFormRowConfig.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		AB0A799B1845034100ABBBB8 /* GCMFormTableViewDataSourceMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCMFormTableViewDataSourceMatcher.h; sourceTree = "<group>"; };
-		AB0A799C1845034100ABBBB8 /* GCMFormTableViewDataSourceMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMFormTableViewDataSourceMatcher.m; sourceTree = "<group>"; };
 		AB0A79F91845503900ABBBB8 /* GCMFormTableViewSenTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GCMFormTableViewSenTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0A79FA1845503900ABBBB8 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		AB0A7A001845503900ABBBB8 /* GCMFormTableViewSenTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GCMFormTableViewSenTests-Info.plist"; sourceTree = "<group>"; };
@@ -174,16 +155,6 @@
 				AB0A7A1A1846661300ABBBB8 /* GCMItemSelectViewController.m */,
 				AB0A7A1B1846661300ABBBB8 /* GCMItemSelectTableViewDataSource.h */,
 				AB0A7A1C1846661300ABBBB8 /* GCMItemSelectTableViewDataSource.m */,
-				AB0A798A184502E800ABBBB8 /* GCMFormTableViewDataSource.h */,
-				AB0A798B184502E800ABBBB8 /* GCMFormTableViewDataSource.m */,
-				AB0A798C184502E800ABBBB8 /* GCMFormTableViewDataSource+Testing.h */,
-				AB0A79911845031300ABBBB8 /* GCMFormTableViewController.h */,
-				AB0A79921845031300ABBBB8 /* GCMFormTableViewController.m */,
-				AB0A79941845033300ABBBB8 /* GCMFormSectionConfig.h */,
-				AB0A79951845033300ABBBB8 /* GCMFormSectionConfig+Protected.h */,
-				AB0A79961845033300ABBBB8 /* GCMFormSectionConfig.m */,
-				AB0A79971845033300ABBBB8 /* GCMFormRowConfig.h */,
-				AB0A79981845033300ABBBB8 /* GCMFormRowConfig.m */,
 				AB0A795B1844FEF300ABBBB8 /* Supporting Files */,
 			);
 			path = GCMFormTableView;
@@ -219,9 +190,6 @@
 			children = (
 				AB0A7A1F1846662000ABBBB8 /* GCMItemSelectTableViewControllerTests.m */,
 				AB0A7A201846662000ABBBB8 /* GCMItemSelectTableViewDataSourceTests.m */,
-				AB0A799B1845034100ABBBB8 /* GCMFormTableViewDataSourceMatcher.h */,
-				AB0A799C1845034100ABBBB8 /* GCMFormTableViewDataSourceMatcher.m */,
-				AB0A798D184502E800ABBBB8 /* GCMFormTableViewDataSourceTests.m */,
 				AB0A79FF1845503900ABBBB8 /* Supporting Files */,
 			);
 			path = GCMFormTableViewSenTests;
@@ -411,10 +379,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB0A798E184502E800ABBBB8 /* GCMFormTableViewDataSource.m in Sources */,
-				AB0A79991845033300ABBBB8 /* GCMFormSectionConfig.m in Sources */,
-				AB0A79931845031300ABBBB8 /* GCMFormTableViewController.m in Sources */,
-				AB0A799A1845033300ABBBB8 /* GCMFormRowConfig.m in Sources */,
 				AB0A7A1D1846661300ABBBB8 /* GCMItemSelectViewController.m in Sources */,
 				AB0A7A1E1846661300ABBBB8 /* GCMItemSelectTableViewDataSource.m in Sources */,
 			);
@@ -431,8 +395,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB0A7A0A1845512F00ABBBB8 /* GCMFormTableViewDataSourceTests.m in Sources */,
-				AB0A7A0B1845513700ABBBB8 /* GCMFormTableViewDataSourceMatcher.m in Sources */,
 				AB0A7A211846662000ABBBB8 /* GCMItemSelectTableViewControllerTests.m in Sources */,
 				AB0A7A221846662000ABBBB8 /* GCMItemSelectTableViewDataSourceTests.m in Sources */,
 			);

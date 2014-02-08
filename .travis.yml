@@ -6,8 +6,10 @@ before_install:
 - rvm get stable
 - rvm install 2.1.0
 - rvm use 2.1.0
-before_script:
+install:
+- bundle install
 - pod repo add gc_specs_mirror https://github.com/gamechanger/Specs.git
+- pod install
 script:
 - rake test:ci analyze
 cache:

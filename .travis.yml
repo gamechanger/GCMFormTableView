@@ -1,11 +1,12 @@
 language: objective-c
 before_install:
-- rvm get stable
-- rvm install 2.1.0
-- rvm use 2.1.0
 - brew update
 - brew unlink xctool
 - brew install xctool
+- rvm get stable
+- rvm install 2.1.0
+- rvm use 2.1.0
+before_script:
 - pod repo add gc_specs_mirror https://github.com/gamechanger/Specs.git
 script:
 - rake test:ci analyze

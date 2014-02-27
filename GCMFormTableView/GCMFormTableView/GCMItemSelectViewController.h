@@ -33,6 +33,7 @@
 
 - (void)selectedItemInItemSelectViewController:(GCMItemSelectViewController *)controller andConfirmedSelection:(BOOL)confirmed;
 @optional
+- (void)selectedActionWithTag:(NSInteger)tag andUserInfo:(id)userInfo inItemSelectViewController:(GCMItemSelectViewController *)controller;
 - (void)cancelledItemSelectViewController:(GCMItemSelectViewController *)controller;
 
 @end

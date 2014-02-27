@@ -10,6 +10,7 @@
 
 extern NSString *const kGCMItemSelectImageKey;
 extern NSString *const kGCMItemSelectDisabledItemKey;
+extern NSString *const kGCMItemSelectActionItemKey;
 
 @protocol GCMItemSelectTableViewDelegate;
 
@@ -54,7 +55,6 @@ extern NSString *const kGCMItemSelectDisabledItemKey;
 - (void)addAttributedItem:(NSAttributedString *)itemName withUserInfo:(id)userInfo;
 - (void)addAttributedItem:(NSAttributedString *)itemName andConfig:(NSDictionary *)config withTag:(NSInteger)tag andUserInfo:(id)userInfo;
 
-
 ///
 - (NSString *)itemAtIndexPath:(NSIndexPath *)indexPath;
 - (NSInteger)tagForItemAtIndexPath:(NSIndexPath *)indexPath;
@@ -74,6 +74,9 @@ extern NSString *const kGCMItemSelectDisabledItemKey;
 @protocol GCMItemSelectTableViewDelegate <NSObject>
 
 - (void)didSelectItemSelectDataSource:(GCMItemSelectTableViewDataSource *)dataSource;
+
+@optional
+- (void)didSelectActionWithTag:(NSInteger)tag andUserInfo:(id)userInfo fromItemSelectDataSource:(GCMItemSelectTableViewDataSource *)dataSource;
 
 @end
 

@@ -12,6 +12,7 @@
 
 NSString *const kGCMItemSelectImageKey = @"image";
 NSString *const kGCMItemSelectDisabledItemKey = @"disabledItem";
+NSString *const kGCMItemSelectActionItemKey = @"actionItem";
 
 @interface GCMItemSelectTableViewDataSource ()
 
@@ -356,21 +357,34 @@ static NSString* kFooterReuseId = @"footer";
     return;
   }
 
-  if ( ! [self.selectedIndexPath isEqual:indexPath] ) {
-    if ( self.selectedIndexPath ) {
-      UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:self.selectedIndexPath];
-      [self configureCell:oldCell withCheckbox:NO];
+  if ( config[kGCMItemSelectActionItemKey] ) {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self reportSelectedActionItemForIndexPath:indexPath];
+  } else {
+    if ( ! [self.selectedIndexPath isEqual:indexPath] ) {
+      if ( self.selectedIndexPath ) {
+        UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:self.selectedIndexPath];
+        [self configureCell:oldCell withCheckbox:NO];
+      }
+      self.selectedIndexPath = indexPath;
+      UITableViewCell *newCell = [tableView cellForRowAtIndexPath:self.selectedIndexPath];
+      [self configureCell:newCell withCheckbox:YES];
     }
-    self.selectedIndexPath = indexPath;
-    UITableViewCell *newCell = [tableView cellForRowAtIndexPath:self.selectedIndexPath];
-    [self configureCell:newCell withCheckbox:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self reportSelectedIndexPath];
   }
-  [tableView deselectRowAtIndexPath:indexPath animated:YES];
-  [self reportSelectedIndexPath];
 }
 
 - (void)reportSelectedIndexPath {
   [self.delegate didSelectItemSelectDataSource:self];
+}
+
+- (void)reportSelectedActionItemForIndexPath:(NSIndexPath *)indexPath {
+  if ( [self.delegate respondsToSelector:@selector(didSelectActionWithTag:andUserInfo:fromItemSelectDataSource:)] ) {
+    [self.delegate didSelectActionWithTag:[self tagForItemAtIndexPath:indexPath]
+                              andUserInfo:[self userInfoForItemAtIndexPath:indexPath]
+                 fromItemSelectDataSource:self];
+  }
 }
 
 @end

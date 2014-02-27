@@ -8,6 +8,7 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
   beforeEach(^{
     dataSource = [[GCMItemSelectTableViewDataSource alloc] init];
   });
+
   describe(@"hasItems", ^{
     it(@"returns NO if there are no sections", ^{
       [[theValue(dataSource.hasItems) should] beNo];
@@ -203,6 +204,19 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
           [dataSource selectedIndex];
         }) should] raise];
       });
+    });
+  });
+
+  describe(@"actionItems", ^{
+    __block KWMock *delegateMock;
+    beforeEach(^{
+      delegateMock = [KWMock nullMockForProtocol:@protocol(GCMItemSelectTableViewDelegate)];
+      dataSource.delegate = (id) delegateMock;
+      [dataSource addItem:@"Skip This Step" andConfig:@{kGCMItemSelectActionItemKey: @YES} withTag:1 andUserInfo:@2];
+    });
+    it(@"calls the delegate method when the item is tapped", ^{
+      [[[delegateMock should] receive] didSelectActionWithTag:1 andUserInfo:@2 fromItemSelectDataSource:dataSource];
+      [dataSource tableView:nil didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     });
   });
 });

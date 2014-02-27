@@ -151,7 +151,9 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
 }
 
 - (void)cancellationTapped:(UIBarButtonItem *)button {
-  [self.delegate cancelledItemSelectViewController:self];
+  if ( [self.delegate respondsToSelector:@selector(cancelledItemSelectViewController:)] ) {
+    [self.delegate cancelledItemSelectViewController:self];
+  }
 }
 
 - (void)didSelectItemSelectDataSource:(GCMItemSelectTableViewDataSource *)dataSource {
@@ -159,6 +161,12 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
     [self updateConfirmationButtonState];
   }
   [self reportSelectedItem];
+}
+
+- (void)didSelectActionWithTag:(NSInteger)tag andUserInfo:(id)userInfo fromItemSelectDataSource:(GCMItemSelectTableViewDataSource *)dataSource {
+  if ( [self.delegate respondsToSelector:@selector(selectedActionWithTag:andUserInfo:inItemSelectViewController:)] ) {
+    [self.delegate selectedActionWithTag:tag andUserInfo:userInfo inItemSelectViewController:self];
+  }
 }
 
 - (void)reportSelectedItem {

@@ -14,6 +14,8 @@ NSString *const kGCMItemSelectImageKey = @"image";
 NSString *const kGCMItemSelectDisabledItemKey = @"disabledItem";
 NSString *const kGCMItemSelectActionItemKey = @"actionItem";
 
+NSUInteger const kGCItemSelectHeaderLabelTag = 1000;
+
 @interface GCMItemSelectTableViewDataSource ()
 
 @property (nonatomic, strong) NSMutableArray *sections;
@@ -299,6 +301,7 @@ static NSString* kFooterReuseId = @"footer";
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.numberOfLines = 0;
     label.attributedText = self.sectionHeaderTitles[section];
+    label.tag = kGCItemSelectHeaderLabelTag;
     [headerView addSubview:label];
     return headerView;
   } else {

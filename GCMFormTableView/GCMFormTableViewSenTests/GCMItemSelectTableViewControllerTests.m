@@ -95,17 +95,17 @@ describe(@"GCMItemSelectViewController", ^{
       [[confirmationButton.title should] equal:@"Next"];
     });
     it(@"starts with confirmation button disabled", ^{
-      [[theValue(confirmationButton.enabled) should] beNo];
+      [[theValue(confirmationButton.enabled) should] equal:theValue(NO)];
     });
     it(@"changes confirmation button to enabled after selection", ^{
       controller.dataSource.selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-      [[theValue(confirmationButton.enabled) should] beYes];
+      [[theValue(confirmationButton.enabled) should] equal:theValue(YES)];
     });
     it(@"changes confirmation button to disabled after selection cleared", ^{
       controller.dataSource.selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-      [[theValue(confirmationButton.enabled) should] beYes];
+      [[theValue(confirmationButton.enabled) should] equal:theValue(YES)];
       controller.dataSource.selectedIndexPath = nil;
-      [[theValue(confirmationButton.enabled) should] beNo];
+      [[theValue(confirmationButton.enabled) should] equal:theValue(NO)];
     });
   });
   context(@"confirmation required and selection at launch", ^{
@@ -120,11 +120,11 @@ describe(@"GCMItemSelectViewController", ^{
       [[confirmationButton should] beNonNil];
     });
     it(@"starts with confirmation button enabled", ^{
-      [[theValue(confirmationButton.enabled) should] beYes];
+      [[theValue(confirmationButton.enabled) should] equal:theValue(YES)];
     });
     it(@"changes confirmation button to disabled after selection cleared", ^{
       controller.dataSource.selectedIndexPath = nil;
-      [[theValue(confirmationButton.enabled) should] beNo];
+      [[theValue(confirmationButton.enabled) should] equal:theValue(NO)];
     });
   });
   context(@"confirmation required and title set at launch", ^{
@@ -142,7 +142,7 @@ describe(@"GCMItemSelectViewController", ^{
       [[confirmationButton.title should] equal:@"Finish"];
     });
     it(@"starts with confirmation button disabled", ^{
-      [[theValue(confirmationButton.enabled) should] beNo];
+      [[theValue(confirmationButton.enabled) should] equal:theValue(NO)];
     });
     it(@"changes confirmation button title if changed after launch", ^{
       controller.confirmationTitle = @"Something Else";

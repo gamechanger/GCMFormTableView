@@ -11,16 +11,16 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
 
   describe(@"hasItems", ^{
     it(@"returns NO if there are no sections", ^{
-      [[theValue(dataSource.hasItems) should] beNo];
+      [[theValue(dataSource.hasItems) should] equal:theValue(NO)];
     });
     it(@"returns NO if all sections have no items", ^{
       [dataSource addSectionBreak];
-      [[theValue(dataSource.hasItems) should] beNo];
+      [[theValue(dataSource.hasItems) should] equal:theValue(NO)];
     });
     it(@"returns YES if there's at least one item", ^{
       [dataSource addSectionBreak];
       [dataSource addItem:@"something" withTag:216 andUserInfo:@"info"];
-      [[theValue(dataSource.hasItems) should] beYes];
+      [[theValue(dataSource.hasItems) should] equal:theValue(YES)];
     });
     it(@"automatically adds a section for first addItem: but not second", ^{
       [dataSource addItem:@"Test" andConfig:Nil withTag:0 andUserInfo:nil];
@@ -70,7 +70,8 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
     it(@"has the correct data for section 0",^{
       UIView *headerView = [dataSource tableView:nil viewForHeaderInSection:0];
       UIView *footerView = [dataSource tableView:nil viewForFooterInSection:0];
-      [[[headerView valueForKeyPath:@"label.text"] should] equal:@"Header 1"];
+      UILabel *label = (UILabel *)[headerView viewWithTag:kGCItemSelectHeaderLabelTag];
+      [[label.text should] equal:@"Header 1"];
       [footerView shouldBeNil];
     });
     it(@"has the correct data for section 1",^{
@@ -81,7 +82,8 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
     });
     it(@"has the correct data for header of section 2",^{
       UIView *headerView = [dataSource tableView:nil viewForHeaderInSection:2];
-      [[[headerView valueForKeyPath:@"label.text"] should] equal:@"Header 3"];
+      UILabel *label = (UILabel *)[headerView viewWithTag:kGCItemSelectHeaderLabelTag];
+      [[label.text should] equal:@"Header 3"];
     });
     it(@"has the correct data for footer of section 2",^{
       UIView *footerView = [dataSource tableView:nil viewForFooterInSection:2];
@@ -132,12 +134,12 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
       [[[dataSource userInfoForItemAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:3]] should] equal:@"3.1"];
     });
     it(@"determines if dataSource containsItemWithUserInfo:",^{
-      [[theValue([dataSource containsItemWithUserInfo:@"0.0"]) should] beYes];
-      [[theValue([dataSource containsItemWithUserInfo:@"0.2"]) should] beYes];
-      [[theValue([dataSource containsItemWithUserInfo:@"3.1"]) should] beYes];
-      [[theValue([dataSource containsItemWithUserInfo:@"2.0"]) should] beNo];
-      [[theValue([dataSource containsItemWithUserInfo:nil]) should] beNo];
-      [[theValue([dataSource containsItemWithUserInfo:[NSNull null]]) should] beNo];
+      [[theValue([dataSource containsItemWithUserInfo:@"0.0"]) should] equal:theValue(YES)];
+      [[theValue([dataSource containsItemWithUserInfo:@"0.2"]) should] equal:theValue(YES)];
+      [[theValue([dataSource containsItemWithUserInfo:@"3.1"]) should] equal:theValue(YES)];
+      [[theValue([dataSource containsItemWithUserInfo:@"2.0"]) should] equal:theValue(NO)];
+      [[theValue([dataSource containsItemWithUserInfo:nil]) should] equal:theValue(NO)];
+      [[theValue([dataSource containsItemWithUserInfo:[NSNull null]]) should] equal:theValue(NO)];
     });
     it(@"finds indexPathForItemWithTag:4",^{
       [[[dataSource indexPathForItemWithTag:4] should] equal:[NSIndexPath indexPathForRow:0 inSection:1]];
@@ -151,7 +153,7 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
       });
       
       it(@"contains no content", ^{
-        [[theValue(dataSource.hasItems) should] beNo];
+        [[theValue(dataSource.hasItems) should] equal:theValue(NO)];
       });
       
     });

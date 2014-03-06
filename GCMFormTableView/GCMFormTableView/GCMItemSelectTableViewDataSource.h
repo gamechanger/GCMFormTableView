@@ -11,6 +11,7 @@
 extern NSString *const kGCMItemSelectImageKey;
 extern NSString *const kGCMItemSelectDisabledItemKey;
 extern NSString *const kGCMItemSelectActionItemKey;
+extern NSUInteger const kGCItemSelectHeaderLabelTag;
 
 @protocol GCMItemSelectTableViewDelegate;
 

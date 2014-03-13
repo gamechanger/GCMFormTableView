@@ -15,6 +15,7 @@ NSString *const kGCMItemSelectDisabledItemKey = @"disabledItem";
 NSString *const kGCMItemSelectActionItemKey = @"actionItem";
 
 NSUInteger const kGCItemSelectHeaderLabelTag = 1000;
+NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 
 @interface GCMItemSelectTableViewDataSource ()
 
@@ -71,7 +72,7 @@ NSUInteger const kGCItemSelectHeaderLabelTag = 1000;
     attrFooter = [[NSMutableAttributedString alloc] initWithString:footerTitle
                                                         attributes:[self defaultHeaderFooterTextAttributes]];
   }
-
+  
   [self addSectionWithAttributedHeaderTitle:attrHeader
                    andAttributedFooterTitle:attrFooter];
 }
@@ -248,7 +249,7 @@ NSUInteger const kGCItemSelectHeaderLabelTag = 1000;
   NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
   [paragraphStyle setAlignment:NSTextAlignmentLeft];
   [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
-
+  
   return @{NSFontAttributeName : [UIFont systemFontOfSize:16.f],
            NSParagraphStyleAttributeName : paragraphStyle};
 }
@@ -295,8 +296,9 @@ static NSString* kFooterReuseId = @"footer";
     CGFloat height = [headerTitle integralHeightGivenWidth:tableView.bounds.size.width];
     
     CGFloat xInset = PRE_IOS7 && (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 40.f : 10.f;
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + 20.f)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset, 10.f, headerView.frame.size.width - xInset, headerView.frame.size.height - 20.f)];
+    CGFloat yInset = 10.0f;
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset, yInset, headerView.frame.size.width - xInset * 2, headerView.frame.size.height - yInset * 2)];
     label.backgroundColor = [UIColor clearColor];
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.numberOfLines = 0;
@@ -311,12 +313,19 @@ static NSString* kFooterReuseId = @"footer";
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
   if ( self.sectionFooterTitles[section] != [NSNull null] ) {
-    UITableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kFooterReuseId];
-    if ( footerView == nil ) {
-      footerView = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:kFooterReuseId];
-    }
-    footerView.textLabel.numberOfLines = 0;
-    footerView.textLabel.attributedText = self.sectionFooterTitles[section];
+    NSAttributedString *footerTitle = self.sectionFooterTitles[section];
+    CGFloat height = [footerTitle integralHeightGivenWidth:tableView.bounds.size.width];
+    
+    CGFloat xInset = PRE_IOS7 && (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 40.f : 10.f;
+    CGFloat yInset = 10.0f;
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset, yInset, footerView.frame.size.width - xInset * 2.00f, footerView.frame.size.height - yInset * 2)];
+    label.backgroundColor = [UIColor clearColor];
+    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    label.numberOfLines = 0;
+    label.attributedText = footerTitle;
+    label.tag = kGCItemSelectFooterLabelTag;
+    [footerView addSubview:label];
     return footerView;
   } else {
     return nil;
@@ -346,7 +355,7 @@ static NSString* kFooterReuseId = @"footer";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.contentView.alpha = 0.5;
   }
-
+  
   BOOL checked = [self.selectedIndexPath isEqual:indexPath];
   [self configureCell:cell withCheckbox:checked];
   return cell;
@@ -367,7 +376,7 @@ static NSString* kFooterReuseId = @"footer";
   if ( config[kGCMItemSelectDisabledItemKey] ) {
     return;
   }
-
+  
   if ( config[kGCMItemSelectActionItemKey] ) {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self reportSelectedActionItemForIndexPath:indexPath];

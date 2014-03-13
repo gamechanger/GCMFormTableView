@@ -15,6 +15,7 @@ NSString *const kGCMItemSelectDisabledItemKey = @"disabledItem";
 NSString *const kGCMItemSelectActionItemKey = @"actionItem";
 
 NSUInteger const kGCItemSelectHeaderLabelTag = 1000;
+NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 
 @interface GCMItemSelectTableViewDataSource ()
 
@@ -323,6 +324,7 @@ static NSString* kFooterReuseId = @"footer";
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.numberOfLines = 0;
     label.attributedText = footerTitle;
+    label.tag = kGCItemSelectFooterLabelTag;
     [footerView addSubview:label];
     return footerView;
   } else {

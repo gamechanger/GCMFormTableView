@@ -41,7 +41,8 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
       [[[dataSource tableView:nil viewForFooterInSection:0] should] beNil];
       [dataSource setFooterTitle:@"Test Footer" forSection:0];
       UITableViewHeaderFooterView *footerView = (id) [dataSource tableView:nil viewForFooterInSection:0];
-      [[footerView.textLabel.text should] equal:@"Test Footer"];
+      UILabel *label = (UILabel *)[footerView viewWithTag:kGCItemSelectFooterLabelTag];
+      [[label.text should] equal:@"Test Footer"];
     });
     it(@"stores items in multiple sections", ^{
       [dataSource addSectionBreak];
@@ -78,7 +79,8 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
       UIView *headerView = [dataSource tableView:nil viewForHeaderInSection:1];
       UIView *footerView = [dataSource tableView:nil viewForFooterInSection:1];
       [headerView shouldBeNil];
-      [[[footerView valueForKeyPath:@"label.text"] should] equal:@"Footer 2"];
+      UILabel *label = (UILabel *)[footerView viewWithTag:kGCItemSelectFooterLabelTag];
+      [[label.text should] equal:@"Footer 2"];
     });
     it(@"has the correct data for header of section 2",^{
       UIView *headerView = [dataSource tableView:nil viewForHeaderInSection:2];
@@ -87,7 +89,8 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
     });
     it(@"has the correct data for footer of section 2",^{
       UIView *footerView = [dataSource tableView:nil viewForFooterInSection:2];
-      [[[footerView valueForKeyPath:@"label.text"] should] equal:@"Footer 3"];
+      UILabel *label = (UILabel *)[footerView viewWithTag:kGCItemSelectFooterLabelTag];
+      [[label.text should] equal:@"Footer 3"];
     });
 
 

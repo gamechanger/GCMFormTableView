@@ -268,11 +268,14 @@ static NSString* kFooterReuseId = @"footer";
   return [self.sections[section] count];
 }
 
+- (CGFloat)horizontalHeaderFooterPadding {
+  return PRE_IOS7 && (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 40.f : 10.f;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
   if ( self.sectionHeaderTitles[section] != [NSNull null] ) {
     NSAttributedString *headerTitle = self.sectionHeaderTitles[section];
-    CGFloat height = [headerTitle integralHeightGivenWidth:tableView.bounds.size.width];
-    
+    CGFloat height = [headerTitle integralHeightGivenWidth:tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0];
     return height + 20.0;
   } else {
     return 0.0;
@@ -282,7 +285,7 @@ static NSString* kFooterReuseId = @"footer";
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
   if ( self.sectionFooterTitles[section] != [NSNull null] ) {
     NSAttributedString *footerTitle = self.sectionFooterTitles[section];
-    CGFloat height = [footerTitle integralHeightGivenWidth:tableView.bounds.size.width];
+    CGFloat height = [footerTitle integralHeightGivenWidth:tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0];
     
     return height + (IOS7_OR_GREATER ? 20.0 : 40.0);
   } else {
@@ -295,7 +298,7 @@ static NSString* kFooterReuseId = @"footer";
     NSAttributedString *headerTitle = self.sectionHeaderTitles[section];
     CGFloat height = [headerTitle integralHeightGivenWidth:tableView.bounds.size.width];
     
-    CGFloat xInset = PRE_IOS7 && (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 40.f : 10.f;
+    CGFloat xInset = [self horizontalHeaderFooterPadding];
     CGFloat yInset = 10.0f;
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset, yInset, headerView.frame.size.width - xInset * 2, headerView.frame.size.height - yInset * 2)];
@@ -316,7 +319,7 @@ static NSString* kFooterReuseId = @"footer";
     NSAttributedString *footerTitle = self.sectionFooterTitles[section];
     CGFloat height = [footerTitle integralHeightGivenWidth:tableView.bounds.size.width];
     
-    CGFloat xInset = PRE_IOS7 && (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 40.f : 10.f;
+    CGFloat xInset = [self horizontalHeaderFooterPadding];
     CGFloat yInset = 10.0f;
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset, yInset, footerView.frame.size.width - xInset * 2.00f, footerView.frame.size.height - yInset * 2)];

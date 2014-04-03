@@ -9,10 +9,12 @@
 #import "GCMItemSelectTableViewDataSource.h"
 #import "GCMDeviceInfo.h"
 #import "NSAttributedString+GameChangerMedia.h"
+#import "GCMItemSelectTableViewCell.h"
 
 NSString *const kGCMItemSelectImageKey = @"image";
 NSString *const kGCMItemSelectDisabledItemKey = @"disabledItem";
 NSString *const kGCMItemSelectActionItemKey = @"actionItem";
+NSString *const kGCMItemDetailTextKey = @"detailText";
 
 NSUInteger const kGCItemSelectHeaderLabelTag = 1000;
 NSUInteger const kGCItemSelectFooterLabelTag = 2000;
@@ -254,6 +256,14 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
            NSParagraphStyleAttributeName : paragraphStyle};
 }
 
+- (NSAttributedString *)defaultAttributedDetailString:(NSString *)detailString {
+  NSMutableAttributedString *attributedDetail = [[NSMutableAttributedString alloc] initWithString:detailString];
+  [attributedDetail addAttributeForTextColor:[UIColor colorWithRed:146.f/255.f green:146.f/255.f blue:146.f/255.f alpha:1.000]];
+  [attributedDetail addAttributeForFont:[UIFont systemFontOfSize:15.0]];
+  [attributedDetail addAttributeForTextAlignment:NSTextAlignmentRight lineBreakMode:NSLineBreakByWordWrapping];
+  return attributedDetail;
+}
+
 #pragma mark - UITableView
 
 static NSString* kCellReuseId = @"itemSelectCell";
@@ -336,42 +346,37 @@ static NSString* kFooterReuseId = @"footer";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  CGFloat tableWidth = tableView.bounds.size.width;
-  CGFloat cellWidth;
-  CGFloat inset = 20.0; // Initial left padding.
-  inset += IOS7_OR_GREATER ? 38.0 : 24.0; // For accessoryView.
-  cellWidth = tableWidth - inset;
-  return MAX(44.0, [[self attributedItemAtIndexPath:indexPath] integralHeightGivenWidth:cellWidth] + 20.0);
+  NSIndexPath *indexPathCopy = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
+  BOOL checked = [self.selectedIndexPath isEqual:indexPathCopy];
+  NSDictionary *config = self.indexPathToConfigMap[indexPathCopy];
+  BOOL hasDetailtext = config[kGCMItemDetailTextKey] != nil;
+  BOOL hasImage = config[kGCMItemSelectImageKey] != nil;
+  return [GCMItemSelectTableViewCell cellHeightForAttributedText:[self attributedItemAtIndexPath:indexPathCopy]
+                                                   withCellWidth:tableView.bounds.size.width
+                                                       isChecked:checked
+                                                   hasDetailtext:hasDetailtext
+                                                        hasImage:hasImage
+                                                     usingInsets:[GCMItemSelectTableViewCell defaultInsets]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellReuseId];
+  GCMItemSelectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellReuseId];
   if ( cell == nil ) {
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellReuseId];
+    cell = [[GCMItemSelectTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kCellReuseId];
   }
   cell.textLabel.attributedText = [self attributedItemAtIndexPath:indexPath];
-  cell.textLabel.numberOfLines = 0;
-  cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
   NSDictionary *config = self.indexPathToConfigMap[indexPath];
   cell.imageView.image = config[kGCMItemSelectImageKey];
   if ( config[kGCMItemSelectDisabledItemKey] ) {
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.contentView.alpha = 0.5;
   }
-  
-  BOOL checked = [self.selectedIndexPath isEqual:indexPath];
-  [self configureCell:cell withCheckbox:checked];
-  return cell;
-}
-
-- (void)configureCell:(UITableViewCell *)cell withCheckbox:(BOOL)checkbox {
-  if ( checkbox ) {
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    cell.accessoryView = nil;
-  } else {
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, IOS7_OR_GREATER ? 24.0 : 10.0, 1.0)];
+  if ( config[kGCMItemDetailTextKey] ) {
+    cell.detailTextLabel.attributedText = [self defaultAttributedDetailString:config[kGCMItemDetailTextKey]];
   }
+  
+  cell.isChecked = [self.selectedIndexPath isEqual:indexPath];
+  return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -386,12 +391,12 @@ static NSString* kFooterReuseId = @"footer";
   } else {
     if ( ! [self.selectedIndexPath isEqual:indexPath] ) {
       if ( self.selectedIndexPath ) {
-        UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:self.selectedIndexPath];
-        [self configureCell:oldCell withCheckbox:NO];
+        GCMItemSelectTableViewCell *oldCell = (GCMItemSelectTableViewCell*)[tableView cellForRowAtIndexPath:self.selectedIndexPath];
+        oldCell.isChecked = NO;
       }
       self.selectedIndexPath = indexPath;
-      UITableViewCell *newCell = [tableView cellForRowAtIndexPath:self.selectedIndexPath];
-      [self configureCell:newCell withCheckbox:YES];
+      GCMItemSelectTableViewCell *newCell = (GCMItemSelectTableViewCell*)[tableView cellForRowAtIndexPath:self.selectedIndexPath];
+      newCell.isChecked = YES;
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self reportSelectedIndexPath];

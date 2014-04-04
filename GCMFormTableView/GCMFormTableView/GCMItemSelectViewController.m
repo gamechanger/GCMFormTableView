@@ -19,9 +19,14 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
 
 @implementation GCMItemSelectViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id)init {
+  return [self initWithTableViewStyle:UITableViewStyleGrouped];
+}
+
+- (id)initWithTableViewStyle:(UITableViewStyle)tableViewStyle {
+  self = [super initWithNibName:nil bundle:nil];
   if ( self ) {
+    _tableViewStyle = tableViewStyle;
     _confirmationTitle = @"Next";
     _cancellationTitle = @"Cancel";
   }
@@ -33,7 +38,7 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
 }
 
 - (void)loadView {
-  self.view = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+  self.view = [[UITableView alloc] initWithFrame:CGRectZero style:self.tableViewStyle];
 }
 
 - (UITableView *)tableView {
@@ -65,9 +70,9 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
 }
 
 - (void)scrollSelectedPathToVisibleAnimated:(BOOL)animated {
+ [self.tableView reloadData];
   NSIndexPath *selectedIndexPath = self.dataSource.selectedIndexPath;
   if ( selectedIndexPath && [self.dataSource itemAtIndexPath:selectedIndexPath] ) {
-    [self.tableView reloadData];
     [self.tableView scrollToRowAtIndexPath:selectedIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:animated];
   }
 }

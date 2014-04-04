@@ -17,6 +17,7 @@
 @property (nonatomic, assign) NSInteger tag;
 @property (nonatomic, strong) id userInfo;
 @property (nonatomic, strong) GCMItemSelectTableViewDataSource *dataSource;
+@property (nonatomic, readonly) UITableViewStyle tableViewStyle;
 
 /// Defaults to NO. If YES, right bar button item is displayed with confirmationTitle. Button will be disabled if no item is selected.
 @property (nonatomic, assign) BOOL requireSelectionConfirmation;
@@ -26,6 +27,8 @@
 /// Defaults to @"Cancel";
 @property (nonatomic, strong) NSString *cancellationTitle;
 @property (nonatomic, assign) BOOL showCancelButton;
+
+- (id)initWithTableViewStyle:(UITableViewStyle)tableViewStyle;
 
 @end
 

@@ -31,12 +31,21 @@ extern NSUInteger const kGCItemSelectFooterLabelTag;
 @property (nonatomic, readonly) id userInfoForSelectedItem;
 @property (nonatomic, strong) id userInfo;
 @property (nonatomic, readonly) BOOL hasItems;
+@property (nonatomic) BOOL useDefaultHeaders;
 
 /// Creates a new section. headerTitle or footerTitle may be nil
+- (void)addSectionWithAttributedHeaderTitle:(NSAttributedString *)headerTitle
+                      attributedFooterTitle:(NSAttributedString *)footerTitle
+                              andIndexTitle:(NSString *)indexTitle;
+
 - (void)addSectionWithAttributedHeaderTitle:(NSAttributedString *)headerTitle
                    andAttributedFooterTitle:(NSAttributedString *)footerTitle;
 
 /// Creates a new section. headerTitle or footerTitle may be nil.
+- (void)addSectionWithHeaderTitle:(NSString *)headerTitle
+                      footerTitle:(NSString *)footerTitle
+                    andIndexTitle:(NSString *)indexTitle;
+
 - (void)addSectionWithHeaderTitle:(NSString *)headerTitle andFooterTitle:(NSString *)footerTitle;
 /// Calls addSectionWithHeaderTitle:andFooterTitle: passing nil for both arguments.
 - (void)addSectionBreak;

@@ -24,6 +24,7 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 @property (nonatomic, strong) NSMutableArray *sections;
 @property (nonatomic, strong) NSMutableArray *sectionHeaderTitles;
 @property (nonatomic, strong) NSMutableArray *sectionFooterTitles;
+@property (nonatomic, strong) NSMutableArray *sectionIndexTitles;
 @property (nonatomic, strong) NSMutableDictionary *indexPathToTagMap;
 @property (nonatomic, strong) NSMutableDictionary *indexPathToUserInfoMap;
 @property (nonatomic, strong) NSMutableDictionary *indexPathToConfigMap;
@@ -38,6 +39,7 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
     _sections = [[NSMutableArray alloc] init];
     _sectionHeaderTitles = [[NSMutableArray alloc] init];
     _sectionFooterTitles = [[NSMutableArray alloc] init];
+    _sectionIndexTitles = [[NSMutableArray alloc] init];
     _indexPathToTagMap = [[NSMutableDictionary alloc] init];
     _indexPathToUserInfoMap = [[NSMutableDictionary alloc] init];
     _indexPathToConfigMap = [[NSMutableDictionary alloc] init];
@@ -51,19 +53,31 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
   [_sections removeAllObjects];
   [_sectionHeaderTitles removeAllObjects];
   [_sectionFooterTitles removeAllObjects];
+  [_sectionIndexTitles removeAllObjects];
   [_indexPathToConfigMap removeAllObjects];
   [_indexPathToTagMap removeAllObjects];
   [_indexPathToUserInfoMap removeAllObjects];
 }
 
 - (void)addSectionWithAttributedHeaderTitle:(NSAttributedString *)headerTitle
-                   andAttributedFooterTitle:(NSAttributedString *)footerTitle {
+                      attributedFooterTitle:(NSAttributedString *)footerTitle
+                              andIndexTitle:(NSString *)indexTitle {
   [self.sectionHeaderTitles addObject:(headerTitle ? headerTitle : [NSNull null])];
   [self.sectionFooterTitles addObject:(footerTitle ? footerTitle : [NSNull null])];
+  [self.sectionIndexTitles addObject:(indexTitle ? indexTitle : [NSNull null])];
   [self.sections addObject:[[NSMutableArray alloc] init]];
 }
 
-- (void)addSectionWithHeaderTitle:(NSString *)headerTitle andFooterTitle:(NSString *)footerTitle {
+- (void)addSectionWithAttributedHeaderTitle:(NSAttributedString *)headerTitle
+                   andAttributedFooterTitle:(NSAttributedString *)footerTitle {
+  [self addSectionWithAttributedHeaderTitle:headerTitle
+                      attributedFooterTitle:footerTitle
+                              andIndexTitle:nil];
+}
+
+- (void)addSectionWithHeaderTitle:(NSString *)headerTitle
+                      footerTitle:(NSString *)footerTitle
+                    andIndexTitle:(NSString *)indexTitle {
   NSMutableAttributedString *attrHeader = nil;
   if ( headerTitle ) {
     attrHeader = [[NSMutableAttributedString alloc] initWithString:headerTitle
@@ -76,7 +90,13 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
   }
   
   [self addSectionWithAttributedHeaderTitle:attrHeader
-                   andAttributedFooterTitle:attrFooter];
+                      attributedFooterTitle:attrFooter
+                              andIndexTitle:indexTitle
+   ];
+}
+
+- (void)addSectionWithHeaderTitle:(NSString *)headerTitle andFooterTitle:(NSString *)footerTitle {
+  [self addSectionWithHeaderTitle:headerTitle footerTitle:footerTitle andIndexTitle:nil];
 }
 
 - (void)setAttributedFooterTitle:(NSAttributedString *)footerTitle forSection:(NSUInteger)section {
@@ -284,6 +304,9 @@ static NSString* kFooterReuseId = @"footer";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
   if ( self.sectionHeaderTitles[section] != [NSNull null] ) {
+    if ( self.useDefaultHeaders ) {
+      return UITableViewAutomaticDimension;
+    }
     NSAttributedString *headerTitle = self.sectionHeaderTitles[section];
     CGFloat height = [headerTitle integralHeightGivenWidth:tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0];
     return height + 20.0;
@@ -304,6 +327,9 @@ static NSString* kFooterReuseId = @"footer";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+  if ( self.useDefaultHeaders ) {
+    return nil;
+  }
   if ( self.sectionHeaderTitles[section] != [NSNull null] ) {
     NSAttributedString *headerTitle = self.sectionHeaderTitles[section];
     CGFloat height = [headerTitle integralHeightGivenWidth:tableView.bounds.size.width];
@@ -322,6 +348,14 @@ static NSString* kFooterReuseId = @"footer";
   } else {
     return nil;
   }
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+  if ( self.sectionHeaderTitles[section] != [NSNull null] ) {
+    NSAttributedString *headerTitle = self.sectionHeaderTitles[section];
+    return headerTitle.string;
+  }
+  return nil;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -418,6 +452,16 @@ static NSString* kFooterReuseId = @"footer";
                               andUserInfo:[self userInfoForItemAtIndexPath:indexPath]
                  fromItemSelectDataSource:self];
   }
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+  NSPredicate* predicate = [NSPredicate predicateWithFormat:@"self != nil"];
+  return [[self.sectionIndexTitles filteredArrayUsingPredicate:predicate] mutableCopy];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+  return [self.sectionIndexTitles indexOfObject:title];
 }
 
 @end

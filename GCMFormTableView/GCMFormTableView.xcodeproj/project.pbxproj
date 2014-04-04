@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		09DC7BDE4CC24FB4BA4B2A33 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F5D042CA0F74A06AAA5AA6A /* libPods.a */; };
 		89D466DC34A44301AA1F32B6 /* libPods-GCMFormTableViewSenTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B955BE300F44C3AC58AB0C /* libPods-GCMFormTableViewSenTests.a */; };
+		A0DEAC4218EEF91600BA8FD1 /* GCMItemSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEAC4118EEF91600BA8FD1 /* GCMItemSelectTableViewCell.m */; };
 		AB0A79591844FEF300ABBBB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0A79581844FEF300ABBBB8 /* Foundation.framework */; };
 		AB0A79671844FEF300ABBBB8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0A79661844FEF300ABBBB8 /* XCTest.framework */; };
 		AB0A79681844FEF300ABBBB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0A79581844FEF300ABBBB8 /* Foundation.framework */; };
@@ -53,6 +54,8 @@
 		2B73C40AC22E4A3E991DF5F6 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		3F5D042CA0F74A06AAA5AA6A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5125FE76ABAB40A583DD0BE0 /* Pods-GCMFormTableViewSenTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMFormTableViewSenTests.xcconfig"; path = "../Pods/Pods-GCMFormTableViewSenTests.xcconfig"; sourceTree = "<group>"; };
+		A0DEAC4018EEF91600BA8FD1 /* GCMItemSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCMItemSelectTableViewCell.h; sourceTree = "<group>"; };
+		A0DEAC4118EEF91600BA8FD1 /* GCMItemSelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMItemSelectTableViewCell.m; sourceTree = "<group>"; };
 		AB0A79551844FEF300ABBBB8 /* libGCMFormTableView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGCMFormTableView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0A79581844FEF300ABBBB8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AB0A795C1844FEF300ABBBB8 /* GCMFormTableView-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GCMFormTableView-Prefix.pch"; sourceTree = "<group>"; };
@@ -151,6 +154,8 @@
 		AB0A795A1844FEF300ABBBB8 /* GCMFormTableView */ = {
 			isa = PBXGroup;
 			children = (
+				A0DEAC4018EEF91600BA8FD1 /* GCMItemSelectTableViewCell.h */,
+				A0DEAC4118EEF91600BA8FD1 /* GCMItemSelectTableViewCell.m */,
 				AB0A7A191846661300ABBBB8 /* GCMItemSelectViewController.h */,
 				AB0A7A1A1846661300ABBBB8 /* GCMItemSelectViewController.m */,
 				AB0A7A1B1846661300ABBBB8 /* GCMItemSelectTableViewDataSource.h */,
@@ -381,6 +386,7 @@
 			files = (
 				AB0A7A1D1846661300ABBBB8 /* GCMItemSelectViewController.m in Sources */,
 				AB0A7A1E1846661300ABBBB8 /* GCMItemSelectTableViewDataSource.m in Sources */,
+				A0DEAC4218EEF91600BA8FD1 /* GCMItemSelectTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -56,10 +56,19 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
   if ( self.requireSelectionConfirmation ) {
     [self addConfirmationButton];
   }
+  [self scrollSelectedPathToVisibleAnimated:NO];
+}
+
+- (void)viewDidLayoutSubviews {
+  [super viewDidLayoutSubviews];
+  [self scrollSelectedPathToVisibleAnimated:NO];
+}
+
+- (void)scrollSelectedPathToVisibleAnimated:(BOOL)animated {
   NSIndexPath *selectedIndexPath = self.dataSource.selectedIndexPath;
   if ( selectedIndexPath && [self.dataSource itemAtIndexPath:selectedIndexPath] ) {
     [self.tableView reloadData];
-    [self.tableView scrollToRowAtIndexPath:selectedIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+    [self.tableView scrollToRowAtIndexPath:selectedIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:animated];
   }
 }
 

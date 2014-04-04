@@ -456,7 +456,7 @@ static NSString* kFooterReuseId = @"footer";
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
   NSPredicate* predicate = [NSPredicate predicateWithFormat:@"self != nil"];
-  return [[self.sectionIndexTitles filteredArrayUsingPredicate:predicate] mutableCopy];
+  return [self.sectionIndexTitles filteredArrayUsingPredicate:predicate];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index

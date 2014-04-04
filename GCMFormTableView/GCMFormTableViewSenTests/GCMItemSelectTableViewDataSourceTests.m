@@ -92,8 +92,68 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
       UILabel *label = (UILabel *)[footerView viewWithTag:kGCItemSelectFooterLabelTag];
       [[label.text should] equal:@"Footer 3"];
     });
-
-
+  });
+  describe(@"section information populated by addSectionWithAttributedHeaderTitle:attributedFooterTitle:andIndexTitle:", ^{
+    beforeEach(^{
+      [dataSource addSectionWithHeaderTitle:@"Header 1" footerTitle:nil andIndexTitle:nil];
+      [dataSource addSectionWithHeaderTitle:nil footerTitle:@"Footer 2" andIndexTitle:nil];
+      [dataSource addSectionWithHeaderTitle:nil footerTitle:nil andIndexTitle:@"Index 3"];
+      [dataSource addSectionWithHeaderTitle:@"Header 4" footerTitle:@"Footer 4" andIndexTitle:@"Index 4"];
+    });
+    it(@"has the correct number of sections",^{
+      [[theValue([dataSource numberOfSectionsInTableView:nil]) should] equal:theValue(4)];
+    });
+    it(@"has the correct index titles array", ^{
+      NSArray* indexTitles = [dataSource sectionIndexTitlesForTableView:nil];
+      [[theValue(indexTitles.count) should] equal:theValue(2)];
+      [[theValue([indexTitles containsObject:@"Index 3"]) should] equal:theValue(YES)];
+      [[theValue([indexTitles containsObject:@"Index 4"]) should] equal:theValue(YES)];
+      [[theValue([indexTitles containsObject:[NSNull null]]) should] equal:theValue(NO)];
+    });
+    it(@"has the correct data for section 0",^{
+      UIView *headerView = [dataSource tableView:nil viewForHeaderInSection:0];
+      UIView *footerView = [dataSource tableView:nil viewForFooterInSection:0];
+      UILabel *label = (UILabel *)[headerView viewWithTag:kGCItemSelectHeaderLabelTag];
+      [[label.text should] equal:@"Header 1"];
+      [footerView shouldBeNil];
+    });
+    it(@"has the correct data for section 1",^{
+      UIView *headerView = [dataSource tableView:nil viewForHeaderInSection:1];
+      UIView *footerView = [dataSource tableView:nil viewForFooterInSection:1];
+      [headerView shouldBeNil];
+      UILabel *label = (UILabel *)[footerView viewWithTag:kGCItemSelectFooterLabelTag];
+      [[label.text should] equal:@"Footer 2"];
+    });
+    it(@"has the correct data for section 2",^{
+      UIView *headerView = [dataSource tableView:nil viewForHeaderInSection:2];
+      UIView *footerView = [dataSource tableView:nil viewForFooterInSection:2];
+      [headerView shouldBeNil];
+      [footerView shouldBeNil];
+    });
+    it(@"returns correct index for section 2", ^{
+      NSArray* indexTitles = [dataSource sectionIndexTitlesForTableView:nil];
+      NSString* indexTitle = @"Index 3";
+      NSInteger section = [dataSource tableView:nil
+                    sectionForSectionIndexTitle:indexTitle
+                                        atIndex:[indexTitles indexOfObject:indexTitle]];
+      [[theValue(section) should] equal:theValue(2)];
+    });
+    it(@"has the correct data for section 3",^{
+      UIView *headerView = [dataSource tableView:nil viewForHeaderInSection:3];
+      UIView *footerView = [dataSource tableView:nil viewForFooterInSection:3];
+      UILabel *label = (UILabel *)[headerView viewWithTag:kGCItemSelectHeaderLabelTag];
+      [[label.text should] equal:@"Header 4"];
+      label = (UILabel *)[footerView viewWithTag:kGCItemSelectFooterLabelTag];
+      [[label.text should] equal:@"Footer 4"];
+    });
+    it(@"returns correct index for section 3", ^{
+      NSArray* indexTitles = [dataSource sectionIndexTitlesForTableView:nil];
+      NSString* indexTitle = @"Index 4";
+      NSInteger section = [dataSource tableView:nil
+                    sectionForSectionIndexTitle:indexTitle
+                                        atIndex:[indexTitles indexOfObject:indexTitle]];
+      [[theValue(section) should] equal:theValue(3)];
+    });
   });
 
   describe(@"populated dataSource", ^{

@@ -370,9 +370,14 @@ static NSString* kFooterReuseId = @"footer";
   if ( config[kGCMItemSelectDisabledItemKey] ) {
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.contentView.alpha = 0.5;
+  } else {
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    cell.contentView.alpha = 1.0;
   }
   if ( config[kGCMItemDetailTextKey] ) {
     cell.detailTextLabel.attributedText = [self defaultAttributedDetailString:config[kGCMItemDetailTextKey]];
+  } else {
+    cell.detailTextLabel.attributedText = nil;
   }
   
   cell.isChecked = [self.selectedIndexPath isEqual:indexPath];

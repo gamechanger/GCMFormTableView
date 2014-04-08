@@ -8,12 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GCMItemSelectSearchDataSource : NSObject <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
-
-- (id)initWithSections:(NSArray *)sections;
-
-@end
+@class GCMItem;
 
 @protocol GCMItemSelectSearchDataSourceDelegate <NSObject>
+- (void)didSelectItem:(GCMItem *)item;
+@end
 
+
+@interface GCMItemSelectSearchDataSource : NSObject <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
+
+@property (nonatomic, assign) id<GCMItemSelectSearchDataSourceDelegate> delegate;
+@property (nonatomic, strong) GCMItem *selectedItem;
+
+- (id)initWithSections:(NSArray *)sections andSelectedItem:(GCMItem *)selected;
 @end

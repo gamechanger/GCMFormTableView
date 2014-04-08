@@ -101,6 +101,7 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
   self.tableView.delegate = dataSource;
   if ( self.searchController ) {
     self.searchController.searchResultsDataSource = self.dataSource.searchDataSource;
+    self.searchController.searchResultsDelegate = self.dataSource.searchDataSource;
     self.searchController.delegate = self.dataSource.searchDataSource;
   }
   [self.tableView reloadData];
@@ -196,6 +197,7 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
 - (void)createSearchDisplayControllerForSearchBar:(UISearchBar *)searchBar {
   self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
   self.searchController.searchResultsDataSource = self.dataSource.searchDataSource;
+  self.searchController.searchResultsDelegate = self.dataSource.searchDataSource;
   self.searchController.delegate = self.dataSource.searchDataSource;
 }
 

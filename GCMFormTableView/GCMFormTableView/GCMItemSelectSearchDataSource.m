@@ -20,9 +20,10 @@
 
 @implementation GCMItemSelectSearchDataSource
 
-- (id)initWithSections:(NSArray *)sections {
+- (id)initWithSections:(NSArray *)sections andSelectedItem:(GCMItem *)selected {
   self = [super init];
   if ( self ) {
+    self.selectedItem = selected;
     _consolidatedItems = [[NSMutableArray alloc] init];
     [self consolidateSection:sections];
     [self filterItemsForSearchString:nil];
@@ -42,16 +43,15 @@
   } else {
     NSArray *searchTerms = [string componentsSeparatedByString:@" "];
     
-    NSMutableArray *resultSets = [[NSMutableArray alloc] init];
-    for ( NSString *searchTerm in searchTerms ) {
-      NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"string contains[c] %@", searchTerm];
-      NSOrderedSet *partialResult = [NSOrderedSet orderedSetWithArray:[self.consolidatedItems filteredArrayUsingPredicate:resultPredicate]];
-      [resultSets addObject:partialResult];
-    }
-    
     NSMutableOrderedSet *intersection = [[NSMutableOrderedSet alloc] init];
-    for (NSOrderedSet *partialResult in resultSets) {
-      if ( partialResult.count ) {
+    for ( NSString *searchTerm in searchTerms ) {
+      if ( ! [searchTerm isEqualToString:@""] && ! [searchTerm isEqualToString:@" "] ) {
+        NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"attributedString.string contains[c] %@", searchTerm];
+        NSOrderedSet *partialResult = [NSOrderedSet orderedSetWithArray:[self.consolidatedItems filteredArrayUsingPredicate:resultPredicate]];
+        if ( partialResult.count == 0 ) {
+          self.searchResults = [NSArray array];
+          return;
+        }
         if ( ! intersection.count ) {
           [intersection addObjectsFromArray:partialResult.array];
         } else {
@@ -59,6 +59,7 @@
         }
       }
     }
+    
     self.searchResults = intersection.array;
   }
 }
@@ -76,24 +77,15 @@ static NSString* kCellReuseId = @"searchResultCell";
   if ( ! cell ) {
     cell = [[GCMItemSelectTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kCellReuseId];
   }
-  cell.textLabel.attributedText = [self.searchResults objectAtIndex:indexPath.row];
-//  NSDictionary *config = self.indexPathToConfigMap[indexPath];
-//  cell.imageView.image = config[kGCMItemSelectImageKey];
-//  if ( config[kGCMItemSelectDisabledItemKey] ) {
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    cell.contentView.alpha = 0.5;
-//  } else {
-//    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-//    cell.contentView.alpha = 1.0;
-//  }
-//  if ( config[kGCMItemDetailTextKey] ) {
-//    cell.detailTextLabel.attributedText = [self defaultAttributedDetailString:config[kGCMItemDetailTextKey]];
-//  } else {
-//    cell.detailTextLabel.attributedText = nil;
-//  }
-//  
-//  cell.isChecked = [self.selectedIndexPath isEqual:indexPath];
+  GCMItem *item = self.searchResults[indexPath.row];
+  [cell setContentForItem:item];  
+  cell.isChecked = [item isEqual:self.selectedItem];
+  
   return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [self.delegate didSelectItem:self.searchResults[indexPath.row]];
 }
 
 #pragma mark - UISearchDisplay

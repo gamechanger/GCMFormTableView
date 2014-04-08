@@ -9,6 +9,8 @@
 #import "GCMItemSelectTableViewCell.h"
 #import "GCMDeviceInfo.h"
 #import "NSAttributedString+GameChangerMedia.h"
+#import "GCMItemSelectTableViewDataSource.h"
+#import "GCMItem.h"
 
 #define kGCCheckAccesoryWidth (IOS7_OR_GREATER ? 24.f : 10.f)
 #define kGCDetailTextWidth 55.f
@@ -65,6 +67,33 @@
     self.accessoryView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, kGCCheckAccesoryWidth, 1.0)];
   }
 }
+
+- (void)setContentForItem:(GCMItem *)item {
+  self.textLabel.attributedText = item.attributedString;
+  NSDictionary *config = item.config;
+  self.imageView.image = config[kGCMItemSelectImageKey];
+  if ( config[kGCMItemSelectDisabledItemKey] ) {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.contentView.alpha = 0.5;
+  } else {
+    self.selectionStyle = UITableViewCellSelectionStyleDefault;
+    self.contentView.alpha = 1.0;
+  }
+  if ( config[kGCMItemDetailTextKey] ) {
+    self.detailTextLabel.attributedText = [self defaultAttributedDetailString:config[kGCMItemDetailTextKey]];
+  } else {
+    self.detailTextLabel.attributedText = nil;
+  }
+}
+
+- (NSAttributedString *)defaultAttributedDetailString:(NSString *)detailString {
+  NSMutableAttributedString *attributedDetail = [[NSMutableAttributedString alloc] initWithString:detailString];
+  [attributedDetail addAttributeForTextColor:[UIColor colorWithRed:146.f/255.f green:146.f/255.f blue:146.f/255.f alpha:1.000]];
+  [attributedDetail addAttributeForFont:[UIFont systemFontOfSize:15.0]];
+  [attributedDetail addAttributeForTextAlignment:NSTextAlignmentRight lineBreakMode:NSLineBreakByWordWrapping];
+  return attributedDetail;
+}
+
 
 #pragma mark - Static methods
 

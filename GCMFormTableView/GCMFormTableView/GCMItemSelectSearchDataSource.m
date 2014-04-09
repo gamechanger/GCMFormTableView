@@ -8,8 +8,8 @@
 
 #import "GCMItemSelectSearchDataSource.h"
 #import "GCMItemSelectTableViewCell.h"
-#import "GCMSection.h"
-#import "GCMItem.h"
+#import "GCMItemSelectSection.h"
+#import "GCMItemSelectItem.h"
 
 @interface GCMItemSelectSearchDataSource ()
 
@@ -20,7 +20,7 @@
 
 @implementation GCMItemSelectSearchDataSource
 
-- (id)initWithSections:(NSArray *)sections andSelectedItem:(GCMItem *)selected {
+- (id)initWithSections:(NSArray *)sections andSelectedItem:(GCMItemSelectItem *)selected {
   self = [super init];
   if ( self ) {
     self.selectedItem = selected;
@@ -32,14 +32,14 @@
 }
 
 - (void)consolidateSection:(NSArray *)sections {
-  for ( GCMSection *section in sections ) {
+  for ( GCMItemSelectSection *section in sections ) {
     [self.consolidatedItems addObjectsFromArray:section.items];
   }
 }
 
 - (void)filterItemsForSearchString:(NSString *)string {
   if ( ! string ) {
-    self.searchResults = self.consolidatedItems.copy;
+    self.searchResults = [self.consolidatedItems copy];
   } else {
     NSArray *searchTerms = [string componentsSeparatedByString:@" "];
     
@@ -77,7 +77,7 @@ static NSString* kCellReuseId = @"searchResultCell";
   if ( ! cell ) {
     cell = [[GCMItemSelectTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kCellReuseId];
   }
-  GCMItem *item = self.searchResults[indexPath.row];
+  GCMItemSelectItem *item = self.searchResults[indexPath.row];
   [cell setContentForItem:item];  
   cell.isChecked = [item isEqual:self.selectedItem];
   

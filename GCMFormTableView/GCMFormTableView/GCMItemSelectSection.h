@@ -1,5 +1,5 @@
 //
-//  GCMSection.h
+//  GCMItemSelectSection.h
 //  GCMFormTableView
 //
 //  Created by Eduardo Arenas on 4/8/14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GCMSection : NSObject
+@interface GCMItemSelectSection : NSObject
 
 @property (nonatomic, strong) NSMutableArray *items;
 @property (nonatomic, strong) NSAttributedString *header;

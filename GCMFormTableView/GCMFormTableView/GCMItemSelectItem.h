@@ -1,5 +1,5 @@
 //
-//  GCMItem.h
+//  GCMItemSelectItem.h
 //  GCMFormTableView
 //
 //  Created by Eduardo Arenas on 4/8/14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GCMItem : NSObject
+@interface GCMItemSelectItem : NSObject
 
 @property (nonatomic, strong) NSAttributedString *attributedString;
 @property (nonatomic) NSInteger tag;

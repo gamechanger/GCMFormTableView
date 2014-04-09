@@ -10,7 +10,7 @@
 #import "GCMDeviceInfo.h"
 #import "NSAttributedString+GameChangerMedia.h"
 #import "GCMItemSelectTableViewDataSource.h"
-#import "GCMItem.h"
+#import "GCMItemSelectItem.h"
 
 #define kGCCheckAccesoryWidth (IOS7_OR_GREATER ? 24.f : 10.f)
 #define kGCDetailTextWidth 55.f
@@ -68,7 +68,7 @@
   }
 }
 
-- (void)setContentForItem:(GCMItem *)item {
+- (void)setContentForItem:(GCMItemSelectItem *)item {
   self.textLabel.attributedText = item.attributedString;
   NSDictionary *config = item.config;
   self.imageView.image = config[kGCMItemSelectImageKey];

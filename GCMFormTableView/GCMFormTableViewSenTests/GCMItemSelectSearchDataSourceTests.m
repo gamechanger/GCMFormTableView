@@ -1,7 +1,7 @@
 #import <Kiwi.h>
 #import "GCMItemSelectSearchDataSource.h"
-#import "GCMSection.h"
-#import "GCMItem.h"
+#import "GCMItemSelectSection.h"
+#import "GCMItemSelectItem.h"
 
 SPEC_BEGIN(GCMItemSelectSearchDataSourceTests)
 
@@ -11,16 +11,16 @@ describe(@"GCMItemSelectSearchDataSource", ^{
     
     NSMutableArray *sections = [[NSMutableArray alloc] init];
     
-    GCMSection *section1 = [[GCMSection alloc] initWithHeader:nil footer:nil andIndexTitle:nil];
+    GCMItemSelectSection *section1 = [[GCMItemSelectSection alloc] initWithHeader:nil footer:nil andIndexTitle:nil];
     NSAttributedString *item1 = [[NSAttributedString alloc] initWithString:@"abcd"];
-    [section1.items addObject:[[GCMItem alloc] initWithAttributedString:item1 tag:0 userInfo:nil andConfig:nil]];
+    [section1.items addObject:[[GCMItemSelectItem alloc] initWithAttributedString:item1 tag:0 userInfo:nil andConfig:nil]];
     NSAttributedString *item2 = [[NSAttributedString alloc] initWithString:@"cdef"];
-    [section1.items addObject:[[GCMItem alloc] initWithAttributedString:item2 tag:0 userInfo:nil andConfig:nil]];
+    [section1.items addObject:[[GCMItemSelectItem alloc] initWithAttributedString:item2 tag:0 userInfo:nil andConfig:nil]];
     [sections addObject:section1];
     
-    GCMSection *section2 = [[GCMSection alloc] initWithHeader:nil footer:nil andIndexTitle:nil];
+    GCMItemSelectSection *section2 = [[GCMItemSelectSection alloc] initWithHeader:nil footer:nil andIndexTitle:nil];
     NSAttributedString *item3 = [[NSAttributedString alloc] initWithString:@"ghij"];
-    [section2.items addObject:[[GCMItem alloc] initWithAttributedString:item3 tag:0 userInfo:nil andConfig:nil]];
+    [section2.items addObject:[[GCMItemSelectItem alloc] initWithAttributedString:item3 tag:0 userInfo:nil andConfig:nil]];
     [sections addObject:section2];
     
     dataSource = [[GCMItemSelectSearchDataSource alloc] initWithSections:sections

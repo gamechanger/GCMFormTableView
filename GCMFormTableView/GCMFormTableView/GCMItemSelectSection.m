@@ -1,24 +1,24 @@
 //
-//  GCMSection.m
+//  GCMItemSelectSection.m
 //  GCMFormTableView
 //
 //  Created by Eduardo Arenas on 4/8/14.
 //  Copyright (c) 2014 GameChanger. All rights reserved.
 //
 
-#import "GCMSection.h"
+#import "GCMItemSelectSection.h"
 
-@implementation GCMSection
+@implementation GCMItemSelectSection
 
 - (id)initWithHeader:(NSAttributedString *)header
              footer:(NSAttributedString *)footer
       andIndexTitle:(NSString *)indexTitle {
   self = [super init];
   if ( self ) {
-    self.items = [[NSMutableArray alloc] init];
-    self.header = header;
-    self.footer = footer;
-    self.indexTitle = indexTitle;
+    _items = [[NSMutableArray alloc] init];
+    _header = header;
+    _footer = footer;
+    _indexTitle = indexTitle;
   }
   return self;
 }

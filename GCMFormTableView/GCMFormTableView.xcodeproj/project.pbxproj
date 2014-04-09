@@ -11,8 +11,8 @@
 		89D466DC34A44301AA1F32B6 /* libPods-GCMFormTableViewSenTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B955BE300F44C3AC58AB0C /* libPods-GCMFormTableViewSenTests.a */; };
 		A00C6B3518F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C6B3418F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m */; };
 		A02161DF18F32AEE00DB786B /* GCMItemSelectSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A02161DE18F32AEE00DB786B /* GCMItemSelectSearchDataSource.m */; };
-		A0CB468C18F440BC00E8A1F4 /* GCMSection.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CB468B18F440BC00E8A1F4 /* GCMSection.m */; };
-		A0CB469218F4418400E8A1F4 /* GCMItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CB469118F4418400E8A1F4 /* GCMItem.m */; };
+		A0CB468C18F440BC00E8A1F4 /* GCMItemSelectSection.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CB468B18F440BC00E8A1F4 /* GCMItemSelectSection.m */; };
+		A0CB469218F4418400E8A1F4 /* GCMItemSelectItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CB469118F4418400E8A1F4 /* GCMItemSelectItem.m */; };
 		A0DEAC4218EEF91600BA8FD1 /* GCMItemSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEAC4118EEF91600BA8FD1 /* GCMItemSelectTableViewCell.m */; };
 		AB0A79591844FEF300ABBBB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0A79581844FEF300ABBBB8 /* Foundation.framework */; };
 		AB0A79671844FEF300ABBBB8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0A79661844FEF300ABBBB8 /* XCTest.framework */; };
@@ -61,10 +61,10 @@
 		A00C6B3418F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMItemSelectSearchDataSourceTests.m; sourceTree = "<group>"; };
 		A02161DD18F32AEE00DB786B /* GCMItemSelectSearchDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCMItemSelectSearchDataSource.h; sourceTree = "<group>"; };
 		A02161DE18F32AEE00DB786B /* GCMItemSelectSearchDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMItemSelectSearchDataSource.m; sourceTree = "<group>"; };
-		A0CB468A18F440BC00E8A1F4 /* GCMSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCMSection.h; sourceTree = "<group>"; };
-		A0CB468B18F440BC00E8A1F4 /* GCMSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMSection.m; sourceTree = "<group>"; };
-		A0CB469018F4418400E8A1F4 /* GCMItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCMItem.h; sourceTree = "<group>"; };
-		A0CB469118F4418400E8A1F4 /* GCMItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMItem.m; sourceTree = "<group>"; };
+		A0CB468A18F440BC00E8A1F4 /* GCMItemSelectSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCMItemSelectSection.h; sourceTree = "<group>"; };
+		A0CB468B18F440BC00E8A1F4 /* GCMItemSelectSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMItemSelectSection.m; sourceTree = "<group>"; };
+		A0CB469018F4418400E8A1F4 /* GCMItemSelectItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCMItemSelectItem.h; sourceTree = "<group>"; };
+		A0CB469118F4418400E8A1F4 /* GCMItemSelectItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMItemSelectItem.m; sourceTree = "<group>"; };
 		A0DEAC4018EEF91600BA8FD1 /* GCMItemSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCMItemSelectTableViewCell.h; sourceTree = "<group>"; };
 		A0DEAC4118EEF91600BA8FD1 /* GCMItemSelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMItemSelectTableViewCell.m; sourceTree = "<group>"; };
 		AB0A79551844FEF300ABBBB8 /* libGCMFormTableView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGCMFormTableView.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,10 +173,10 @@
 				AB0A7A1C1846661300ABBBB8 /* GCMItemSelectTableViewDataSource.m */,
 				A02161DD18F32AEE00DB786B /* GCMItemSelectSearchDataSource.h */,
 				A02161DE18F32AEE00DB786B /* GCMItemSelectSearchDataSource.m */,
-				A0CB468A18F440BC00E8A1F4 /* GCMSection.h */,
-				A0CB468B18F440BC00E8A1F4 /* GCMSection.m */,
-				A0CB469018F4418400E8A1F4 /* GCMItem.h */,
-				A0CB469118F4418400E8A1F4 /* GCMItem.m */,
+				A0CB468A18F440BC00E8A1F4 /* GCMItemSelectSection.h */,
+				A0CB468B18F440BC00E8A1F4 /* GCMItemSelectSection.m */,
+				A0CB469018F4418400E8A1F4 /* GCMItemSelectItem.h */,
+				A0CB469118F4418400E8A1F4 /* GCMItemSelectItem.m */,
 				AB0A795B1844FEF300ABBBB8 /* Supporting Files */,
 			);
 			path = GCMFormTableView;
@@ -402,11 +402,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0CB469218F4418400E8A1F4 /* GCMItem.m in Sources */,
+				A0CB469218F4418400E8A1F4 /* GCMItemSelectItem.m in Sources */,
 				AB0A7A1D1846661300ABBBB8 /* GCMItemSelectViewController.m in Sources */,
 				A02161DF18F32AEE00DB786B /* GCMItemSelectSearchDataSource.m in Sources */,
 				AB0A7A1E1846661300ABBBB8 /* GCMItemSelectTableViewDataSource.m in Sources */,
-				A0CB468C18F440BC00E8A1F4 /* GCMSection.m in Sources */,
+				A0CB468C18F440BC00E8A1F4 /* GCMItemSelectSection.m in Sources */,
 				A0DEAC4218EEF91600BA8FD1 /* GCMItemSelectTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

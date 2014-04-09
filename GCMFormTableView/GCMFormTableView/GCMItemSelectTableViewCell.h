@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class GCMItemSelectItem;
+
 @interface GCMItemSelectTableViewCell : UITableViewCell
 
 @property (nonatomic) UIEdgeInsets cellInsets;
 @property (nonatomic) BOOL isChecked;
+
+- (void)setContentForItem:(GCMItemSelectItem *)item;
 
 + (UIEdgeInsets)defaultInsets;
 

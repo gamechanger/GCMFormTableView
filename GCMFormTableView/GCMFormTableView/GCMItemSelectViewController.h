@@ -29,6 +29,7 @@
 @property (nonatomic, assign) BOOL showCancelButton;
 
 - (id)initWithTableViewStyle:(UITableViewStyle)tableViewStyle;
+- (void)createSearchDisplayControllerForSearchBar:(UISearchBar *)searchBar;
 
 @end
 

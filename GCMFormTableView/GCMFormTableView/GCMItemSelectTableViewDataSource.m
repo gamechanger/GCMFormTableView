@@ -10,24 +10,21 @@
 #import "GCMDeviceInfo.h"
 #import "NSAttributedString+GameChangerMedia.h"
 #import "GCMItemSelectTableViewCell.h"
+#import "GCMItemSelectSearchDataSource.h"
+#import "GCMItemSelectSection.h"
+#import "GCMItemSelectItem.h"
 
 NSString *const kGCMItemSelectImageKey = @"image";
 NSString *const kGCMItemSelectDisabledItemKey = @"disabledItem";
 NSString *const kGCMItemSelectActionItemKey = @"actionItem";
-NSString *const kGCMItemDetailTextKey = @"detailText";
+NSString *const kGCMItemSelectDetailTextKey = @"detailText";
 
 NSUInteger const kGCItemSelectHeaderLabelTag = 1000;
 NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 
-@interface GCMItemSelectTableViewDataSource ()
+@interface GCMItemSelectTableViewDataSource () <GCMItemSelectSearchDataSourceDelegate>
 
 @property (nonatomic, strong) NSMutableArray *sections;
-@property (nonatomic, strong) NSMutableArray *sectionHeaderTitles;
-@property (nonatomic, strong) NSMutableArray *sectionFooterTitles;
-@property (nonatomic, strong) NSMutableArray *sectionIndexTitles;
-@property (nonatomic, strong) NSMutableDictionary *indexPathToTagMap;
-@property (nonatomic, strong) NSMutableDictionary *indexPathToUserInfoMap;
-@property (nonatomic, strong) NSMutableDictionary *indexPathToConfigMap;
 
 @end
 
@@ -37,12 +34,6 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
   self = [super init];
   if ( self ) {
     _sections = [[NSMutableArray alloc] init];
-    _sectionHeaderTitles = [[NSMutableArray alloc] init];
-    _sectionFooterTitles = [[NSMutableArray alloc] init];
-    _sectionIndexTitles = [[NSMutableArray alloc] init];
-    _indexPathToTagMap = [[NSMutableDictionary alloc] init];
-    _indexPathToUserInfoMap = [[NSMutableDictionary alloc] init];
-    _indexPathToConfigMap = [[NSMutableDictionary alloc] init];
   }
   return self;
 }
@@ -51,21 +42,15 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 
 - (void)clear {
   [_sections removeAllObjects];
-  [_sectionHeaderTitles removeAllObjects];
-  [_sectionFooterTitles removeAllObjects];
-  [_sectionIndexTitles removeAllObjects];
-  [_indexPathToConfigMap removeAllObjects];
-  [_indexPathToTagMap removeAllObjects];
-  [_indexPathToUserInfoMap removeAllObjects];
 }
 
 - (void)addSectionWithAttributedHeaderTitle:(NSAttributedString *)headerTitle
                       attributedFooterTitle:(NSAttributedString *)footerTitle
                               andIndexTitle:(NSString *)indexTitle {
-  [self.sectionHeaderTitles addObject:(headerTitle ? headerTitle : [NSNull null])];
-  [self.sectionFooterTitles addObject:(footerTitle ? footerTitle : [NSNull null])];
-  [self.sectionIndexTitles addObject:(indexTitle ? indexTitle : [NSNull null])];
-  [self.sections addObject:[[NSMutableArray alloc] init]];
+  GCMItemSelectSection *newSection = [[GCMItemSelectSection alloc] initWithHeader:headerTitle
+                                                       footer:footerTitle
+                                                andIndexTitle:indexTitle];
+  [self.sections addObject:newSection];
 }
 
 - (void)addSectionWithAttributedHeaderTitle:(NSAttributedString *)headerTitle
@@ -99,9 +84,10 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
   [self addSectionWithHeaderTitle:headerTitle footerTitle:footerTitle andIndexTitle:nil];
 }
 
-- (void)setAttributedFooterTitle:(NSAttributedString *)footerTitle forSection:(NSUInteger)section {
-  NSAssert(section < [self.sectionFooterTitles count], @"Section is not valid");
-  self.sectionFooterTitles[section] = footerTitle;
+- (void)setAttributedFooterTitle:(NSAttributedString *)footerTitle forSection:(NSUInteger)sectionIndex {
+  NSAssert(sectionIndex < self.sections.count, @"Section is not valid");
+  GCMItemSelectSection *section = self.sections[sectionIndex];
+  section.footer = footerTitle;
 }
 
 - (void)setFooterTitle:(NSString *)footerTitle forSection:(NSUInteger)section {
@@ -116,8 +102,8 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 }
 
 - (BOOL)hasItems {
-  for ( NSArray *section in self.sections ) {
-    if ( section.count > 0 ) {
+  for ( GCMItemSelectSection *section in self.sections ) {
+    if ( section.items.count > 0 ) {
       return YES;
     }
   }
@@ -140,6 +126,35 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
   } else {
     return NSNotFound;
   }
+}
+
+- (void)setSelectedIndexPath:(NSIndexPath *)selectedIndexPath {
+  _selectedIndexPath = selectedIndexPath;
+  _searchDataSource.selectedItem = [self selectedItem];
+}
+
+- (GCMItemSelectItem *)selectedItem {
+  return [self selectItemAtIndexPath:self.selectedIndexPath];
+}
+
+- (GCMItemSelectItem *)selectItemAtIndexPath:(NSIndexPath *)indexPath {
+  if ( indexPath.section >= self.sections.count ) {
+    return nil;
+  }
+  GCMItemSelectSection *section = self.sections[indexPath.section];
+  if ( indexPath.row >= section.items.count ) {
+    return nil;
+  }
+  GCMItemSelectItem *item = section.items[indexPath.row];
+  return item;
+}
+
+- (GCMItemSelectSearchDataSource *)searchDataSource {
+  if ( ! _searchDataSource ) {
+    _searchDataSource = [[GCMItemSelectSearchDataSource alloc] initWithSections:self.sections andSelectedItem:[self selectedItem]];
+    _searchDataSource.delegate = self;
+  }
+  return _searchDataSource;
 }
 
 - (NSInteger)tagForSelectedItem {
@@ -192,17 +207,12 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
   if ( [self.sections count] == 0 ) {
     [self addSectionBreak];
   }
-  NSInteger section = [self.sections count] - 1;
-  NSInteger row = [self.sections[section] count];
-  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
-  [self.sections[section] addObject:(itemName ? itemName : [[NSAttributedString alloc] initWithString:@""])];
-  self.indexPathToTagMap[indexPath] = @(tag);
-  if ( userInfo ) {
-    self.indexPathToUserInfoMap[indexPath] = userInfo;
-  }
-  if ( config ) {
-    self.indexPathToConfigMap[indexPath] = config;
-  }
+  GCMItemSelectItem *item = [[GCMItemSelectItem alloc] initWithAttributedString:itemName ? itemName : [[NSAttributedString alloc] initWithString:@""]
+                                                        tag:tag
+                                                   userInfo:userInfo
+                                                  andConfig:config];
+  GCMItemSelectSection *currentSection = self.sections.lastObject;
+  [currentSection.items addObject:item];
 }
 
 - (NSAttributedString *)defaultAttributedStringForString:(NSString *)title {
@@ -218,52 +228,61 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 }
 
 - (NSAttributedString *)attributedItemAtIndexPath:(NSIndexPath *)indexPath {
-  NSInteger section = indexPath.section;
-  NSInteger row = indexPath.row;
-  if ( section >= [self.sections count] ) {
-    return nil;
-  }
-  NSArray *rows = self.sections[section];
-  if ( row >= [rows count] ) {
-    return nil;
-  }
-  return rows[row];
+  GCMItemSelectItem *item = [self selectItemAtIndexPath:indexPath];
+  return item.attributedString;
 }
 
 - (NSInteger)tagForItemAtIndexPath:(NSIndexPath *)indexPath {
-  return [self.indexPathToTagMap[indexPath] integerValue];
+  GCMItemSelectItem *item = [self selectItemAtIndexPath:indexPath];
+  return item.tag;
+}
+
+- (NSIndexPath *)indexPathForItem:(GCMItemSelectItem *)prItem {
+  for ( int i = 0; i < self.sections.count; i++ ) {
+    GCMItemSelectSection *section = self.sections[i];
+    for ( int j = 0; j < section.items.count; j++) {
+      GCMItemSelectItem *item = section.items[j];
+      if ( [item isEqual:prItem] ) {
+        return [NSIndexPath indexPathForRow:j inSection:i];
+      }
+    }
+  }
+  return nil;
 }
 
 - (NSIndexPath *)indexPathForItemWithTag:(NSInteger)tag {
-  __block NSIndexPath *foundPath = nil;
-  NSNumber *targetTag = @(tag);
-  [self.indexPathToTagMap enumerateKeysAndObjectsUsingBlock:^(NSIndexPath *indexPath, NSNumber *testTag, BOOL *stop) {
-    if ( [targetTag isEqualToNumber:testTag] ) {
-      foundPath = indexPath;
-      *stop = YES;
+  for ( int i = 0; i < self.sections.count; i++ ) {
+    GCMItemSelectSection *section = self.sections[i];
+    for ( int j = 0; j < section.items.count; j++) {
+      GCMItemSelectItem *item = section.items[j];
+      if ( item.tag == tag ) {
+        return [NSIndexPath indexPathForRow:j inSection:i];
+      }
     }
-  }];
-  return foundPath;
+  }
+  return nil;
 }
 
 - (id)userInfoForItemAtIndexPath:(NSIndexPath *)indexPath {
-  return self.indexPathToUserInfoMap[indexPath];
+  GCMItemSelectItem *item = [self selectItemAtIndexPath:indexPath];
+  return item.userInfo;
 }
 
 - (NSIndexPath *)indexPathForItemWithUserInfo:(id)userInfo {
-  __block NSIndexPath *foundPath = nil;
-  [self.indexPathToUserInfoMap enumerateKeysAndObjectsUsingBlock:^(NSIndexPath *indexPath, id testUserInfo, BOOL *stop) {
-    if ( [userInfo isEqual:testUserInfo] ) {
-      foundPath = indexPath;
-      *stop = YES;
+  for ( int i = 0; i < self.sections.count; i++ ) {
+    GCMItemSelectSection *section = self.sections[i];
+    for ( int j = 0; j < section.items.count; j++) {
+      GCMItemSelectItem *item = section.items[j];
+      if ( [item.userInfo isEqual:userInfo] ) {
+        return [NSIndexPath indexPathForRow:j inSection:i];
+      }
     }
-  }];
-  return foundPath;
+  }
+  return nil;
 }
 
 - (BOOL)containsItemWithUserInfo:(id)userInfo {
-  NSArray *userInfos = [self.indexPathToUserInfoMap allValues];
-  return [userInfos containsObject:userInfo];
+  return [self indexPathForItemWithUserInfo:userInfo] != nil;
 }
 
 
@@ -274,14 +293,6 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
   
   return @{NSFontAttributeName : [UIFont systemFontOfSize:16.f],
            NSParagraphStyleAttributeName : paragraphStyle};
-}
-
-- (NSAttributedString *)defaultAttributedDetailString:(NSString *)detailString {
-  NSMutableAttributedString *attributedDetail = [[NSMutableAttributedString alloc] initWithString:detailString];
-  [attributedDetail addAttributeForTextColor:[UIColor colorWithRed:146.f/255.f green:146.f/255.f blue:146.f/255.f alpha:1.000]];
-  [attributedDetail addAttributeForFont:[UIFont systemFontOfSize:15.0]];
-  [attributedDetail addAttributeForTextAlignment:NSTextAlignmentRight lineBreakMode:NSLineBreakByWordWrapping];
-  return attributedDetail;
 }
 
 #pragma mark - UITableView
@@ -295,7 +306,8 @@ static NSString* kFooterReuseId = @"footer";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return [self.sections[section] count];
+  GCMItemSelectSection *itemSection = self.sections[section];
+  return itemSection.items.count;
 }
 
 - (CGFloat)horizontalHeaderFooterPadding {
@@ -303,12 +315,12 @@ static NSString* kFooterReuseId = @"footer";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-  if ( self.sectionHeaderTitles[section] != [NSNull null] ) {
+  GCMItemSelectSection *itemSection = self.sections[section];
+  if ( itemSection.header ) {
     if ( self.useDefaultHeaders ) {
       return UITableViewAutomaticDimension;
     }
-    NSAttributedString *headerTitle = self.sectionHeaderTitles[section];
-    CGFloat height = [headerTitle integralHeightGivenWidth:tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0];
+    CGFloat height = [itemSection.header integralHeightGivenWidth:tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0];
     return height + 20.0;
   } else {
     return 0.0;
@@ -316,10 +328,9 @@ static NSString* kFooterReuseId = @"footer";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-  if ( self.sectionFooterTitles[section] != [NSNull null] ) {
-    NSAttributedString *footerTitle = self.sectionFooterTitles[section];
-    CGFloat height = [footerTitle integralHeightGivenWidth:tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0];
-    
+  GCMItemSelectSection *itemSection = self.sections[section];
+  if ( itemSection.footer ) {
+    CGFloat height = [itemSection.footer integralHeightGivenWidth:tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0];
     return height + (IOS7_OR_GREATER ? 20.0 : 40.0);
   } else {
     return 0.0;
@@ -327,12 +338,12 @@ static NSString* kFooterReuseId = @"footer";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+  GCMItemSelectSection *itemSection = self.sections[section];
   if ( self.useDefaultHeaders ) {
     return nil;
   }
-  if ( self.sectionHeaderTitles[section] != [NSNull null] ) {
-    NSAttributedString *headerTitle = self.sectionHeaderTitles[section];
-    CGFloat height = [headerTitle integralHeightGivenWidth:tableView.bounds.size.width];
+  if ( itemSection.header ) {
+    CGFloat height = [itemSection.header integralHeightGivenWidth:tableView.bounds.size.width];
     
     CGFloat xInset = [self horizontalHeaderFooterPadding];
     CGFloat yInset = 10.0f;
@@ -341,7 +352,7 @@ static NSString* kFooterReuseId = @"footer";
     label.backgroundColor = [UIColor clearColor];
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.numberOfLines = 0;
-    label.attributedText = self.sectionHeaderTitles[section];
+    label.attributedText = itemSection.header;
     label.tag = kGCItemSelectHeaderLabelTag;
     [headerView addSubview:label];
     return headerView;
@@ -351,17 +362,17 @@ static NSString* kFooterReuseId = @"footer";
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-  if ( self.sectionHeaderTitles[section] != [NSNull null] ) {
-    NSAttributedString *headerTitle = self.sectionHeaderTitles[section];
-    return headerTitle.string;
+  GCMItemSelectSection *itemSection = self.sections[section];
+  if ( itemSection.header ) {
+    return itemSection.header.string;
   }
   return nil;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-  if ( self.sectionFooterTitles[section] != [NSNull null] ) {
-    NSAttributedString *footerTitle = self.sectionFooterTitles[section];
-    CGFloat height = [footerTitle integralHeightGivenWidth:tableView.bounds.size.width];
+  GCMItemSelectSection *itemSection = self.sections[section];
+  if ( itemSection.footer ) {
+    CGFloat height = [itemSection.footer integralHeightGivenWidth:tableView.bounds.size.width];
     
     CGFloat xInset = [self horizontalHeaderFooterPadding];
     CGFloat yInset = 10.0f;
@@ -370,7 +381,7 @@ static NSString* kFooterReuseId = @"footer";
     label.backgroundColor = [UIColor clearColor];
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.numberOfLines = 0;
-    label.attributedText = footerTitle;
+    label.attributedText = itemSection.footer;
     label.tag = kGCItemSelectFooterLabelTag;
     [footerView addSubview:label];
     return footerView;
@@ -380,10 +391,12 @@ static NSString* kFooterReuseId = @"footer";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  GCMItemSelectSection *itemSection = self.sections[indexPath.section];
+  GCMItemSelectItem *item = itemSection.items[indexPath.row];
   NSIndexPath *indexPathCopy = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
   BOOL checked = [self.selectedIndexPath isEqual:indexPathCopy];
-  NSDictionary *config = self.indexPathToConfigMap[indexPathCopy];
-  BOOL hasDetailtext = config[kGCMItemDetailTextKey] != nil;
+  NSDictionary *config = item.config;
+  BOOL hasDetailtext = config[kGCMItemSelectDetailTextKey] != nil;
   BOOL hasImage = config[kGCMItemSelectImageKey] != nil;
   return [GCMItemSelectTableViewCell cellHeightForAttributedText:[self attributedItemAtIndexPath:indexPathCopy]
                                                    withCellWidth:tableView.bounds.size.width
@@ -398,28 +411,18 @@ static NSString* kFooterReuseId = @"footer";
   if ( cell == nil ) {
     cell = [[GCMItemSelectTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kCellReuseId];
   }
-  cell.textLabel.attributedText = [self attributedItemAtIndexPath:indexPath];
-  NSDictionary *config = self.indexPathToConfigMap[indexPath];
-  cell.imageView.image = config[kGCMItemSelectImageKey];
-  if ( config[kGCMItemSelectDisabledItemKey] ) {
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.contentView.alpha = 0.5;
-  } else {
-    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-    cell.contentView.alpha = 1.0;
-  }
-  if ( config[kGCMItemDetailTextKey] ) {
-    cell.detailTextLabel.attributedText = [self defaultAttributedDetailString:config[kGCMItemDetailTextKey]];
-  } else {
-    cell.detailTextLabel.attributedText = nil;
-  }
+  GCMItemSelectSection *itemSection = self.sections[indexPath.section];
+  GCMItemSelectItem *item = itemSection.items[indexPath.row];
+  [cell setContentForItem:item];
   
   cell.isChecked = [self.selectedIndexPath isEqual:indexPath];
   return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  NSDictionary *config = self.indexPathToConfigMap[indexPath];
+  GCMItemSelectSection *itemSection = self.sections[indexPath.section];
+  GCMItemSelectItem *item = itemSection.items[indexPath.row];
+  NSDictionary *config = item.config;
   if ( config[kGCMItemSelectDisabledItemKey] ) {
     return;
   }
@@ -455,13 +458,31 @@ static NSString* kFooterReuseId = @"footer";
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-  NSPredicate* predicate = [NSPredicate predicateWithFormat:@"self != nil"];
-  return [self.sectionIndexTitles filteredArrayUsingPredicate:predicate];
+  NSMutableArray *indexTitles = [[NSMutableArray alloc] initWithCapacity:self.sections.count];
+  for ( GCMItemSelectSection *section in self.sections ) {
+    if ( section.indexTitle ) {
+    [indexTitles addObject:section.indexTitle];
+    }
+  }
+  return indexTitles;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-  return [self.sectionIndexTitles indexOfObject:title];
+  for ( int i = 0; i < self.sections.count; i++ ) {
+    GCMItemSelectSection *section = self.sections[i];
+    if ( [section.indexTitle isEqualToString:title] ) {
+      return i;
+    }
+  }
+  return 0;
+}
+
+#pragma mark - GCMItemSelectSearchDataSourceDelegate
+
+- (void)didSelectItem:(GCMItemSelectItem *)item {
+  NSIndexPath *selectedIndexPath = [self indexPathForItem:item];
+  [self tableView:nil didSelectRowAtIndexPath:selectedIndexPath];
 }
 
 @end

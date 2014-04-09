@@ -11,11 +11,12 @@
 extern NSString *const kGCMItemSelectImageKey;
 extern NSString *const kGCMItemSelectDisabledItemKey;
 extern NSString *const kGCMItemSelectActionItemKey;
-extern NSString *const kGCMItemDetailTextKey;
+extern NSString *const kGCMItemSelectDetailTextKey;
 extern NSUInteger const kGCItemSelectHeaderLabelTag;
 extern NSUInteger const kGCItemSelectFooterLabelTag;
 
 @protocol GCMItemSelectTableViewDelegate;
+@class GCMItemSelectSearchDataSource;
 
 @interface GCMItemSelectTableViewDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
 
@@ -32,6 +33,7 @@ extern NSUInteger const kGCItemSelectFooterLabelTag;
 @property (nonatomic, strong) id userInfo;
 @property (nonatomic, readonly) BOOL hasItems;
 @property (nonatomic) BOOL useDefaultHeaders;
+@property (nonatomic, strong) GCMItemSelectSearchDataSource *searchDataSource;
 
 /// Creates a new section. headerTitle or footerTitle may be nil
 - (void)addSectionWithAttributedHeaderTitle:(NSAttributedString *)headerTitle

@@ -8,16 +8,19 @@
 
 #import "GCMItemSelectViewController.h"
 #import "GCMDeviceInfo.h"
+#import "GCMItemSelectSearchDataSource.h"
 
 static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
 
-@interface GCMItemSelectViewController () <GCMItemSelectTableViewDelegate> {
-  GCMItemSelectTableViewDataSource *_dataSource;
-}
+@interface GCMItemSelectViewController () <GCMItemSelectTableViewDelegate, UISearchDisplayDelegate>
+
+@property (nonatomic, strong) UISearchDisplayController *searchController;
 
 @end
 
 @implementation GCMItemSelectViewController
+
+@synthesize dataSource = _dataSource;
 
 - (id)init {
   return [self initWithTableViewStyle:UITableViewStyleGrouped];
@@ -49,11 +52,6 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
   [super viewDidLoad];
   self.tableView.delegate = self.dataSource;
   self.tableView.dataSource = self.dataSource;
-}
-
-- (void)didReceiveMemoryWarning {
-  [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -101,6 +99,12 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
   [dataSource addObserver:self forKeyPath:kDataSourceSelectedIndexPathKey options:NSKeyValueObservingOptionNew context:nil];
   self.tableView.dataSource = dataSource;
   self.tableView.delegate = dataSource;
+  if ( self.searchController ) {
+    self.searchController.searchResultsDataSource = self.dataSource.searchDataSource;
+    self.searchController.searchResultsDelegate = self.dataSource.searchDataSource;
+    self.searchController.delegate = self.dataSource.searchDataSource;
+    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
+  }
   [self.tableView reloadData];
 }
 
@@ -189,6 +193,14 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
 
 - (void)reportSelectedItemWithConfirmation:(BOOL)confirmation {
   [self.delegate selectedItemInItemSelectViewController:self andConfirmedSelection:confirmation];
+}
+
+- (void)createSearchDisplayControllerForSearchBar:(UISearchBar *)searchBar {
+  self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+  self.searchController.searchResultsDataSource = self.dataSource.searchDataSource;
+  self.searchController.searchResultsDelegate = self.dataSource.searchDataSource;
+  self.searchController.delegate = self.dataSource.searchDataSource;
+  self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
 }
 
 @end

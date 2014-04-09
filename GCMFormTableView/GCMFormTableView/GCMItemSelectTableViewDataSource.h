@@ -11,7 +11,7 @@
 extern NSString *const kGCMItemSelectImageKey;
 extern NSString *const kGCMItemSelectDisabledItemKey;
 extern NSString *const kGCMItemSelectActionItemKey;
-extern NSString *const kGCMItemDetailTextKey;
+extern NSString *const kGCMItemSelectDetailTextKey;
 extern NSUInteger const kGCItemSelectHeaderLabelTag;
 extern NSUInteger const kGCItemSelectFooterLabelTag;
 

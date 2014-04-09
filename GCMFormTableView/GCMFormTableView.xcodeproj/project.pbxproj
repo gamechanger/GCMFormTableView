@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		09DC7BDE4CC24FB4BA4B2A33 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F5D042CA0F74A06AAA5AA6A /* libPods.a */; };
 		89D466DC34A44301AA1F32B6 /* libPods-GCMFormTableViewSenTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B955BE300F44C3AC58AB0C /* libPods-GCMFormTableViewSenTests.a */; };
+		A00C6B3518F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C6B3418F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m */; };
 		A02161DF18F32AEE00DB786B /* GCMItemSelectSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A02161DE18F32AEE00DB786B /* GCMItemSelectSearchDataSource.m */; };
 		A0CB468C18F440BC00E8A1F4 /* GCMSection.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CB468B18F440BC00E8A1F4 /* GCMSection.m */; };
 		A0CB469218F4418400E8A1F4 /* GCMItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CB469118F4418400E8A1F4 /* GCMItem.m */; };
@@ -57,6 +58,7 @@
 		2B73C40AC22E4A3E991DF5F6 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		3F5D042CA0F74A06AAA5AA6A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5125FE76ABAB40A583DD0BE0 /* Pods-GCMFormTableViewSenTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMFormTableViewSenTests.xcconfig"; path = "../Pods/Pods-GCMFormTableViewSenTests.xcconfig"; sourceTree = "<group>"; };
+		A00C6B3418F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMItemSelectSearchDataSourceTests.m; sourceTree = "<group>"; };
 		A02161DD18F32AEE00DB786B /* GCMItemSelectSearchDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCMItemSelectSearchDataSource.h; sourceTree = "<group>"; };
 		A02161DE18F32AEE00DB786B /* GCMItemSelectSearchDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMItemSelectSearchDataSource.m; sourceTree = "<group>"; };
 		A0CB468A18F440BC00E8A1F4 /* GCMSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCMSection.h; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 		AB0A79FE1845503900ABBBB8 /* GCMFormTableViewSenTests */ = {
 			isa = PBXGroup;
 			children = (
+				A00C6B3418F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m */,
 				AB0A7A1F1846662000ABBBB8 /* GCMItemSelectTableViewControllerTests.m */,
 				AB0A7A201846662000ABBBB8 /* GCMItemSelectTableViewDataSourceTests.m */,
 				AB0A79FF1845503900ABBBB8 /* Supporting Files */,
@@ -421,6 +424,7 @@
 			files = (
 				AB0A7A211846662000ABBBB8 /* GCMItemSelectTableViewControllerTests.m in Sources */,
 				AB0A7A221846662000ABBBB8 /* GCMItemSelectTableViewDataSourceTests.m in Sources */,
+				A00C6B3518F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

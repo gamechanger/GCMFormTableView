@@ -17,7 +17,7 @@
 NSString *const kGCMItemSelectImageKey = @"image";
 NSString *const kGCMItemSelectDisabledItemKey = @"disabledItem";
 NSString *const kGCMItemSelectActionItemKey = @"actionItem";
-NSString *const kGCMItemDetailTextKey = @"detailText";
+NSString *const kGCMItemSelectDetailTextKey = @"detailText";
 
 NSUInteger const kGCItemSelectHeaderLabelTag = 1000;
 NSUInteger const kGCItemSelectFooterLabelTag = 2000;
@@ -299,7 +299,7 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
   return nil;
 }
 
-- (BOOL)containsItemWithUserInfo:(id)userInfo {  // TODO: Optimize
+- (BOOL)containsItemWithUserInfo:(id)userInfo {
   return [self indexPathForItemWithUserInfo:userInfo] != nil;
 }
 
@@ -414,7 +414,7 @@ static NSString* kFooterReuseId = @"footer";
   NSIndexPath *indexPathCopy = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
   BOOL checked = [self.selectedIndexPath isEqual:indexPathCopy];
   NSDictionary *config = item.config;
-  BOOL hasDetailtext = config[kGCMItemDetailTextKey] != nil;
+  BOOL hasDetailtext = config[kGCMItemSelectDetailTextKey] != nil;
   BOOL hasImage = config[kGCMItemSelectImageKey] != nil;
   return [GCMItemSelectTableViewCell cellHeightForAttributedText:[self attributedItemAtIndexPath:indexPathCopy]
                                                    withCellWidth:tableView.bounds.size.width

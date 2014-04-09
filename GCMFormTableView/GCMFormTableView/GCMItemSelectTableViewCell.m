@@ -79,8 +79,8 @@
     self.selectionStyle = UITableViewCellSelectionStyleDefault;
     self.contentView.alpha = 1.0;
   }
-  if ( config[kGCMItemDetailTextKey] ) {
-    self.detailTextLabel.attributedText = [self defaultAttributedDetailString:config[kGCMItemDetailTextKey]];
+  if ( config[kGCMItemSelectDetailTextKey] ) {
+    self.detailTextLabel.attributedText = [self defaultAttributedDetailString:config[kGCMItemSelectDetailTextKey]];
   } else {
     self.detailTextLabel.attributedText = nil;
   }
@@ -94,7 +94,6 @@
   return attributedDetail;
 }
 
-
 #pragma mark - Static methods
 
 + (UIEdgeInsets)defaultInsets {
@@ -106,7 +105,6 @@
                                isChecked:(BOOL)checked
                            hasDetailtext:(BOOL)detailText
                                 hasImage:(BOOL)image {
-  
   CGFloat maxWidth = cellWidth - insets.left - insets.right;
   maxWidth -= checked ? kGCCheckAccesoryWidth : 0.f;
   maxWidth -= detailText ? kGCDetailTextWidth + kGCInnerSpace : 0.f;

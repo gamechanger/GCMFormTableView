@@ -103,6 +103,7 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
     self.searchController.searchResultsDataSource = self.dataSource.searchDataSource;
     self.searchController.searchResultsDelegate = self.dataSource.searchDataSource;
     self.searchController.delegate = self.dataSource.searchDataSource;
+    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
   }
   [self.tableView reloadData];
 }
@@ -199,6 +200,7 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
   self.searchController.searchResultsDataSource = self.dataSource.searchDataSource;
   self.searchController.searchResultsDelegate = self.dataSource.searchDataSource;
   self.searchController.delegate = self.dataSource.searchDataSource;
+  self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
 }
 
 @end

@@ -134,10 +134,10 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 }
 
 - (GCMItemSelectItem *)selectedItem {
-  return [self selecrItemAtIndexPath:self.selectedIndexPath];
+  return [self selectItemAtIndexPath:self.selectedIndexPath];
 }
 
-- (GCMItemSelectItem *)selecrItemAtIndexPath:(NSIndexPath *)indexPath {
+- (GCMItemSelectItem *)selectItemAtIndexPath:(NSIndexPath *)indexPath {
   if ( indexPath.section >= self.sections.count ) {
     return nil;
   }
@@ -228,12 +228,12 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 }
 
 - (NSAttributedString *)attributedItemAtIndexPath:(NSIndexPath *)indexPath {
-  GCMItemSelectItem *item = [self selecrItemAtIndexPath:indexPath];
+  GCMItemSelectItem *item = [self selectItemAtIndexPath:indexPath];
   return item.attributedString;
 }
 
 - (NSInteger)tagForItemAtIndexPath:(NSIndexPath *)indexPath {
-  GCMItemSelectItem *item = [self selecrItemAtIndexPath:indexPath];
+  GCMItemSelectItem *item = [self selectItemAtIndexPath:indexPath];
   return item.tag;
 }
 
@@ -264,7 +264,7 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 }
 
 - (id)userInfoForItemAtIndexPath:(NSIndexPath *)indexPath {
-  GCMItemSelectItem *item = [self selecrItemAtIndexPath:indexPath];
+  GCMItemSelectItem *item = [self selectItemAtIndexPath:indexPath];
   return item.userInfo;
 }
 

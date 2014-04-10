@@ -1,5 +1,6 @@
 #import <Kiwi.h>
 #import "GCMItemSelectTableViewDataSource.h"
+#import "GCMItemSelectItem.h"
 
 SPEC_BEGIN(GCMItemSelectTableViewDataSourceTests)
 
@@ -23,9 +24,9 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
       [[theValue(dataSource.hasItems) should] equal:theValue(YES)];
     });
     it(@"automatically adds a section for first addItem: but not second", ^{
-      [dataSource addItem:@"Test" andConfig:Nil withTag:0 andUserInfo:nil];
+      [dataSource addItem:@"Test" withTag:0 andUserInfo:nil];
       [[theValue([dataSource numberOfSectionsInTableView:nil]) should] equal:theValue(1)];
-      [dataSource addItem:@"Test 2" andConfig:Nil withTag:0 andUserInfo:nil];
+      [dataSource addItem:@"Test 2" withTag:0 andUserInfo:nil];
       [[theValue([dataSource numberOfSectionsInTableView:nil]) should] equal:theValue(1)];
     });
     it(@"stores section information for addSectionBreak",^{
@@ -277,7 +278,11 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
     beforeEach(^{
       delegateMock = [KWMock nullMockForProtocol:@protocol(GCMItemSelectTableViewDelegate)];
       dataSource.delegate = (id) delegateMock;
-      [dataSource addItem:@"Skip This Step" andConfig:@{kGCMItemSelectActionItemKey: @YES} withTag:1 andUserInfo:@2];
+      GCMItemSelectItem *item = [[GCMItemSelectItem alloc] initWithString:@"Skip This Step"];
+      item.actionItem = YES;
+      item.tag = 1;
+      item.userInfo = @2;
+      [dataSource addItem:item];
     });
     it(@"calls the delegate method when the item is tapped", ^{
       [[[delegateMock should] receive] didSelectActionWithTag:1 andUserInfo:@2 fromItemSelectDataSource:dataSource];

@@ -1,5 +1,5 @@
 PODS:
-  - GCMCocoaExtensions (0.2.2)
+  - GCMCocoaExtensions (0.2.3)
   - Kiwi (2.2.3):
     - Kiwi/SenTestingKit
   - Kiwi/ARC (2.2.3)
@@ -9,11 +9,11 @@ PODS:
     - Kiwi/NonARC
 
 DEPENDENCIES:
-  - GCMCocoaExtensions (~> 0.2.0)
+  - GCMCocoaExtensions (~> 0.2.3)
   - Kiwi (= 2.2.3)
 
 SPEC CHECKSUMS:
-  GCMCocoaExtensions: 88a712932970575d6b35b6c32dccd4eea409ebb3
+  GCMCocoaExtensions: d4dd06fb544c494cedca4fa19ea80779da68942f
   Kiwi: 04c51e880831d291748ec702d42c4101f7eb95c9
 
 COCOAPODS: 0.29.0

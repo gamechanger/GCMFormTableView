@@ -116,21 +116,20 @@
 
 - (void)setContentForItem:(GCMItemSelectItem *)item {
   self.textLabel.attributedText = item.attributedString;
-  NSDictionary *config = item.config;
-  self.imageView.image = config[kGCMItemSelectImageKey];
-  if ( config[kGCMItemSelectDisabledItemKey] ) {
+  self.imageView.image = item.image;
+  if ( item.disabled ) {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.contentView.alpha = 0.5;
   } else {
     self.selectionStyle = UITableViewCellSelectionStyleDefault;
     self.contentView.alpha = 1.0;
   }
-  if ( config[kGCMItemSelectDetailTextKey] ) {
-    self.detailTextLabel.attributedText = [self defaultAttributedDetailString:config[kGCMItemSelectDetailTextKey]];
+  if ( item.detailText ) {
+    self.detailTextLabel.attributedText = [self defaultAttributedDetailString:item.detailText];
   } else {
     self.detailTextLabel.attributedText = nil;
   }
-  self.useCellDivider = config[kGCMItemSelectUseCellDivider] != nil;
+  self.useCellDivider = item.useCellDivider;
 }
 
 - (NSAttributedString *)defaultAttributedDetailString:(NSString *)detailString {

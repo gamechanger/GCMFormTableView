@@ -52,7 +52,9 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
   [super viewDidLoad];
   self.tableView.delegate = self.dataSource;
   self.tableView.dataSource = self.dataSource;
-  self.tableView.sectionIndexBackgroundColor = [UIColor whiteColor];
+  if ( self.searchController ) {
+    self.tableView.sectionIndexBackgroundColor = [UIColor whiteColor];
+  }
   self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeBottom | UIRectEdgeRight;
 }
 
@@ -198,9 +200,11 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
 }
 
 - (void)setupSearchController {
-  self.searchController.searchResultsDataSource = self.dataSource.searchDataSource;
-  self.searchController.searchResultsDelegate = self.dataSource.searchDataSource;
-  self.searchController.delegate = self.dataSource.searchDataSource;
+  if ( self.searchController ) {
+    self.searchController.searchResultsDataSource = self.dataSource.searchDataSource;
+    self.searchController.searchResultsDelegate = self.dataSource.searchDataSource;
+    self.searchController.delegate = self.dataSource.searchDataSource;
+  }
 }
 
 @end

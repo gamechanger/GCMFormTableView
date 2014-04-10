@@ -7,19 +7,18 @@
 //
 
 #import "GCMItemSelectItem.h"
+#import "NSAttributedString+GameChangerMedia.h"
 
 @implementation GCMItemSelectItem
 
-- (id)initWithAttributedString:(NSAttributedString *)attrStr
-                           tag:(NSInteger)tag
-                      userInfo:(id)userInfo
-                     andConfig:(NSDictionary *)config {
+- (id)initWithString:(NSString *)str {
+  return [self initWithAttributedString:[GCMItemSelectItem defaultItemAttributedStringForString:str]];
+}
+
+- (id)initWithAttributedString:(NSAttributedString *)attrStr {
   self = [super init];
   if ( self ) {
     _attributedString = attrStr;
-    _tag = tag;
-    _userInfo = userInfo;
-    _config = config;
   }
   return self;
 }
@@ -46,6 +45,16 @@
   result = prime * result + [self.config hash];
   
   return result;
+}
+
+#pragma mark - class methods
+
++ (NSAttributedString *)defaultItemAttributedStringForString:(NSString *)title {
+  NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:title];
+  [attributedTitle addAttributeForTextColor:[UIColor blackColor]];
+  [attributedTitle addAttributeForFont:[UIFont systemFontOfSize:18.0]];
+  [attributedTitle addAttributeForTextAlignment:NSTextAlignmentLeft lineBreakMode:NSLineBreakByWordWrapping];
+  return attributedTitle;
 }
 
 @end

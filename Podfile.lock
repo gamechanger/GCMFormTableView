@@ -9,7 +9,7 @@ PODS:
     - Kiwi/NonARC
 
 DEPENDENCIES:
-  - GCMCocoaExtensions (~> 0.2.3)
+  - GCMCocoaExtensions (~> 0.2.0)
   - Kiwi (= 2.2.3)
 
 SPEC CHECKSUMS:

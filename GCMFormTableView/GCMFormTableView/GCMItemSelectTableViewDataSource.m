@@ -139,6 +139,9 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 }
 
 - (GCMItemSelectItem *)selectItemAtIndexPath:(NSIndexPath *)indexPath {
+  if ( ! indexPath ) {
+    return nil;
+  }
   if ( indexPath.section >= self.sections.count ) {
     return nil;
   }

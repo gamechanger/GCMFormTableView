@@ -12,6 +12,7 @@ extern NSString *const kGCMItemSelectImageKey;
 extern NSString *const kGCMItemSelectDisabledItemKey;
 extern NSString *const kGCMItemSelectActionItemKey;
 extern NSString *const kGCMItemSelectDetailTextKey;
+extern NSString *const kGCMItemSelectUseCellDivider;
 extern NSUInteger const kGCItemSelectHeaderLabelTag;
 extern NSUInteger const kGCItemSelectFooterLabelTag;
 

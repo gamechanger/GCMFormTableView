@@ -18,6 +18,7 @@ NSString *const kGCMItemSelectImageKey = @"image";
 NSString *const kGCMItemSelectDisabledItemKey = @"disabledItem";
 NSString *const kGCMItemSelectActionItemKey = @"actionItem";
 NSString *const kGCMItemSelectDetailTextKey = @"detailText";
+NSString *const kGCMItemSelectUseCellDivider = @"cellDivider";
 
 NSUInteger const kGCItemSelectHeaderLabelTag = 1000;
 NSUInteger const kGCItemSelectFooterLabelTag = 2000;
@@ -318,10 +319,11 @@ static NSString* kFooterReuseId = @"footer";
   GCMItemSelectSection *itemSection = self.sections[section];
   if ( itemSection.header ) {
     if ( self.useDefaultHeaders ) {
-      return UITableViewAutomaticDimension;
+      return 24.f;
+    } else {
+      CGFloat height = [itemSection.header integralHeightGivenWidth:tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0];
+      return height + 20.0;
     }
-    CGFloat height = [itemSection.header integralHeightGivenWidth:tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0];
-    return height + 20.0;
   } else {
     return 0.0;
   }
@@ -339,34 +341,38 @@ static NSString* kFooterReuseId = @"footer";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
   GCMItemSelectSection *itemSection = self.sections[section];
-  if ( self.useDefaultHeaders ) {
-    return nil;
-  }
+  
   if ( itemSection.header ) {
-    CGFloat height = [itemSection.header integralHeightGivenWidth:tableView.bounds.size.width];
-    
-    CGFloat xInset = [self horizontalHeaderFooterPadding];
-    CGFloat yInset = 10.0f;
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset, yInset, headerView.frame.size.width - xInset * 2, headerView.frame.size.height - yInset * 2)];
-    label.backgroundColor = [UIColor clearColor];
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    label.numberOfLines = 0;
-    label.attributedText = itemSection.header;
-    label.tag = kGCItemSelectHeaderLabelTag;
-    [headerView addSubview:label];
-    return headerView;
+    if ( self.useDefaultHeaders ) {
+      UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, 24.f)];
+      headerView.backgroundColor = [UIColor colorWithWhite:240.f/255.f alpha:1.f];
+      UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, headerView.frame.size.width, 1.f)];
+      border.backgroundColor = [UIColor colorWithWhite:202.f/250.f alpha:1.f];
+      UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15.f, 0.f, headerView.frame.size.width, headerView.frame.size.height)];
+      label.backgroundColor = [UIColor clearColor];
+      label.text = itemSection.header.string;
+      label.font = [UIFont boldSystemFontOfSize:14.0];
+      [headerView addSubview:border];
+      [headerView addSubview:label];
+      return headerView;
+    } else {
+      CGFloat height = [itemSection.header integralHeightGivenWidth:tableView.bounds.size.width];
+      
+      CGFloat xInset = [self horizontalHeaderFooterPadding];
+      CGFloat yInset = 10.0f;
+      UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
+      UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset, yInset, headerView.frame.size.width - xInset * 2, headerView.frame.size.height - yInset * 2)];
+      label.backgroundColor = [UIColor clearColor];
+      label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+      label.numberOfLines = 0;
+      label.attributedText = itemSection.header;
+      label.tag = kGCItemSelectHeaderLabelTag;
+      [headerView addSubview:label];
+      return headerView;
+    }
   } else {
     return nil;
   }
-}
-
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-  GCMItemSelectSection *itemSection = self.sections[section];
-  if ( itemSection.header ) {
-    return itemSection.header.string;
-  }
-  return nil;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -398,11 +404,13 @@ static NSString* kFooterReuseId = @"footer";
   NSDictionary *config = item.config;
   BOOL hasDetailtext = config[kGCMItemSelectDetailTextKey] != nil;
   BOOL hasImage = config[kGCMItemSelectImageKey] != nil;
+  BOOL usesDivider = config[kGCMItemSelectUseCellDivider] != nil;
   return [GCMItemSelectTableViewCell cellHeightForAttributedText:[self attributedItemAtIndexPath:indexPathCopy]
                                                    withCellWidth:tableView.bounds.size.width
                                                        isChecked:checked
                                                    hasDetailtext:hasDetailtext
                                                         hasImage:hasImage
+                                                 usesCellDivider:usesDivider
                                                      usingInsets:[GCMItemSelectTableViewCell defaultInsets]];
 }
 

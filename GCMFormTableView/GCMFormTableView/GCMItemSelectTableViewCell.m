@@ -17,6 +17,7 @@
 #define kGCInnerSpace 10.f
 #define kCGImageDimension 44.f
 #define kGCCellDividerHeight 35.f / 2
+#define kGCCellDividerBorderTag 1000
 
 @interface GCMItemSelectTableViewCell ()
 
@@ -42,7 +43,27 @@
   [super layoutSubviews];
   
   CGFloat originY = self.cellInsets.top;
-  originY += self.useCellDivider ? kGCCellDividerHeight : 0.f;
+  
+  if ( self.useCellDivider ) {
+    CGRect topDividerFrame = CGRectMake(0.f, 0.f, self.frame.size.width, kGCCellDividerHeight);
+    self.topDivider.frame = topDividerFrame;
+    CGRect topDividerBorderFrame = CGRectMake(0.f, kGCCellDividerHeight, topDividerFrame.size.width, 1.f);
+    [self.topDivider viewWithTag:kGCCellDividerBorderTag].frame = topDividerBorderFrame;
+    
+    CGFloat labelHeight = [GCMItemSelectTableViewCell cellHeightForAttributedText:self.textLabel.attributedText
+                                                                    withCellWidth:self.frame.size.width
+                                                                        isChecked:self.isChecked
+                                                                    hasDetailtext:self.detailTextLabel.text != nil
+                                                                         hasImage:self.imageView.image != nil
+                                                                  usesCellDivider:self.useCellDivider
+                                                                      usingInsets:self.cellInsets];
+    CGRect bottomDividerFrame = CGRectMake(0.f, labelHeight - kGCCellDividerHeight, self.frame.size.width, kGCCellDividerHeight);
+    self.bottomDivider.frame = bottomDividerFrame;
+    CGRect bottomDividerBorderFrame = CGRectMake(0.f, 0.f, bottomDividerFrame.size.width, 1.f);
+    [self.bottomDivider viewWithTag:kGCCellDividerBorderTag].frame = bottomDividerBorderFrame;
+    
+    originY += self.useCellDivider ? kGCCellDividerHeight : 0.f;
+  }
   
   CGFloat labelWidth = [GCMItemSelectTableViewCell maxLabelWidthForCellWithWidth:self.frame.size.width
                                                                           insets:self.cellInsets
@@ -72,28 +93,19 @@
 - (void)manageCellDividers {
   if ( _useCellDivider ) {
     if ( ! self.topDivider ) {
-      CGRect topDividerFrame = CGRectMake(0.f, 0.f, self.frame.size.width, kGCCellDividerHeight);
-      self.topDivider = [[UIView alloc] initWithFrame:topDividerFrame];
+      self.topDivider = [[UIView alloc] initWithFrame:CGRectZero];
       self.topDivider.backgroundColor = [self dividerGray];
-      CGRect topDividerBorderFrame = CGRectMake(0.f, kGCCellDividerHeight, topDividerFrame.size.width, 1.f);
-      UIView *topDividerBorder = [[UIView alloc] initWithFrame:topDividerBorderFrame];
+      UIView *topDividerBorder = [[UIView alloc] initWithFrame:CGRectZero];
+      topDividerBorder.tag = kGCCellDividerBorderTag;
       topDividerBorder.backgroundColor = [self borderGray];
       [self.topDivider addSubview:topDividerBorder];
       [self addSubview:self.topDivider];
     }
     if ( ! self.bottomDivider ) {
-      CGFloat labelHeight = [GCMItemSelectTableViewCell cellHeightForAttributedText:self.textLabel.attributedText
-                                                                      withCellWidth:self.frame.size.width
-                                                                          isChecked:self.isChecked
-                                                                      hasDetailtext:self.detailTextLabel.text != nil
-                                                                           hasImage:self.imageView.image != nil
-                                                                    usesCellDivider:self.useCellDivider
-                                                                        usingInsets:self.cellInsets];
-      CGRect bottomDividerFrame = CGRectMake(0.f, labelHeight - kGCCellDividerHeight, self.frame.size.width, kGCCellDividerHeight);
-      self.bottomDivider = [[UIView alloc] initWithFrame:bottomDividerFrame];
+      self.bottomDivider = [[UIView alloc] initWithFrame:CGRectZero];
       self.bottomDivider.backgroundColor = [self dividerGray];
-      CGRect bottomDividerBorderFrame = CGRectMake(0.f, 0.f, bottomDividerFrame.size.width, 1.f);
-      UIView *bottomDividerBorder = [[UIView alloc] initWithFrame:bottomDividerBorderFrame];
+      UIView *bottomDividerBorder = [[UIView alloc] initWithFrame:CGRectZero];
+      bottomDividerBorder.tag = kGCCellDividerBorderTag;
       bottomDividerBorder.backgroundColor = [self borderGray];
       [self.bottomDivider addSubview:bottomDividerBorder];
       [self addSubview:self.bottomDivider];

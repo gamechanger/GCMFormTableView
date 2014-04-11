@@ -193,27 +193,27 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
   [currentSection.items addObject:item];
 }
 
-- (void)addItem:(NSString *)itemName withTag:(NSInteger)tag {
-  [self addItem:itemName withTag:tag andUserInfo:nil];
+- (void)addItemWithName:(NSString *)itemName andTag:(NSInteger)tag {
+  [self addItemWithName:itemName tag:tag andUserInfo:nil];
 }
 
-- (void)addItem:(NSString *)itemName withUserInfo:(id)userInfo {
-  [self addItem:itemName withTag:0 andUserInfo:userInfo];
+- (void)addItemWithName:(NSString *)itemName andUserInfo:(id)userInfo {
+  [self addItemWithName:itemName tag:0 andUserInfo:userInfo];
 }
 
-- (void)addItem:(NSString *)itemName withTag:(NSInteger)tag andUserInfo:(id)userInfo {
-  [self addAttributedItem:[GCMItemSelectItem defaultItemAttributedStringForString:itemName] withTag:tag andUserInfo:userInfo];
+- (void)addItemWithName:(NSString *)itemName tag:(NSInteger)tag andUserInfo:(id)userInfo {
+  [self addItemWithAttributedName:[GCMItemSelectItem defaultItemAttributedStringForString:itemName] tag:tag andUserInfo:userInfo];
 }
 
-- (void)addAttributedItem:(NSAttributedString *)itemName withTag:(NSInteger)tag {
-  [self addAttributedItem:itemName withTag:tag andUserInfo:nil];
+- (void)addItemWithAttributedName:(NSAttributedString *)itemName andTag:(NSInteger)tag {
+  [self addItemWithAttributedName:itemName tag:tag andUserInfo:nil];
 }
 
-- (void)addAttributedItem:(NSAttributedString *)itemName withUserInfo:(id)userInfo {
-  [self addAttributedItem:itemName withTag:0 andUserInfo:userInfo];
+- (void)addItemWithAttributedName:(NSAttributedString *)itemName andUserInfo:(id)userInfo {
+  [self addItemWithAttributedName:itemName tag:0 andUserInfo:userInfo];
 }
 
-- (void)addAttributedItem:(NSAttributedString *)itemName withTag:(NSInteger)tag andUserInfo:(id)userInfo {
+- (void)addItemWithAttributedName:(NSAttributedString *)itemName tag:(NSInteger)tag andUserInfo:(id)userInfo {
   GCMItemSelectItem *item = [[GCMItemSelectItem alloc] initWithAttributedString:itemName];
   item.tag = tag;
   item.userInfo = userInfo;

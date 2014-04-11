@@ -59,13 +59,13 @@ extern NSUInteger const kGCItemSelectFooterLabelTag;
  */
 - (void)addItem:(GCMItemSelectItem *)item;
 
-- (void)addItem:(NSString *)itemName withTag:(NSInteger)tag;
-- (void)addItem:(NSString *)itemName withUserInfo:(id)userInfo;
-- (void)addItem:(NSString *)itemName withTag:(NSInteger)tag andUserInfo:(id)userInfo;
+- (void)addItemWithName:(NSString *)itemName andTag:(NSInteger)tag;
+- (void)addItemWithName:(NSString *)itemName andUserInfo:(id)userInfo;
+- (void)addItemWithName:(NSString *)itemName tag:(NSInteger)tag andUserInfo:(id)userInfo;
 
-- (void)addAttributedItem:(NSAttributedString *)itemName withTag:(NSInteger)tag;
-- (void)addAttributedItem:(NSAttributedString *)itemName withUserInfo:(id)userInfo;
-- (void)addAttributedItem:(NSAttributedString *)itemName withTag:(NSInteger)tag andUserInfo:(id)userInfo;
+- (void)addItemWithAttributedName:(NSAttributedString *)itemName andTag:(NSInteger)tag;
+- (void)addItemWithAttributedName:(NSAttributedString *)itemName andUserInfo:(id)userInfo;
+- (void)addItemWithAttributedName:(NSAttributedString *)itemName tag:(NSInteger)tag andUserInfo:(id)userInfo;
 
 ///
 - (NSString *)itemAtIndexPath:(NSIndexPath *)indexPath;

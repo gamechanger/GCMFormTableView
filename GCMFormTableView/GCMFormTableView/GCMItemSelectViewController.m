@@ -52,10 +52,12 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
   [super viewDidLoad];
   self.tableView.delegate = self.dataSource;
   self.tableView.dataSource = self.dataSource;
-  if ( self.searchController ) {
-    self.tableView.sectionIndexBackgroundColor = [UIColor whiteColor];
+  if ( IOS7_OR_GREATER ) {
+    if ( self.searchController ) {
+      self.tableView.sectionIndexBackgroundColor = [UIColor whiteColor];
+    }
+    self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeBottom | UIRectEdgeRight;
   }
-  self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeBottom | UIRectEdgeRight;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

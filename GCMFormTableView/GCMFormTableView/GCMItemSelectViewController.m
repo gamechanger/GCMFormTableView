@@ -52,6 +52,12 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
   [super viewDidLoad];
   self.tableView.delegate = self.dataSource;
   self.tableView.dataSource = self.dataSource;
+  if ( IOS7_OR_GREATER ) {
+    if ( self.searchController ) {
+      self.tableView.sectionIndexBackgroundColor = [UIColor whiteColor];
+    }
+    self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeBottom | UIRectEdgeRight;
+  }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -99,12 +105,7 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
   [dataSource addObserver:self forKeyPath:kDataSourceSelectedIndexPathKey options:NSKeyValueObservingOptionNew context:nil];
   self.tableView.dataSource = dataSource;
   self.tableView.delegate = dataSource;
-  if ( self.searchController ) {
-    self.searchController.searchResultsDataSource = self.dataSource.searchDataSource;
-    self.searchController.searchResultsDelegate = self.dataSource.searchDataSource;
-    self.searchController.delegate = self.dataSource.searchDataSource;
-    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
-  }
+  [self setupSearchController];
   [self.tableView reloadData];
 }
 
@@ -197,10 +198,15 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
 
 - (void)createSearchDisplayControllerForSearchBar:(UISearchBar *)searchBar {
   self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
-  self.searchController.searchResultsDataSource = self.dataSource.searchDataSource;
-  self.searchController.searchResultsDelegate = self.dataSource.searchDataSource;
-  self.searchController.delegate = self.dataSource.searchDataSource;
-  self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
+  [self setupSearchController];
+}
+
+- (void)setupSearchController {
+  if ( self.searchController ) {
+    self.searchController.searchResultsDataSource = self.dataSource.searchDataSource;
+    self.searchController.searchResultsDelegate = self.dataSource.searchDataSource;
+    self.searchController.delegate = self.dataSource.searchDataSource;
+  }
 }
 
 @end

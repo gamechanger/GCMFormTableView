@@ -13,6 +13,7 @@
 @interface GCMItemSelectTableViewCell : UITableViewCell
 
 @property (nonatomic) UIEdgeInsets cellInsets;
+@property (nonatomic) BOOL useCellDivider;
 @property (nonatomic) BOOL isChecked;
 
 - (void)setContentForItem:(GCMItemSelectItem *)item;
@@ -24,6 +25,7 @@
                              isChecked:(BOOL)checked
                          hasDetailtext:(BOOL)detailText
                               hasImage:(BOOL)image
+                      usesCellDivider:(BOOL)divider
                            usingInsets:(UIEdgeInsets)insets;
 
 @end

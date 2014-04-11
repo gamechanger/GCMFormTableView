@@ -8,15 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString *const kGCMItemSelectImageKey;
-extern NSString *const kGCMItemSelectDisabledItemKey;
-extern NSString *const kGCMItemSelectActionItemKey;
-extern NSString *const kGCMItemSelectDetailTextKey;
 extern NSUInteger const kGCItemSelectHeaderLabelTag;
 extern NSUInteger const kGCItemSelectFooterLabelTag;
 
 @protocol GCMItemSelectTableViewDelegate;
 @class GCMItemSelectSearchDataSource;
+@class GCMItemSelectSection;
+@class GCMItemSelectItem;
 
 @interface GCMItemSelectTableViewDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
 
@@ -34,6 +32,8 @@ extern NSUInteger const kGCItemSelectFooterLabelTag;
 @property (nonatomic, readonly) BOOL hasItems;
 @property (nonatomic) BOOL useDefaultHeaders;
 @property (nonatomic, strong) GCMItemSelectSearchDataSource *searchDataSource;
+
+- (void)addSection:(GCMItemSelectSection *)section;
 
 /// Creates a new section. headerTitle or footerTitle may be nil
 - (void)addSectionWithAttributedHeaderTitle:(NSAttributedString *)headerTitle
@@ -55,19 +55,17 @@ extern NSUInteger const kGCItemSelectFooterLabelTag;
 - (void)setFooterTitle:(NSString *)footerTitle forSection:(NSUInteger)section;
 
 /**
- * Adds item to current section and associates tag and userInfo with its indexpath.
- * userInfo may be nil.
- * Will create an empty section if addSection* is not called before hand.
+ * Adds item to current section
  */
-- (void)addItem:(NSString *)itemName withTag:(NSInteger)tag andUserInfo:(id)userInfo;
-- (void)addItem:(NSString *)itemName withTag:(NSInteger)tag;
-- (void)addItem:(NSString *)itemName withUserInfo:(id)userInfo;
-- (void)addItem:(NSString *)itemName andConfig:(NSDictionary *)config withTag:(NSInteger)tag andUserInfo:(id)userInfo;
+- (void)addItem:(GCMItemSelectItem *)item;
 
-- (void)addAttributedItem:(NSAttributedString *)itemName withTag:(NSInteger)tag andUserInfo:(id)userInfo;
-- (void)addAttributedItem:(NSAttributedString *)itemName withTag:(NSInteger)tag;
-- (void)addAttributedItem:(NSAttributedString *)itemName withUserInfo:(id)userInfo;
-- (void)addAttributedItem:(NSAttributedString *)itemName andConfig:(NSDictionary *)config withTag:(NSInteger)tag andUserInfo:(id)userInfo;
+- (void)addItemWithName:(NSString *)itemName andTag:(NSInteger)tag;
+- (void)addItemWithName:(NSString *)itemName andUserInfo:(id)userInfo;
+- (void)addItemWithName:(NSString *)itemName tag:(NSInteger)tag andUserInfo:(id)userInfo;
+
+- (void)addItemWithAttributedName:(NSAttributedString *)itemName andTag:(NSInteger)tag;
+- (void)addItemWithAttributedName:(NSAttributedString *)itemName andUserInfo:(id)userInfo;
+- (void)addItemWithAttributedName:(NSAttributedString *)itemName tag:(NSInteger)tag andUserInfo:(id)userInfo;
 
 ///
 - (NSString *)itemAtIndexPath:(NSIndexPath *)indexPath;

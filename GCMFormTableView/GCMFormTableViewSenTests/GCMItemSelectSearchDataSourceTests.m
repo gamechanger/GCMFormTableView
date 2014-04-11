@@ -13,14 +13,14 @@ describe(@"GCMItemSelectSearchDataSource", ^{
     
     GCMItemSelectSection *section1 = [[GCMItemSelectSection alloc] initWithHeader:nil footer:nil andIndexTitle:nil];
     NSAttributedString *item1 = [[NSAttributedString alloc] initWithString:@"abcd"];
-    [section1.items addObject:[[GCMItemSelectItem alloc] initWithAttributedString:item1 tag:0 userInfo:nil andConfig:nil]];
+    [section1.items addObject:[[GCMItemSelectItem alloc] initWithAttributedString:item1]];
     NSAttributedString *item2 = [[NSAttributedString alloc] initWithString:@"cdef"];
-    [section1.items addObject:[[GCMItemSelectItem alloc] initWithAttributedString:item2 tag:0 userInfo:nil andConfig:nil]];
+    [section1.items addObject:[[GCMItemSelectItem alloc] initWithAttributedString:item2]];
     [sections addObject:section1];
     
     GCMItemSelectSection *section2 = [[GCMItemSelectSection alloc] initWithHeader:nil footer:nil andIndexTitle:nil];
     NSAttributedString *item3 = [[NSAttributedString alloc] initWithString:@"ghij"];
-    [section2.items addObject:[[GCMItemSelectItem alloc] initWithAttributedString:item3 tag:0 userInfo:nil andConfig:nil]];
+    [section2.items addObject:[[GCMItemSelectItem alloc] initWithAttributedString:item3]];
     [sections addObject:section2];
     
     dataSource = [[GCMItemSelectSearchDataSource alloc] initWithSections:sections

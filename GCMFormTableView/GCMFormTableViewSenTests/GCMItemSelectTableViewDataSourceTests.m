@@ -20,13 +20,13 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
     });
     it(@"returns YES if there's at least one item", ^{
       [dataSource addSectionBreak];
-      [dataSource addItem:@"something" withTag:216 andUserInfo:@"info"];
+      [dataSource addItemWithName:@"something" tag:216 andUserInfo:@"info"];
       [[theValue(dataSource.hasItems) should] equal:theValue(YES)];
     });
     it(@"automatically adds a section for first addItem: but not second", ^{
-      [dataSource addItem:@"Test" withTag:0 andUserInfo:nil];
+      [dataSource addItemWithName:@"Test" tag:0 andUserInfo:nil];
       [[theValue([dataSource numberOfSectionsInTableView:nil]) should] equal:theValue(1)];
-      [dataSource addItem:@"Test 2" withTag:0 andUserInfo:nil];
+      [dataSource addItemWithName:@"Test 2" tag:0 andUserInfo:nil];
       [[theValue([dataSource numberOfSectionsInTableView:nil]) should] equal:theValue(1)];
     });
     it(@"stores section information for addSectionBreak",^{
@@ -47,12 +47,12 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
     });
     it(@"stores items in multiple sections", ^{
       [dataSource addSectionBreak];
-      [dataSource addItem:@"0.0" withUserInfo:nil];
+      [dataSource addItemWithName:@"0.0" andUserInfo:nil];
       [dataSource addSectionBreak];
-      [dataSource addItem:@"1.0" withUserInfo:nil];
-      [dataSource addItem:@"1.1" withUserInfo:nil];
+      [dataSource addItemWithName:@"1.0" andUserInfo:nil];
+      [dataSource addItemWithName:@"1.1" andUserInfo:nil];
       [dataSource addSectionBreak];
-      [dataSource addItem:@"2.0" withUserInfo:nil];
+      [dataSource addItemWithName:@"2.0" andUserInfo:nil];
 
       [[theValue([dataSource numberOfSectionsInTableView:nil]) should] equal:theValue(3)];
       [[theValue([dataSource tableView:nil numberOfRowsInSection:0]) should] equal:theValue(1)];
@@ -159,17 +159,17 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
 
   describe(@"populated dataSource", ^{
     beforeEach(^{
-      [dataSource addItem:@"Item 0.0" withTag:1 andUserInfo:@"0.0"];
-      [dataSource addItem:@"Item 0.1" withTag:2 andUserInfo:@"0.1"];
-      [dataSource addItem:@"Item 0.2" withTag:3 andUserInfo:@"0.2"];
+      [dataSource addItemWithName:@"Item 0.0" tag:1 andUserInfo:@"0.0"];
+      [dataSource addItemWithName:@"Item 0.1" tag:2 andUserInfo:@"0.1"];
+      [dataSource addItemWithName:@"Item 0.2" tag:3 andUserInfo:@"0.2"];
       [dataSource addSectionBreak];
-      [dataSource addItem:@"Item 1.0" withTag:4 andUserInfo:@"1.0"];
-      [dataSource addItem:@"Item 1.1" withTag:5 andUserInfo:@"1.1"];
+      [dataSource addItemWithName:@"Item 1.0" tag:4 andUserInfo:@"1.0"];
+      [dataSource addItemWithName:@"Item 1.1" tag:5 andUserInfo:@"1.1"];
       [dataSource addSectionBreak];
       [dataSource addSectionBreak];
-      [dataSource addItem:@"Item 3.0" withTag:1 andUserInfo:nil];
-      [dataSource addItem:@"Item 3.1" withTag:1 andUserInfo:@"3.1"];
-      [dataSource addItem:@"Item 3.2" withTag:6 andUserInfo:@"0.2"];
+      [dataSource addItemWithName:@"Item 3.0" tag:1 andUserInfo:nil];
+      [dataSource addItemWithName:@"Item 3.1" tag:1 andUserInfo:@"3.1"];
+      [dataSource addItemWithName:@"Item 3.2" tag:6 andUserInfo:@"0.2"];
     });
     it(@"has itemAtIndexPath: return nil for non-existant indexPath", ^{
       [[[dataSource itemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]] should] beNil];
@@ -224,10 +224,10 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
   });
   describe(@"single section list", ^{
     beforeEach(^{
-      [dataSource addItem:@"Item 0" withTag:0 andUserInfo:nil];
-      [dataSource addItem:@"Item 1" withTag:0 andUserInfo:nil];
-      [dataSource addItem:@"Item 2" withTag:0 andUserInfo:nil];
-      [dataSource addItem:@"Item 3" withTag:0 andUserInfo:nil];
+      [dataSource addItemWithName:@"Item 0" tag:0 andUserInfo:nil];
+      [dataSource addItemWithName:@"Item 1" tag:0 andUserInfo:nil];
+      [dataSource addItemWithName:@"Item 2" tag:0 andUserInfo:nil];
+      [dataSource addItemWithName:@"Item 3" tag:0 andUserInfo:nil];
     });
     it(@"allows setting selectedIndex", ^{
       [[theBlock(^{
@@ -253,12 +253,12 @@ describe(@"GCMItemSelectTableViewDataSource", ^{
     });
     describe(@"multiple section list", ^{
       beforeEach(^{
-        [dataSource addItem:@"Item 0.0" withTag:0 andUserInfo:nil];
-        [dataSource addItem:@"Item 0.1" withTag:0 andUserInfo:nil];
-        [dataSource addItem:@"Item 0.2" withTag:0 andUserInfo:nil];
-        [dataSource addItem:@"Item 0.3" withTag:0 andUserInfo:nil];
+        [dataSource addItemWithName:@"Item 0.0" tag:0 andUserInfo:nil];
+        [dataSource addItemWithName:@"Item 0.1" tag:0 andUserInfo:nil];
+        [dataSource addItemWithName:@"Item 0.2" tag:0 andUserInfo:nil];
+        [dataSource addItemWithName:@"Item 0.3" tag:0 andUserInfo:nil];
         [dataSource addSectionBreak];
-        [dataSource addItem:@"Item 1.0" withTag:0 andUserInfo:nil];
+        [dataSource addItemWithName:@"Item 1.0" tag:0 andUserInfo:nil];
       });
       it(@"asserts setting selectedIndex", ^{
         [[theBlock(^{

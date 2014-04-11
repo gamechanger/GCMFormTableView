@@ -22,8 +22,8 @@ describe(@"GCMItemSelectViewController", ^{
   __block GCMItemSelectViewController *controller;
   beforeEach(^{
     controller = [[GCMItemSelectViewController alloc] init];
-    [controller.dataSource addItem:@"Item 0.0" withUserInfo:@"0.0"];
-    [controller.dataSource addItem:@"Item 0.1" withUserInfo:@"0.1"];
+    [controller.dataSource addItemWithName:@"Item 0.0" andUserInfo:@"0.0"];
+    [controller.dataSource addItemWithName:@"Item 0.1" andUserInfo:@"0.1"];
   });
   context(@"default case", ^{
     beforeEach(^{

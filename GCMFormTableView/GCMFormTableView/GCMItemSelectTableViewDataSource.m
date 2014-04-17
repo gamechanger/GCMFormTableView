@@ -43,6 +43,13 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
   [self.sections addObject:section];
 }
 
+- (void)addSectionWithConfigurationBlock:(SectionBuilderBlock)block {
+  NSParameterAssert(block);
+  GCMItemSelectSection *section = [[GCMItemSelectSection alloc] init];
+  block(section);
+  [self addSection:section];
+}
+
 - (void)addSectionWithAttributedHeaderTitle:(NSAttributedString *)headerTitle
                       attributedFooterTitle:(NSAttributedString *)footerTitle
                               andIndexTitle:(NSString *)indexTitle {
@@ -191,6 +198,13 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
   }
   GCMItemSelectSection *currentSection = self.sections.lastObject;
   [currentSection.items addObject:item];
+}
+
+- (void)addItemWithConfigurationBlock:(ItemBuilderBlock)block {
+  NSParameterAssert(block);  
+  GCMItemSelectItem *item = [[GCMItemSelectItem alloc] init];
+  block(item);
+  [self addItem:item];
 }
 
 - (void)addItemWithName:(NSString *)itemName andTag:(NSInteger)tag {

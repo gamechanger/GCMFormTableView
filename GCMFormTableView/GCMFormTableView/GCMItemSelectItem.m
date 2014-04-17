@@ -23,6 +23,14 @@
   return self;
 }
 
+- (NSString *)string {
+  return self.attributedString.string;
+}
+
+- (void)setString:(NSString *)string {
+  self.attributedString = [GCMItemSelectItem defaultItemAttributedStringForString:string];
+}
+
 - (BOOL)isEqual:(id)object
 {
   if ( ! [object isKindOfClass:self.class] ) {

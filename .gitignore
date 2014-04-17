@@ -17,6 +17,9 @@ DerivedData
 *.hmap
 *.xccheckout
 
+#Bundle
+.bundle
+
 #CocoaPods
 Pods
 

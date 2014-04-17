@@ -11,6 +11,7 @@
 @interface GCMItemSelectItem : NSObject
 
 @property (nonatomic, strong) NSAttributedString *attributedString;
+@property (nonatomic, strong) NSString *string;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic) NSString *detailText;
 @property (nonatomic) NSInteger tag;

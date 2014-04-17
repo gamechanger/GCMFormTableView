@@ -16,6 +16,9 @@ extern NSUInteger const kGCItemSelectFooterLabelTag;
 @class GCMItemSelectSection;
 @class GCMItemSelectItem;
 
+typedef void(^SectionBuilderBlock)(GCMItemSelectSection *section);
+typedef void(^ItemBuilderBlock)(GCMItemSelectItem *item);
+
 @interface GCMItemSelectTableViewDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) id<GCMItemSelectTableViewDelegate> delegate;
@@ -34,6 +37,7 @@ extern NSUInteger const kGCItemSelectFooterLabelTag;
 @property (nonatomic, strong) GCMItemSelectSearchDataSource *searchDataSource;
 
 - (void)addSection:(GCMItemSelectSection *)section;
+- (void)addSectionWithConfigurationBlock:(SectionBuilderBlock)block;
 
 /// Creates a new section. headerTitle or footerTitle may be nil
 - (void)addSectionWithAttributedHeaderTitle:(NSAttributedString *)headerTitle
@@ -58,6 +62,7 @@ extern NSUInteger const kGCItemSelectFooterLabelTag;
  * Adds item to current section
  */
 - (void)addItem:(GCMItemSelectItem *)item;
+- (void)addItemWithConfigurationBlock:(ItemBuilderBlock)block;
 
 - (void)addItemWithName:(NSString *)itemName andTag:(NSInteger)tag;
 - (void)addItemWithName:(NSString *)itemName andUserInfo:(id)userInfo;

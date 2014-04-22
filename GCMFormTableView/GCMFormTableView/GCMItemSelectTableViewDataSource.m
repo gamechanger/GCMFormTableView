@@ -345,7 +345,7 @@ static NSString* kFooterReuseId = @"footer";
   
   if ( itemSection.header ) {
     if ( self.useDefaultHeaders ) {
-      UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, 24.f)];
+      UITableViewHeaderFooterView *headerView = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, 24.f)];
       headerView.backgroundColor = [UIColor colorWithWhite:240.f/255.f alpha:1.f];
       UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, headerView.frame.size.width, 1.f)];
       border.backgroundColor = [UIColor colorWithWhite:202.f/250.f alpha:1.f];
@@ -383,7 +383,7 @@ static NSString* kFooterReuseId = @"footer";
     
     CGFloat xInset = [self horizontalHeaderFooterPadding];
     CGFloat yInset = 10.0f;
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
+    UITableViewHeaderFooterView *footerView = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset, yInset, footerView.frame.size.width - xInset * 2.00f, footerView.frame.size.height - yInset * 2)];
     label.backgroundColor = [UIColor clearColor];
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

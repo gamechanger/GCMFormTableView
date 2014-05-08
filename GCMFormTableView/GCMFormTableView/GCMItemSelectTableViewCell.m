@@ -162,11 +162,17 @@
 }
 
 - (UIColor *)dividerGray {
-  return [UIColor colorWithWhite:230.f/250.f alpha:1.f];
+  return [UIColor colorWithRed:235.f / 255.f
+                         green:235.f / 255.f
+                          blue:241.f / 255.f
+                         alpha:1.f];
 }
 
 - (UIColor *)borderGray {
-  return [UIColor colorWithWhite:202.f/250.f alpha:1.f];
+  return [UIColor colorWithRed:220.f / 255.f
+                         green:220.f / 255.f
+                          blue:223.f / 255.f
+                         alpha:1.f];
 }
 
 #pragma mark - Static methods

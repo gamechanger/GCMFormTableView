@@ -1,11 +1,12 @@
+
 language: objective-c
 before_install:
 - brew update
 - brew unlink xctool
 - brew install xctool
 - rvm get stable
-- rvm install 2.0.0
-- rvm use 2.0.0
+- rvm install 1.9.3
+- rvm use 1.9.3
 script:
 - rake test:ci analyze
 cache:

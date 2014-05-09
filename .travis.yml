@@ -4,8 +4,8 @@ before_install:
 - brew unlink xctool
 - brew install xctool
 - rvm get stable
-- rvm install 2.1.0
-- rvm use 2.1.0
+- rvm install 2.0.0
+- rvm use 2.0.0
 script:
 - rake test:ci analyze
 cache:

@@ -40,12 +40,15 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 }
 
 - (void)addSection:(GCMItemSelectSection *)section {
+  if ( self.sections.count > 0 ) {
+    section.useTopSeparator = YES;
+  }
   [self.sections addObject:section];
 }
 
 - (void)addSectionWithConfigurationBlock:(SectionBuilderBlock)block {
   NSParameterAssert(block);
-  GCMItemSelectSection *section = [[GCMItemSelectSection alloc] init];
+  GCMItemSelectSection *section = [[GCMItemSelectSection alloc] initWithHeader:nil footer:nil andIndexTitle:nil];
   block(section);
   [self addSection:section];
 }
@@ -103,7 +106,9 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 }
 
 - (void)addSectionBreak {
-  [self addSectionWithHeaderTitle:nil andFooterTitle:nil];
+  [self addSectionWithConfigurationBlock:^(GCMItemSelectSection *section) {
+    section.useTopSeparator = YES;
+  }];
 }
 
 - (BOOL)hasItems {
@@ -194,7 +199,7 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 
 - (void)addItem:(GCMItemSelectItem *)item {
   if ( [self.sections count] == 0 ) {
-    [self addSectionBreak];
+    [self addSectionWithHeaderTitle:nil andFooterTitle:nil];
   }
   GCMItemSelectSection *currentSection = self.sections.lastObject;
   [currentSection.items addObject:item];
@@ -313,7 +318,7 @@ static NSString* kFooterReuseId = @"footer";
 }
 
 - (CGFloat)horizontalHeaderFooterPadding {
-  return PRE_IOS7 && (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 40.f : 10.f;
+  return PRE_IOS7 && [GCMDeviceInfo iPad] ? 40.f : 10.f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -323,10 +328,13 @@ static NSString* kFooterReuseId = @"footer";
       return 24.f;
     } else {
       CGFloat height = [itemSection.header integralHeightGivenWidth:tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0];
-      return height + 20.0;
+      return height + ([GCMDeviceInfo iPad] ? 56.f : 20.f);
     }
   } else {
-    return 0.0;
+    if ( itemSection.useTopSeparator ) {
+      return 24.f;
+    }
+    return 0.5f;
   }
 }
 
@@ -334,9 +342,12 @@ static NSString* kFooterReuseId = @"footer";
   GCMItemSelectSection *itemSection = self.sections[section];
   if ( itemSection.footer ) {
     CGFloat height = [itemSection.footer integralHeightGivenWidth:tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0];
-    return height + (IOS7_OR_GREATER ? 20.0 : 40.0);
+    return height + (IOS7_OR_GREATER ? 20.f : 40.f);
   } else {
-    return 0.0;
+    if ( itemSection.useTopSeparator ) {
+      return 1.f;
+    }
+    return 0.5f;
   }
 }
 
@@ -360,7 +371,7 @@ static NSString* kFooterReuseId = @"footer";
       CGFloat height = [itemSection.header integralHeightGivenWidth:tableView.bounds.size.width];
       
       CGFloat xInset = [self horizontalHeaderFooterPadding];
-      CGFloat yInset = 10.0f;
+      CGFloat yInset = [GCMDeviceInfo iPad] ? 28.f :  10.0f;
       UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
       UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset, yInset, headerView.frame.size.width - xInset * 2, headerView.frame.size.height - yInset * 2)];
       label.backgroundColor = [UIColor clearColor];

@@ -334,7 +334,7 @@ static NSString* kFooterReuseId = @"footer";
     if ( itemSection.useTopSeparator ) {
       return 24.f;
     }
-    return 0.5f;
+    return [GCMDeviceInfo isRetinaDisplay] ? 0.5f : 1.f;
   }
 }
 
@@ -347,7 +347,7 @@ static NSString* kFooterReuseId = @"footer";
     if ( itemSection.useTopSeparator ) {
       return 1.f;
     }
-    return 0.5f;
+    return [GCMDeviceInfo isRetinaDisplay] ? 0.5f : 1.f;
   }
 }
 

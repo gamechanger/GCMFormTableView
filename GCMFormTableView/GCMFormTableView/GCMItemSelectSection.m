@@ -19,6 +19,7 @@
     _header = header;
     _footer = footer;
     _indexTitle = indexTitle;
+    _useTopSeparator = NO;
   }
   return self;
 }

@@ -8,6 +8,7 @@
 
 #import "GCMItemSelectItem.h"
 #import "NSAttributedString+GameChangerMedia.h"
+#import "GCMDeviceInfo.h"
 
 @implementation GCMItemSelectItem
 
@@ -60,7 +61,7 @@
 + (NSAttributedString *)defaultItemAttributedStringForString:(NSString *)title {
   NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:title];
   [attributedTitle addAttributeForTextColor:[UIColor blackColor]];
-  [attributedTitle addAttributeForFont:[UIFont systemFontOfSize:18.0]];
+  [attributedTitle addAttributeForFont:[UIFont systemFontOfSize:[GCMDeviceInfo iPad] ? 18.f : 17.f]];
   [attributedTitle addAttributeForTextAlignment:NSTextAlignmentLeft lineBreakMode:NSLineBreakByWordWrapping];
   return attributedTitle;
 }

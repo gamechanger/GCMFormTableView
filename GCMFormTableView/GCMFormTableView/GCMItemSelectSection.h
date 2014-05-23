@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSAttributedString *header;
 @property (nonatomic, strong) NSAttributedString *footer;
 @property (nonatomic, strong) NSString *indexTitle;
+@property (nonatomic) BOOL useTopSeparator;
 
 - (id)initWithHeader:(NSAttributedString *)header
               footer:(NSAttributedString *)footer

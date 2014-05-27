@@ -332,7 +332,7 @@ static NSString* kFooterReuseId = @"footer";
     }
   } else {
     if ( itemSection.useTopSeparator ) {
-      if ( itemSection == 0 ) {
+      if ( section == 0 ) {
       return 24.f;
       } else {
         return 14.f;

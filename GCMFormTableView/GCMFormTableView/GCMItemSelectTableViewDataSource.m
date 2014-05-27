@@ -318,7 +318,7 @@ static NSString* kFooterReuseId = @"footer";
 }
 
 - (CGFloat)horizontalHeaderFooterPadding {
-  return PRE_IOS7 && [GCMDeviceInfo iPad] ? 40.f : 10.f;
+  return PRE_IOS7 && [GCMDeviceInfo iPad] ? 40.f : 15.f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -332,7 +332,11 @@ static NSString* kFooterReuseId = @"footer";
     }
   } else {
     if ( itemSection.useTopSeparator ) {
+      if ( section == 0 ) {
       return 24.f;
+      } else {
+        return 14.f;
+      }
     }
     return [GCMDeviceInfo isRetinaDisplay] ? 0.5f : 1.f;
   }

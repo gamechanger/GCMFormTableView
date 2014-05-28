@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 @interface GCMItemSelectSection : NSObject
 
@@ -19,6 +20,6 @@
 - (id)initWithHeader:(NSAttributedString *)header
               footer:(NSAttributedString *)footer
           indexTitle:(NSString *)indexTitle
-  andSeparatorHeight:(float)height;
+  andSeparatorHeight:(CGFloat)height;
 
 @end

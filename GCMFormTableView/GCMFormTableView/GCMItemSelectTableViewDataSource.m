@@ -40,15 +40,12 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 }
 
 - (void)addSection:(GCMItemSelectSection *)section {
-  if ( self.sections.count > 0 ) {
-    section.useTopSeparator = YES;
-  }
   [self.sections addObject:section];
 }
 
 - (void)addSectionWithConfigurationBlock:(SectionBuilderBlock)block {
   NSParameterAssert(block);
-  GCMItemSelectSection *section = [[GCMItemSelectSection alloc] initWithHeader:nil footer:nil andIndexTitle:nil];
+  GCMItemSelectSection *section = [[GCMItemSelectSection alloc] init];
   block(section);
   [self addSection:section];
 }
@@ -57,8 +54,9 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
                       attributedFooterTitle:(NSAttributedString *)footerTitle
                               andIndexTitle:(NSString *)indexTitle {
   GCMItemSelectSection *newSection = [[GCMItemSelectSection alloc] initWithHeader:headerTitle
-                                                       footer:footerTitle
-                                                andIndexTitle:indexTitle];
+                                                                           footer:footerTitle
+                                                                       indexTitle:indexTitle
+                                                               andSeparatorHeight:self.sections.count == 0 ? 0.f : 24.f];
   [self addSection:newSection];
 }
 
@@ -106,8 +104,12 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 }
 
 - (void)addSectionBreak {
+  [self addSectionBreakWithHeight:24.f];
+}
+
+- (void)addSectionBreakWithHeight:(CGFloat)height {
   [self addSectionWithConfigurationBlock:^(GCMItemSelectSection *section) {
-    section.useTopSeparator = YES;
+    section.separatorHeight = height;
   }];
 }
 
@@ -331,14 +333,7 @@ static NSString* kFooterReuseId = @"footer";
       return height + ([GCMDeviceInfo iPad] ? 56.f : 20.f);
     }
   } else {
-    if ( itemSection.useTopSeparator ) {
-      if ( section == 0 ) {
-      return 24.f;
-      } else {
-        return 14.f;
-      }
-    }
-    return [GCMDeviceInfo isRetinaDisplay] ? 0.5f : 1.f;
+    return itemSection.separatorHeight;
   }
 }
 
@@ -348,10 +343,7 @@ static NSString* kFooterReuseId = @"footer";
     CGFloat height = [itemSection.footer integralHeightGivenWidth:tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0];
     return height + (IOS7_OR_GREATER ? 20.f : 40.f);
   } else {
-    if ( itemSection.useTopSeparator ) {
-      return 1.f;
-    }
-    return [GCMDeviceInfo isRetinaDisplay] ? 0.5f : 1.f;
+    return 0.01f;
   }
 }
 

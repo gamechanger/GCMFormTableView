@@ -19,6 +19,6 @@
 - (id)initWithHeader:(NSAttributedString *)header
               footer:(NSAttributedString *)footer
           indexTitle:(NSString *)indexTitle
-  andSeparatorHeight:(CGFloat)height;
+  andSeparatorHeight:(float)height;
 
 @end

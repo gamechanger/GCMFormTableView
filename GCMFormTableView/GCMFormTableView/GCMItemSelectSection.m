@@ -15,9 +15,9 @@
 }
 
 - (instancetype)initWithHeader:(NSAttributedString *)header
-              footer:(NSAttributedString *)footer
-          indexTitle:(NSString *)indexTitle
-  andSeparatorHeight:(float)height {
+                        footer:(NSAttributedString *)footer
+                    indexTitle:(NSString *)indexTitle
+            andSeparatorHeight:(float)height {
   self = [super init];
   if ( self ) {
     _items = [[NSMutableArray alloc] init];

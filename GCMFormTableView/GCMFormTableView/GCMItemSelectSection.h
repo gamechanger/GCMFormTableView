@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 @interface GCMItemSelectSection : NSObject
 
@@ -14,10 +15,11 @@
 @property (nonatomic, strong) NSAttributedString *header;
 @property (nonatomic, strong) NSAttributedString *footer;
 @property (nonatomic, strong) NSString *indexTitle;
-@property (nonatomic) BOOL useTopSeparator;
+@property (nonatomic) float separatorHeight;
 
 - (id)initWithHeader:(NSAttributedString *)header
               footer:(NSAttributedString *)footer
-       andIndexTitle:(NSString *)indexTitle;
+          indexTitle:(NSString *)indexTitle
+  andSeparatorHeight:(CGFloat)height;
 
 @end

@@ -55,6 +55,7 @@ typedef void(^ItemBuilderBlock)(GCMItemSelectItem *item);
 - (void)addSectionWithHeaderTitle:(NSString *)headerTitle andFooterTitle:(NSString *)footerTitle;
 /// Calls addSectionWithHeaderTitle:andFooterTitle: passing nil for both arguments.
 - (void)addSectionBreak;
+- (void)addSectionBreakWithHeight:(CGFloat)height;
 - (void)setAttributedFooterTitle:(NSAttributedString *)footerTitle forSection:(NSUInteger)section;
 - (void)setFooterTitle:(NSString *)footerTitle forSection:(NSUInteger)section;
 

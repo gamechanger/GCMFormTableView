@@ -10,16 +10,21 @@
 
 @implementation GCMItemSelectSection
 
-- (id)initWithHeader:(NSAttributedString *)header
-             footer:(NSAttributedString *)footer
-      andIndexTitle:(NSString *)indexTitle {
+- (instancetype)init {
+  return [self initWithHeader:nil footer:nil indexTitle:nil andSeparatorHeight:0.f];
+}
+
+- (instancetype)initWithHeader:(NSAttributedString *)header
+                        footer:(NSAttributedString *)footer
+                    indexTitle:(NSString *)indexTitle
+            andSeparatorHeight:(CGFloat)height {
   self = [super init];
   if ( self ) {
     _items = [[NSMutableArray alloc] init];
     _header = header;
     _footer = footer;
     _indexTitle = indexTitle;
-    _useTopSeparator = NO;
+    _separatorHeight = height;
   }
   return self;
 }

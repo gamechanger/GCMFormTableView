@@ -10,8 +10,11 @@
 #import "GCMItemSelectTableViewDataSource.h"
 
 @protocol GCMItemSelectViewControllerDelegate;
+@class RACSignal;
 
 @interface GCMItemSelectViewController : UIViewController
+
+@property (nonatomic, readonly) RACSignal *itemSelected;
 @property (nonatomic, readonly) UITableView *tableView;
 @property (nonatomic, weak) id<GCMItemSelectViewControllerDelegate> delegate;
 @property (nonatomic, assign) NSInteger tag;

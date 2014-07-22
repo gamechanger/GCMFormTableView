@@ -12,6 +12,16 @@
 @protocol GCMItemSelectViewControllerDelegate;
 @class RACSignal;
 
+@interface GCMItemSelectTableViewSelection : NSObject
+
+@property (nonatomic, assign, readonly) NSInteger tagForSelectedItem;
+@property (nonatomic, strong, readonly) id userInfoForSelectedItem;
+@property (nonatomic, assign, readonly) BOOL confirmed;
+
+- (id)initWithTag:(NSInteger)tag andUserInfo:(id)userInfo andConfirmed:(BOOL)confirmed;
+
+@end
+
 @interface GCMItemSelectViewController : UIViewController
 
 @property (nonatomic, readonly) RACSignal *itemSelected;

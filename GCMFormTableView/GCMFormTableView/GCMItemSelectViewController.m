@@ -11,9 +11,25 @@
 #import "GCMItemSelectSearchDataSource.h"
 #import "NSObject+RACSelectorSignal.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import <GCMFormTableView/GCMItemSelectViewController.h>
 #import "RACEXTScope.h"
+#import "GRBoolean.h"
 
 static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
+
+@implementation GCMItemSelectTableViewSelection
+
+- (id)initWithTag:(NSInteger)tag andUserInfo:(id)userInfo andConfirmed:(BOOL)confirmed {
+  self = [super init];
+  if ( self ) {
+    _tagForSelectedItem = tag;
+    _userInfoForSelectedItem = userInfo;
+    _confirmed = confirmed;
+  }
+  return self;
+}
+
+@end
 
 @interface GCMItemSelectViewController () <GCMItemSelectTableViewDelegate, UISearchDisplayDelegate>
 
@@ -41,9 +57,9 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
         map:^id(RACTuple *tuple) {
           @strongify(self);
           id confirmed = tuple.first;
-          return [RACTuple tupleWithObjectsFromArray:@[@(self.dataSource.tagForSelectedItem),
-                                                       self.dataSource.userInfoForSelectedItem,
-                                                       confirmed]];
+          return [[GCMItemSelectTableViewSelection alloc] initWithTag:self.dataSource.tagForSelectedItem
+                                                          andUserInfo:self.dataSource.userInfoForSelectedItem
+                                                         andConfirmed:[confirmed boolValue]];
         }];
   }
   return self;

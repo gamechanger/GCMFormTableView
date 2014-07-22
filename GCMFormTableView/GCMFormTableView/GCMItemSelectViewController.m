@@ -9,6 +9,9 @@
 #import "GCMItemSelectViewController.h"
 #import "GCMDeviceInfo.h"
 #import "GCMItemSelectSearchDataSource.h"
+#import "NSObject+RACSelectorSignal.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import "RACEXTScope.h"
 
 static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
 
@@ -32,6 +35,16 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
     _tableViewStyle = tableViewStyle;
     _confirmationTitle = @"Next";
     _cancellationTitle = @"Cancel";
+
+    @weakify(self);
+    _itemSelected = [[self rac_signalForSelector:@selector(reportSelectedItemWithConfirmation:)]
+        map:^id(RACTuple *tuple) {
+          @strongify(self);
+          id confirmed = tuple.first;
+          return [RACTuple tupleWithObjectsFromArray:@[@(self.dataSource.tagForSelectedItem),
+                                                       self.dataSource.userInfoForSelectedItem,
+                                                       confirmed]];
+        }];
   }
   return self;
 }

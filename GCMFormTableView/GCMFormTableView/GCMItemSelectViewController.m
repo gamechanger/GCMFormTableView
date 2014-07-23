@@ -11,9 +11,8 @@
 #import "GCMItemSelectSearchDataSource.h"
 #import "NSObject+RACSelectorSignal.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
-#import <GCMFormTableView/GCMItemSelectViewController.h>
+#import "GCMItemSelectViewController.h"
 #import "RACEXTScope.h"
-#import "GRBoolean.h"
 
 static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
 

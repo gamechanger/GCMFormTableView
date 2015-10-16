@@ -10,6 +10,8 @@
 		4C7A9A6F1CF9A6BC9A651428 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F5D042CA0F74A06AAA5AA6A /* libPods.a */; };
 		89D466DC34A44301AA1F32B6 /* libPods-GCMFormTableViewSenTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B955BE300F44C3AC58AB0C /* libPods-GCMFormTableViewSenTests.a */; };
 		A00C6B3518F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C6B3418F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m */; };
+		A00D1D481BD19B7400E0E9A2 /* GCMFormTableView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A038DA051BD18FCE0053EBF2 /* GCMFormTableView.framework */; };
+		A00D1D491BD19B8000E0E9A2 /* GCMFormTableView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A038DA051BD18FCE0053EBF2 /* GCMFormTableView.framework */; };
 		A038DA081BD18FCE0053EBF2 /* GCMFormTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = A038DA071BD18FCE0053EBF2 /* GCMFormTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A038DA0E1BD190290053EBF2 /* GCMItemSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEAC4118EEF91600BA8FD1 /* GCMItemSelectTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		A038DA101BD190290053EBF2 /* GCMItemSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A7A1A1846661300ABBBB8 /* GCMItemSelectViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -28,6 +30,23 @@
 		AB0A7A221846662000ABBBB8 /* GCMItemSelectTableViewDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A7A201846662000ABBBB8 /* GCMItemSelectTableViewDataSourceTests.m */; };
 		F8680AF75CA3C2B83F8E9EAF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F5D042CA0F74A06AAA5AA6A /* libPods.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A00D1D461BD19B4900E0E9A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB0A794D1844FEF300ABBBB8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A038DA041BD18FCE0053EBF2;
+			remoteInfo = GCMFormTableView;
+		};
+		A00D1D4A1BD19B8400E0E9A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB0A794D1844FEF300ABBBB8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A038DA041BD18FCE0053EBF2;
+			remoteInfo = GCMFormTableView;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0029869BC83AEB94D0536352 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -80,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A00D1D491BD19B8000E0E9A2 /* GCMFormTableView.framework in Frameworks */,
 				AB0A79671844FEF300ABBBB8 /* XCTest.framework in Frameworks */,
 				AB0A796A1844FEF300ABBBB8 /* UIKit.framework in Frameworks */,
 				AB0A79681844FEF300ABBBB8 /* Foundation.framework in Frameworks */,
@@ -91,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A00D1D481BD19B7400E0E9A2 /* GCMFormTableView.framework in Frameworks */,
 				AB0A79FD1845503900ABBBB8 /* UIKit.framework in Frameworks */,
 				AB0A79FC1845503900ABBBB8 /* Foundation.framework in Frameworks */,
 				89D466DC34A44301AA1F32B6 /* libPods-GCMFormTableViewSenTests.a in Frameworks */,
@@ -270,6 +291,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A00D1D4B1BD19B8400E0E9A2 /* PBXTargetDependency */,
 			);
 			name = GCMFormTableViewTests;
 			productName = GCMFormTableViewTests;
@@ -289,6 +311,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A00D1D471BD19B4900E0E9A2 /* PBXTargetDependency */,
 			);
 			name = GCMFormTableViewSenTests;
 			productName = GCMFormTableViewSenTests;
@@ -481,6 +504,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A00D1D471BD19B4900E0E9A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A038DA041BD18FCE0053EBF2 /* GCMFormTableView */;
+			targetProxy = A00D1D461BD19B4900E0E9A2 /* PBXContainerItemProxy */;
+		};
+		A00D1D4B1BD19B8400E0E9A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A038DA041BD18FCE0053EBF2 /* GCMFormTableView */;
+			targetProxy = A00D1D4A1BD19B8400E0E9A2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		AB0A79711844FEF300ABBBB8 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -519,7 +555,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = GCMFormTableView/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gamechanger.GCMFormTableView;
@@ -549,7 +585,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = GCMFormTableView/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gamechanger.GCMFormTableView;
@@ -593,7 +629,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -625,7 +661,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

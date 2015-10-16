@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AB0A79F81845503900ABBBB8"
-               BuildableName = "GCMFormTableViewSenTests.octest"
+               BuildableName = "GCMFormTableViewSenTests.xctest"
                BlueprintName = "GCMFormTableViewSenTests"
                ReferencedContainer = "container:GCMFormTableView.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,26 @@
                </Test>
             </SkippedTests>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AB0A79641844FEF300ABBBB8"
+               BuildableName = "GCMFormTableViewTests.xctest"
+               BlueprintName = "GCMFormTableViewTests"
+               ReferencedContainer = "container:GCMFormTableView.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "A038DA041BD18FCE0053EBF2"
+            BuildableName = "GCMFormTableView.framework"
+            BlueprintName = "GCMFormTableView"
+            ReferencedContainer = "container:GCMFormTableView.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -75,6 +94,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "A038DA041BD18FCE0053EBF2"
+            BuildableName = "GCMFormTableView.framework"
+            BlueprintName = "GCMFormTableView"
+            ReferencedContainer = "container:GCMFormTableView.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

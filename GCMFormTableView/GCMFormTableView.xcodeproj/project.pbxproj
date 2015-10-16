@@ -11,17 +11,11 @@
 		89D466DC34A44301AA1F32B6 /* libPods-GCMFormTableViewSenTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B955BE300F44C3AC58AB0C /* libPods-GCMFormTableViewSenTests.a */; };
 		A00C6B3518F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C6B3418F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m */; };
 		A038DA081BD18FCE0053EBF2 /* GCMFormTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = A038DA071BD18FCE0053EBF2 /* GCMFormTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A038DA0D1BD190290053EBF2 /* GCMItemSelectTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = A0DEAC4018EEF91600BA8FD1 /* GCMItemSelectTableViewCell.h */; settings = {ASSET_TAGS = (); }; };
 		A038DA0E1BD190290053EBF2 /* GCMItemSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DEAC4118EEF91600BA8FD1 /* GCMItemSelectTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		A038DA0F1BD190290053EBF2 /* GCMItemSelectViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0A7A191846661300ABBBB8 /* GCMItemSelectViewController.h */; settings = {ASSET_TAGS = (); }; };
 		A038DA101BD190290053EBF2 /* GCMItemSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A7A1A1846661300ABBBB8 /* GCMItemSelectViewController.m */; settings = {ASSET_TAGS = (); }; };
-		A038DA111BD190290053EBF2 /* GCMItemSelectTableViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0A7A1B1846661300ABBBB8 /* GCMItemSelectTableViewDataSource.h */; settings = {ASSET_TAGS = (); }; };
 		A038DA121BD190290053EBF2 /* GCMItemSelectTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A7A1C1846661300ABBBB8 /* GCMItemSelectTableViewDataSource.m */; settings = {ASSET_TAGS = (); }; };
-		A038DA131BD190290053EBF2 /* GCMItemSelectSearchDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = A02161DD18F32AEE00DB786B /* GCMItemSelectSearchDataSource.h */; settings = {ASSET_TAGS = (); }; };
 		A038DA141BD190290053EBF2 /* GCMItemSelectSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A02161DE18F32AEE00DB786B /* GCMItemSelectSearchDataSource.m */; settings = {ASSET_TAGS = (); }; };
-		A038DA151BD190290053EBF2 /* GCMItemSelectSection.h in Headers */ = {isa = PBXBuildFile; fileRef = A0CB468A18F440BC00E8A1F4 /* GCMItemSelectSection.h */; settings = {ASSET_TAGS = (); }; };
 		A038DA161BD190290053EBF2 /* GCMItemSelectSection.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CB468B18F440BC00E8A1F4 /* GCMItemSelectSection.m */; settings = {ASSET_TAGS = (); }; };
-		A038DA171BD190290053EBF2 /* GCMItemSelectItem.h in Headers */ = {isa = PBXBuildFile; fileRef = A0CB469018F4418400E8A1F4 /* GCMItemSelectItem.h */; settings = {ASSET_TAGS = (); }; };
 		A038DA181BD190290053EBF2 /* GCMItemSelectItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CB469118F4418400E8A1F4 /* GCMItemSelectItem.m */; settings = {ASSET_TAGS = (); }; };
 		AB0A79671844FEF300ABBBB8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0A79661844FEF300ABBBB8 /* XCTest.framework */; };
 		AB0A79681844FEF300ABBBB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0A79581844FEF300ABBBB8 /* Foundation.framework */; };
@@ -236,13 +230,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A038DA111BD190290053EBF2 /* GCMItemSelectTableViewDataSource.h in Headers */,
-				A038DA131BD190290053EBF2 /* GCMItemSelectSearchDataSource.h in Headers */,
 				A038DA081BD18FCE0053EBF2 /* GCMFormTableView.h in Headers */,
-				A038DA171BD190290053EBF2 /* GCMItemSelectItem.h in Headers */,
-				A038DA0F1BD190290053EBF2 /* GCMItemSelectViewController.h in Headers */,
-				A038DA0D1BD190290053EBF2 /* GCMItemSelectTableViewCell.h in Headers */,
-				A038DA151BD190290053EBF2 /* GCMItemSelectSection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

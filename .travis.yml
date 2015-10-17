@@ -1,6 +1,6 @@
 language: objective-c
 rvm:
-    - 1.9.3
+    - 2.0.0
 script:
 - rake test:ci analyze
 cache:
@@ -9,10 +9,3 @@ cache:
   - Pods
 notifications:
   email: false
-  hipchat:
-    template:
-    - ! '%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}
-      (<a href="%{build_url}">Details</a>/<a href="%{compare_url}">Change view</a>)'
-    format: html
-    rooms:
-      secure: DLcdGW0rX6k5SHPUIwYRU2W4od1ZaKwzZObTdzp9ZK139xYi9F1Z4be9wSZCihGhwFTooyvJrm40X7Mrxi+wg4/G8girKyaR+g6D+sNRlCDpuYj7MMGstIoDDgGT86l2Zp1BvdWTSitgEnOWt723mn13FYXJLTUIXUvpDRAWIk4=

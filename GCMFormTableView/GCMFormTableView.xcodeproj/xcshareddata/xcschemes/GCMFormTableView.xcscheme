@@ -43,16 +43,6 @@
                </Test>
             </SkippedTests>
          </TestableReference>
-         <TestableReference
-            skipped = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AB0A79641844FEF300ABBBB8"
-               BuildableName = "GCMFormTableViewTests.xctest"
-               BlueprintName = "GCMFormTableViewTests"
-               ReferencedContainer = "container:GCMFormTableView.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

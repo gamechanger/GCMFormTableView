@@ -14,7 +14,6 @@
 
 #define kGCCheckAccesoryWidth (IOS7_OR_GREATER ? 24.f : 10.f)
 #define kGCDetailTextWidth 55.f
-#define kGCInnerSpace 10.f
 #define kCGImageDimension 44.f
 #define kGCCellDividerHeight 35.f / 2
 #define kGCCellDividerBorderTag 1000
@@ -70,13 +69,13 @@
                                                                        isChecked:self.isChecked
                                                                    hasDetailtext:self.detailTextLabel.text != nil
                                                                         hasImage:self.imageView.image != nil];
-  CGFloat originX = self.cellInsets.left + (self.imageView.image ? kCGImageDimension + kGCInnerSpace : 0.f);
+  CGFloat originX = self.cellInsets.left + (self.imageView.image ? kCGImageDimension : 0.f);
   CGFloat labelHeight = [GCMItemSelectTableViewCell labelHeightForAttributedText:self.textLabel.attributedText
                                                                   withLabelWidth:labelWidth];
   self.textLabel.frame = CGRectMake(originX, originY, labelWidth, labelHeight);
   
   if ( self.detailTextLabel.text ) {
-    CGFloat detailOriginX = self.textLabel.frame.origin.x + self.textLabel.frame.size.width + kGCInnerSpace;
+    CGFloat detailOriginX = self.textLabel.frame.origin.x + self.textLabel.frame.size.width;
     CGFloat detailLabelHeight = [GCMItemSelectTableViewCell labelHeightForAttributedText:self.detailTextLabel.attributedText
                                                                           withLabelWidth:kGCDetailTextWidth];
     self.detailTextLabel.frame = CGRectMake(detailOriginX, originY, kGCDetailTextWidth, detailLabelHeight);
@@ -188,8 +187,8 @@
                                 hasImage:(BOOL)image {
   CGFloat maxWidth = cellWidth - insets.left - insets.right;
   maxWidth -= checked ? kGCCheckAccesoryWidth : 0.f;
-  maxWidth -= detailText ? kGCDetailTextWidth + kGCInnerSpace : 0.f;
-  maxWidth -= image ? kCGImageDimension + kGCInnerSpace : 0.f;
+  maxWidth -= detailText ? kGCDetailTextWidth : 0.f;
+  maxWidth -= image ? kCGImageDimension : 0.f;
   return maxWidth;
 }
 

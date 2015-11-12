@@ -317,7 +317,7 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
   if ( item.actionItem ) {
     [self reportSelectedActionItemForIndexPath:indexPath];
   } else {
-    if ( ! [self.selectedIndexPath isEqual:indexPath] ) {
+    if (tableView && ![self.selectedIndexPath isEqual:indexPath] ) {
       if ( self.selectedIndexPath ) {
         GCMItemSelectTableViewCell *oldCell = (GCMItemSelectTableViewCell*)[tableView cellForRowAtIndexPath:self.selectedIndexPath];
         oldCell.isChecked = NO;

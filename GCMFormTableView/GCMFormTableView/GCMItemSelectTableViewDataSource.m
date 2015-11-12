@@ -14,6 +14,9 @@
 #import "GCMItemSelectSection.h"
 #import "GCMItemSelectItem.h"
 
+#define kGCHeaderTopInset ([GCMDeviceInfo iPad] ? 30.f : 10.f)
+#define kGCHeaderBottomInset ([GCMDeviceInfo iPad] ? 15.f : 10.f)
+
 NSUInteger const kGCItemSelectHeaderLabelTag = 1000;
 NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 
@@ -323,14 +326,22 @@ static NSString* kFooterReuseId = @"footer";
   return PRE_IOS7 && [GCMDeviceInfo iPad] ? 40.f : 15.f;
 }
 
+- (CGFloat)customHeaderHeightForHeader:(NSAttributedString *)header andWidth:(CGFloat)width {
+  CGFloat height = [header integralHeightGivenWidth:width];
+  return height + kGCHeaderTopInset + kGCHeaderBottomInset;
+}
+
+- (CGFloat)contentWidthForTableView:(UITableView *)tableView {
+  return tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
   GCMItemSelectSection *itemSection = self.sections[section];
   if ( itemSection.header ) {
     if ( self.useDefaultHeaders ) {
       return 24.f;
     } else {
-      CGFloat height = [itemSection.header integralHeightGivenWidth:tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0];
-      return height + ([GCMDeviceInfo iPad] ? 30.f : 20.f);
+      return [self customHeaderHeightForHeader:itemSection.header andWidth:[self contentWidthForTableView:tableView]];
     }
   } else {
     return itemSection.separatorHeight;
@@ -340,7 +351,7 @@ static NSString* kFooterReuseId = @"footer";
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
   GCMItemSelectSection *itemSection = self.sections[section];
   if ( itemSection.footer ) {
-    CGFloat height = [itemSection.footer integralHeightGivenWidth:tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0];
+    CGFloat height = [itemSection.footer integralHeightGivenWidth:[self contentWidthForTableView:tableView]];
     return height + (IOS7_OR_GREATER ? 20.f : 40.f);
   } else {
     return 0.01f;
@@ -364,12 +375,15 @@ static NSString* kFooterReuseId = @"footer";
       [headerView addSubview:label];
       return headerView;
     } else {
-      CGFloat height = [itemSection.header integralHeightGivenWidth:tableView.bounds.size.width];
+      CGFloat height = [self customHeaderHeightForHeader:itemSection.header andWidth:[self contentWidthForTableView:tableView]];
       
       CGFloat xInset = [self horizontalHeaderFooterPadding];
-      CGFloat yInset = [GCMDeviceInfo iPad] ? 15.f :  10.0f;
-      UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
-      UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset, yInset, headerView.frame.size.width - xInset * 2, headerView.frame.size.height - yInset * 2)];
+
+      UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height)];
+      UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset,
+                                                                 kGCHeaderTopInset,
+                                                                 headerView.frame.size.width - xInset * 2,
+                                                                 height - kGCHeaderTopInset - kGCHeaderBottomInset)];
       label.backgroundColor = [UIColor clearColor];
       label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
       label.numberOfLines = 0;

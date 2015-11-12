@@ -307,6 +307,29 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
            NSParagraphStyleAttributeName : paragraphStyle};
 }
 
+- (void)handleSelectionAtIndexPath:(NSIndexPath *)indexPath onTableView:(UITableView *)tableView {
+  GCMItemSelectSection *itemSection = self.sections[indexPath.section];
+  GCMItemSelectItem *item = itemSection.items[indexPath.row];
+  if ( item.disabled ) {
+    return;
+  }
+  
+  if ( item.actionItem ) {
+    [self reportSelectedActionItemForIndexPath:indexPath];
+  } else {
+    if ( ! [self.selectedIndexPath isEqual:indexPath] ) {
+      if ( self.selectedIndexPath ) {
+        GCMItemSelectTableViewCell *oldCell = (GCMItemSelectTableViewCell*)[tableView cellForRowAtIndexPath:self.selectedIndexPath];
+        oldCell.isChecked = NO;
+      }
+      self.selectedIndexPath = indexPath;
+      GCMItemSelectTableViewCell *newCell = (GCMItemSelectTableViewCell*)[tableView cellForRowAtIndexPath:self.selectedIndexPath];
+      newCell.isChecked = YES;
+    }
+    [self reportSelectedIndexPath];
+  }
+}
+
 #pragma mark - UITableView
 
 static NSString* kCellReuseId = @"itemSelectCell";
@@ -445,28 +468,8 @@ static NSString* kFooterReuseId = @"footer";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  GCMItemSelectSection *itemSection = self.sections[indexPath.section];
-  GCMItemSelectItem *item = itemSection.items[indexPath.row];
-  if ( item.disabled ) {
-    return;
-  }
-  
-  if ( item.actionItem ) {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self reportSelectedActionItemForIndexPath:indexPath];
-  } else {
-    if ( ! [self.selectedIndexPath isEqual:indexPath] ) {
-      if ( self.selectedIndexPath ) {
-        GCMItemSelectTableViewCell *oldCell = (GCMItemSelectTableViewCell*)[tableView cellForRowAtIndexPath:self.selectedIndexPath];
-        oldCell.isChecked = NO;
-      }
-      self.selectedIndexPath = indexPath;
-      GCMItemSelectTableViewCell *newCell = (GCMItemSelectTableViewCell*)[tableView cellForRowAtIndexPath:self.selectedIndexPath];
-      newCell.isChecked = YES;
-    }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self reportSelectedIndexPath];
-  }
+  [self handleSelectionAtIndexPath:indexPath onTableView:tableView];
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)reportSelectedIndexPath {
@@ -506,7 +509,7 @@ static NSString* kFooterReuseId = @"footer";
 
 - (void)didSelectItem:(GCMItemSelectItem *)item {
   NSIndexPath *selectedIndexPath = [self indexPathForItem:item];
-  [self tableView:nil didSelectRowAtIndexPath:selectedIndexPath];
+  [self handleSelectionAtIndexPath:selectedIndexPath onTableView:nil];
 }
 
 @end

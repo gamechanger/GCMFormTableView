@@ -330,7 +330,7 @@ static NSString* kFooterReuseId = @"footer";
       return 24.f;
     } else {
       CGFloat height = [itemSection.header integralHeightGivenWidth:tableView.bounds.size.width - [self horizontalHeaderFooterPadding] * 2.0];
-      return height + ([GCMDeviceInfo iPad] ? 56.f : 20.f);
+      return height + ([GCMDeviceInfo iPad] ? 30.f : 20.f);
     }
   } else {
     return itemSection.separatorHeight;
@@ -367,7 +367,7 @@ static NSString* kFooterReuseId = @"footer";
       CGFloat height = [itemSection.header integralHeightGivenWidth:tableView.bounds.size.width];
       
       CGFloat xInset = [self horizontalHeaderFooterPadding];
-      CGFloat yInset = [GCMDeviceInfo iPad] ? 28.f :  10.0f;
+      CGFloat yInset = [GCMDeviceInfo iPad] ? 15.f :  10.0f;
       UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
       UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset, yInset, headerView.frame.size.width - xInset * 2, headerView.frame.size.height - yInset * 2)];
       label.backgroundColor = [UIColor clearColor];

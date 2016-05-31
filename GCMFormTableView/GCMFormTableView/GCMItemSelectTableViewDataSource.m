@@ -388,13 +388,10 @@ static NSString* kFooterReuseId = @"footer";
     if ( self.useDefaultHeaders ) {
       UITableViewHeaderFooterView *headerView = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, 24.f)];
       headerView.backgroundColor = [UIColor colorWithWhite:240.f/255.f alpha:1.f];
-      UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, headerView.frame.size.width, 1.f)];
-      border.backgroundColor = [UIColor colorWithWhite:202.f/250.f alpha:1.f];
       UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15.f, 0.f, headerView.frame.size.width, headerView.frame.size.height)];
       label.backgroundColor = [UIColor clearColor];
       label.text = itemSection.header.string;
       label.font = [UIFont boldSystemFontOfSize:14.0];
-      [headerView addSubview:border];
       [headerView addSubview:label];
       return headerView;
     } else {

@@ -16,6 +16,7 @@
 
 #define kGCHeaderTopInset ([GCMDeviceInfo iPad] ? 30.f : 10.f)
 #define kGCHeaderBottomInset ([GCMDeviceInfo iPad] ? 15.f : 10.f)
+#define kGCImageDimension 30.f
 
 NSUInteger const kGCItemSelectHeaderLabelTag = 1000;
 NSUInteger const kGCItemSelectFooterLabelTag = 2000;
@@ -211,7 +212,7 @@ NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 }
 
 - (void)addItemWithConfigurationBlock:(ItemBuilderBlock)block {
-  NSParameterAssert(block);  
+  NSParameterAssert(block);
   GCMItemSelectItem *item = [[GCMItemSelectItem alloc] init];
   block(item);
   [self addItem:item];
@@ -398,8 +399,16 @@ static NSString* kFooterReuseId = @"footer";
       CGFloat height = [self customHeaderHeightForHeader:itemSection.header andWidth:[self contentWidthForTableView:tableView]];
       
       CGFloat xInset = [self horizontalHeaderFooterPadding];
-
+      
       UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height)];
+      UIImageView *iv = nil;
+      if ( itemSection.image ) {
+        iv = [[UIImageView alloc] initWithImage:itemSection.image];
+        iv.frame = CGRectMake(xInset, 0, kGCImageDimension, kGCImageDimension);
+        [headerView addSubview:iv];
+        xInset += iv.frame.size.width + 10.f;
+      }
+      
       UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset,
                                                                  kGCHeaderTopInset,
                                                                  headerView.frame.size.width - xInset * 2,
@@ -410,6 +419,7 @@ static NSString* kFooterReuseId = @"footer";
       label.attributedText = itemSection.header;
       label.tag = kGCItemSelectHeaderLabelTag;
       [headerView addSubview:label];
+      iv.center = CGPointMake(iv.center.x, label.center.y);
       return headerView;
     }
   } else {

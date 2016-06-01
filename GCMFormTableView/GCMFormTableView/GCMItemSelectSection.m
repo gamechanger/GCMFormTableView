@@ -18,6 +18,10 @@
                         footer:(NSAttributedString *)footer
                     indexTitle:(NSString *)indexTitle
             andSeparatorHeight:(CGFloat)height {
+  return [self initWithHeader:header footer:footer indexTitle:indexTitle image:nil andSeparatorHeight:height];
+}
+
+- (id)initWithHeader:(NSAttributedString *)header footer:(NSAttributedString *)footer indexTitle:(NSString *)indexTitle image:(UIImage *)image andSeparatorHeight:(CGFloat)height {
   self = [super init];
   if ( self ) {
     _items = [[NSMutableArray alloc] init];
@@ -25,6 +29,7 @@
     _footer = footer;
     _indexTitle = indexTitle;
     _separatorHeight = height;
+    _image = image;
   }
   return self;
 }

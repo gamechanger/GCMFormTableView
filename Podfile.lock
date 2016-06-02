@@ -14,15 +14,18 @@ PODS:
   - ReactiveCocoa/no-arc (2.4.7)
   - ReactiveCocoa/UI (2.4.7):
     - ReactiveCocoa/Core
+  - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - GCMCocoaExtensions (~> 0.2.0)
   - Kiwi (= 2.2.3)
   - ReactiveCocoa (~> 2.4.7)
+  - TTTAttributedLabel (~> 2.0)
 
 SPEC CHECKSUMS:
   GCMCocoaExtensions: d06498fe6ab61360b7d27c9fb4eb79c572b2d857
   Kiwi: e4e2673e9435622a5b84149fc90394b5345bc8bc
   ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
 COCOAPODS: 0.39.0

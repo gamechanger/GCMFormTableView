@@ -13,6 +13,7 @@
 #import "GCMItemSelectSearchDataSource.h"
 #import "GCMItemSelectSection.h"
 #import "GCMItemSelectItem.h"
+#import "TTTAttributedLabel.h"
 
 #define kGCHeaderTopInset ([GCMDeviceInfo iPad] ? 30.f : 10.f)
 #define kGCHeaderBottomInset ([GCMDeviceInfo iPad] ? 15.f : 10.f)
@@ -21,7 +22,7 @@
 NSUInteger const kGCItemSelectHeaderLabelTag = 1000;
 NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 
-@interface GCMItemSelectTableViewDataSource () <GCMItemSelectSearchDataSourceDelegate>
+@interface GCMItemSelectTableViewDataSource () <GCMItemSelectSearchDataSourceDelegate, TTTAttributedLabelDelegate>
 
 @property (nonatomic, strong) NSMutableArray *sections;
 
@@ -409,10 +410,11 @@ static NSString* kFooterReuseId = @"footer";
         xInset += iv.frame.size.width + 10.f;
       }
       
-      UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset,
-                                                                 kGCHeaderTopInset,
-                                                                 headerView.frame.size.width - xInset * 2,
-                                                                 height - kGCHeaderTopInset - kGCHeaderBottomInset)];
+      TTTAttributedLabel *label = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(xInset,
+                                                                                       kGCHeaderTopInset,
+                                                                                       headerView.frame.size.width - xInset * 2,
+                                                                                       height - kGCHeaderTopInset - kGCHeaderBottomInset)];
+      label.delegate = self;
       label.backgroundColor = [UIColor clearColor];
       label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
       label.numberOfLines = 0;
@@ -435,7 +437,8 @@ static NSString* kFooterReuseId = @"footer";
     CGFloat xInset = [self horizontalHeaderFooterPadding];
     CGFloat yInset = 10.0f;
     UITableViewHeaderFooterView *footerView = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset, yInset, footerView.frame.size.width - xInset * 2.00f, footerView.frame.size.height - yInset * 2)];
+    TTTAttributedLabel *label = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(xInset, yInset, footerView.frame.size.width - xInset * 2.00f, footerView.frame.size.height - yInset * 2)];
+    label.delegate = self;
     label.backgroundColor = [UIColor clearColor];
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.numberOfLines = 0;
@@ -518,5 +521,14 @@ static NSString* kFooterReuseId = @"footer";
   NSIndexPath *selectedIndexPath = [self indexPathForItem:item];
   [self handleSelectionAtIndexPath:selectedIndexPath onTableView:nil];
 }
+
+#pragma mark - TTTAttributedLabelDelegate
+- (void)attributedLabel:(TTTAttributedLabel *)label
+   didSelectLinkWithURL:(NSURL *)url {
+  if ( [[UIApplication sharedApplication] canOpenURL:url] ) {
+    [[UIApplication sharedApplication] openURL:url];
+  }
+}
+
 
 @end

@@ -13,7 +13,6 @@
 #import "GCMItemSelectSearchDataSource.h"
 #import "GCMItemSelectSection.h"
 #import "GCMItemSelectItem.h"
-#import "TTTAttributedLabel.h"
 
 #define kGCHeaderTopInset ([GCMDeviceInfo iPad] ? 30.f : 10.f)
 #define kGCHeaderBottomInset ([GCMDeviceInfo iPad] ? 15.f : 10.f)
@@ -22,7 +21,7 @@
 NSUInteger const kGCItemSelectHeaderLabelTag = 1000;
 NSUInteger const kGCItemSelectFooterLabelTag = 2000;
 
-@interface GCMItemSelectTableViewDataSource () <GCMItemSelectSearchDataSourceDelegate, TTTAttributedLabelDelegate>
+@interface GCMItemSelectTableViewDataSource () <GCMItemSelectSearchDataSourceDelegate>
 
 @property (nonatomic, strong) NSMutableArray *sections;
 
@@ -377,7 +376,7 @@ static NSString* kFooterReuseId = @"footer";
   GCMItemSelectSection *itemSection = self.sections[section];
   if ( itemSection.footer ) {
     CGFloat height = [itemSection.footer integralHeightGivenWidth:[self contentWidthForTableView:tableView]];
-    return height + (IOS7_OR_GREATER ? 20.f : 40.f);
+    return height + (IOS7_OR_GREATER ? 20.f : 40.f) + (itemSection.useTextViewFooter ? 10.f : 0.f);
   } else {
     return 0.01f;
   }
@@ -410,11 +409,10 @@ static NSString* kFooterReuseId = @"footer";
         xInset += iv.frame.size.width + 10.f;
       }
       
-      TTTAttributedLabel *label = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(xInset,
-                                                                                       kGCHeaderTopInset,
-                                                                                       headerView.frame.size.width - xInset * 2,
-                                                                                       height - kGCHeaderTopInset - kGCHeaderBottomInset)];
-      label.delegate = self;
+      UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset,
+                                                                 kGCHeaderTopInset,
+                                                                 headerView.frame.size.width - xInset * 2,
+                                                                 height - kGCHeaderTopInset - kGCHeaderBottomInset)];
       label.backgroundColor = [UIColor clearColor];
       label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
       label.numberOfLines = 0;
@@ -432,20 +430,41 @@ static NSString* kFooterReuseId = @"footer";
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
   GCMItemSelectSection *itemSection = self.sections[section];
   if ( itemSection.footer ) {
-    CGFloat height = [itemSection.footer integralHeightGivenWidth:tableView.bounds.size.width];
-    
-    CGFloat xInset = [self horizontalHeaderFooterPadding];
-    CGFloat yInset = 10.0f;
-    UITableViewHeaderFooterView *footerView = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
-    TTTAttributedLabel *label = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(xInset, yInset, footerView.frame.size.width - xInset * 2.00f, footerView.frame.size.height - yInset * 2)];
-    label.delegate = self;
-    label.backgroundColor = [UIColor clearColor];
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    label.numberOfLines = 0;
-    label.attributedText = itemSection.footer;
-    label.tag = kGCItemSelectFooterLabelTag;
-    [footerView addSubview:label];
-    return footerView;
+    if ( itemSection.useTextViewFooter ) {
+      CGFloat height = [itemSection.footer integralHeightGivenWidth:tableView.bounds.size.width] + 10;
+      
+      CGFloat xInset = [self horizontalHeaderFooterPadding];
+      CGFloat yInset = 5.0f;
+      UITableViewHeaderFooterView *footerView = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
+      CGFloat tvWidth = footerView.frame.size.width - xInset * 2.00f;
+      UITextView *tv = [[UITextView alloc] initWithFrame:CGRectMake(xInset, yInset, tvWidth, footerView.frame.size.height - yInset * 2)];
+      tv.backgroundColor = [UIColor clearColor];
+      tv.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+      tv.attributedText = itemSection.footer;
+      tv.tag = kGCItemSelectFooterLabelTag;
+      tv.editable = NO;
+      tv.dataDetectorTypes = UIDataDetectorTypeLink;
+      CGSize size = [tv sizeThatFits:CGSizeMake(tvWidth, CGFLOAT_MAX)];
+      CGRect frame = tv.frame;
+      frame.size = CGSizeMake(tvWidth, size.height);
+      tv.frame = frame;
+      [footerView addSubview:tv];
+      return footerView;
+    } else {
+      CGFloat height = [itemSection.footer integralHeightGivenWidth:tableView.bounds.size.width];
+      
+      CGFloat xInset = [self horizontalHeaderFooterPadding];
+      CGFloat yInset = 10.0f;
+      UITableViewHeaderFooterView *footerView = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
+      UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(xInset, yInset, footerView.frame.size.width - xInset * 2.00f, footerView.frame.size.height - yInset * 2)];
+      label.backgroundColor = [UIColor clearColor];
+      label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+      label.numberOfLines = 0;
+      label.attributedText = itemSection.footer;
+      label.tag = kGCItemSelectFooterLabelTag;
+      [footerView addSubview:label];
+      return footerView;
+    }
   } else {
     return nil;
   }
@@ -520,14 +539,6 @@ static NSString* kFooterReuseId = @"footer";
 - (void)didSelectItem:(GCMItemSelectItem *)item {
   NSIndexPath *selectedIndexPath = [self indexPathForItem:item];
   [self handleSelectionAtIndexPath:selectedIndexPath onTableView:nil];
-}
-
-#pragma mark - TTTAttributedLabelDelegate
-- (void)attributedLabel:(TTTAttributedLabel *)label
-   didSelectLinkWithURL:(NSURL *)url {
-  if ( [[UIApplication sharedApplication] canOpenURL:url] ) {
-    [[UIApplication sharedApplication] openURL:url];
-  }
 }
 
 

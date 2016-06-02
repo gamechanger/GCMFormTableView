@@ -1,4 +1,4 @@
-platform :ios, "8.0"
+platform :ios, "6.0"
 workspace 'GCMFormTableView'
 xcodeproj 'GCMFormTableView/GCMFormTableView.xcodeproj'
 

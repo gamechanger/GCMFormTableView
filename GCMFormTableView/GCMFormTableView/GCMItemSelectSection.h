@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString *indexTitle;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic) float separatorHeight;
+@property (nonatomic) BOOL useTextViewFooter;
 
 - (id)initWithHeader:(NSAttributedString *)header
               footer:(NSAttributedString *)footer

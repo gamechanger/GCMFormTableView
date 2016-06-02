@@ -8,7 +8,8 @@ Pod::Spec.new do |s|
   s.source_files = "GCMFormTableView/GCMFormTableView/*.{h,m}"
   s.license = { :type => 'MIT', :type => 'LICENSE' }
   s.requires_arc = true
-  s.ios.deployment_target = '6.0'
+  s.ios.deployment_target = ‘8.0’
   s.dependency 'GCMCocoaExtensions', '~> 0.2.0'
   s.dependency 'ReactiveCocoa', '~> 2.4.7'
+  s.dependency ‘TTTAttributedLabel’, '~> 2.0'
 end

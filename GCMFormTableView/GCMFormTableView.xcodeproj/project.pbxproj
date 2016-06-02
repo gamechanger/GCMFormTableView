@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		09DC7BDE4CC24FB4BA4B2A33 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F5D042CA0F74A06AAA5AA6A /* libPods.a */; };
 		89D466DC34A44301AA1F32B6 /* libPods-GCMFormTableViewSenTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B955BE300F44C3AC58AB0C /* libPods-GCMFormTableViewSenTests.a */; };
+		8D4D87411D00A38000AAAC09 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4D87401D00A38000AAAC09 /* TTTAttributedLabel.m */; };
 		A00C6B3518F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C6B3418F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m */; };
 		A02161DF18F32AEE00DB786B /* GCMItemSelectSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A02161DE18F32AEE00DB786B /* GCMItemSelectSearchDataSource.m */; };
 		A0CB468C18F440BC00E8A1F4 /* GCMItemSelectSection.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CB468B18F440BC00E8A1F4 /* GCMItemSelectSection.m */; };
@@ -58,6 +59,8 @@
 		15B955BE300F44C3AC58AB0C /* libPods-GCMFormTableViewSenTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GCMFormTableViewSenTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F5D042CA0F74A06AAA5AA6A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		65D259886884810EE8501EF8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		8D4D873F1D00A37300AAAC09 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		8D4D87401D00A38000AAAC09 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		9BF4D44695E1087EE5E0B89F /* Pods-GCMFormTableViewSenTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMFormTableViewSenTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-GCMFormTableViewSenTests/Pods-GCMFormTableViewSenTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A00C6B3418F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMItemSelectSearchDataSourceTests.m; sourceTree = "<group>"; };
 		A02161DD18F32AEE00DB786B /* GCMItemSelectSearchDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCMItemSelectSearchDataSource.h; sourceTree = "<group>"; };
@@ -137,6 +140,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8D4D873E1D00A33400AAAC09 /* TTTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				8D4D873F1D00A37300AAAC09 /* TTTAttributedLabel.h */,
+				8D4D87401D00A38000AAAC09 /* TTTAttributedLabel.m */,
+			);
+			name = TTTAttributedLabel;
+			sourceTree = "<group>";
+		};
 		AB0A794C1844FEF300ABBBB8 = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +189,7 @@
 		AB0A795A1844FEF300ABBBB8 /* GCMFormTableView */ = {
 			isa = PBXGroup;
 			children = (
+				8D4D873E1D00A33400AAAC09 /* TTTAttributedLabel */,
 				A0DEAC4018EEF91600BA8FD1 /* GCMItemSelectTableViewCell.h */,
 				A0DEAC4118EEF91600BA8FD1 /* GCMItemSelectTableViewCell.m */,
 				AB0A7A191846661300ABBBB8 /* GCMItemSelectViewController.h */,
@@ -417,6 +430,7 @@
 				A0CB469218F4418400E8A1F4 /* GCMItemSelectItem.m in Sources */,
 				AB0A7A1D1846661300ABBBB8 /* GCMItemSelectViewController.m in Sources */,
 				A02161DF18F32AEE00DB786B /* GCMItemSelectSearchDataSource.m in Sources */,
+				8D4D87411D00A38000AAAC09 /* TTTAttributedLabel.m in Sources */,
 				AB0A7A1E1846661300ABBBB8 /* GCMItemSelectTableViewDataSource.m in Sources */,
 				A0CB468C18F440BC00E8A1F4 /* GCMItemSelectSection.m in Sources */,
 				A0DEAC4218EEF91600BA8FD1 /* GCMItemSelectTableViewCell.m in Sources */,

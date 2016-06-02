@@ -25,4 +25,4 @@ popd
 git tag -a $1 -m "Create tag"
 git push origin $1
 
-pod trunk push GCMFormTableView.podspec
+pod trunk push --allow-warnings GCMFormTableView.podspec

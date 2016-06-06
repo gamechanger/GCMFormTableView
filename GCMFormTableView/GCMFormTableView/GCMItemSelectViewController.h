@@ -17,6 +17,7 @@
 @property (nonatomic, assign, readonly) NSInteger tagForSelectedItem;
 @property (nonatomic, strong, readonly) id userInfoForSelectedItem;
 @property (nonatomic, assign, readonly) BOOL confirmed;
+@property (nonatomic, strong) UISearchConroller * searchController;
 
 - (id)initWithTag:(NSInteger)tag andUserInfo:(id)userInfo andConfirmed:(BOOL)confirmed;
 

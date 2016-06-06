@@ -15,10 +15,11 @@
 @end
 
 
-@interface GCMItemSelectSearchDataSource : NSObject <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
+@interface GCMItemSelectSearchDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, assign) id<GCMItemSelectSearchDataSourceDelegate> delegate;
 @property (nonatomic, strong) GCMItemSelectItem *selectedItem;
 
 - (id)initWithSections:(NSArray *)sections andSelectedItem:(GCMItemSelectItem *)selected;
+- (void)filterItemsForSearchString:(NSString *)string;
 @end

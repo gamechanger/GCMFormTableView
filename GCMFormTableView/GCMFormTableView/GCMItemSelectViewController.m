@@ -30,9 +30,8 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
 
 @end
 
-@interface GCMItemSelectViewController () <GCMItemSelectTableViewDelegate, UISearchDisplayDelegate>
+@interface GCMItemSelectViewController () <GCMItemSelectTableViewDelegate>
 
-@property (nonatomic, strong) UISearchDisplayController *searchController;
 
 @end
 
@@ -135,7 +134,6 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
   [dataSource addObserver:self forKeyPath:kDataSourceSelectedIndexPathKey options:NSKeyValueObservingOptionNew context:nil];
   self.tableView.dataSource = dataSource;
   self.tableView.delegate = dataSource;
-  [self setupSearchController];
   [self.tableView reloadData];
 }
 
@@ -224,19 +222,6 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
 
 - (void)reportSelectedItemWithConfirmation:(BOOL)confirmation {
   [self.delegate selectedItemInItemSelectViewController:self andConfirmedSelection:confirmation];
-}
-
-- (void)createSearchDisplayControllerForSearchBar:(UISearchBar *)searchBar {
-  self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
-  [self setupSearchController];
-}
-
-- (void)setupSearchController {
-  if ( self.searchController ) {
-    self.searchController.searchResultsDataSource = self.dataSource.searchDataSource;
-    self.searchController.searchResultsDelegate = self.dataSource.searchDataSource;
-    self.searchController.delegate = self.dataSource.searchDataSource;
-  }
 }
 
 @end

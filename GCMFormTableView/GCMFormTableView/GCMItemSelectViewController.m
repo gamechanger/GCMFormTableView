@@ -80,9 +80,7 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
   self.tableView.delegate = self.dataSource;
   self.tableView.dataSource = self.dataSource;
   if ( IOS7_OR_GREATER ) {
-    if ( self.searchController ) {
-      self.tableView.sectionIndexBackgroundColor = [UIColor whiteColor];
-    }
+    self.tableView.sectionIndexBackgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeBottom | UIRectEdgeRight;
   }
 }
@@ -97,9 +95,7 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
 
 - (void)viewDidLayoutSubviews {
   [super viewDidLayoutSubviews];
-  if ( ! self.searchController.isActive ) {
-    [self scrollSelectedPathToVisibleAnimated:NO];
-  }
+  [self scrollSelectedPathToVisibleAnimated:NO];
 }
 
 - (void)scrollSelectedPathToVisibleAnimated:(BOOL)animated {

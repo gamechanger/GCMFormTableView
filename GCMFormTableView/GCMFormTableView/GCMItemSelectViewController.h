@@ -40,9 +40,9 @@
 /// Defaults to @"Cancel";
 @property (nonatomic, strong) NSString *cancellationTitle;
 @property (nonatomic, assign) BOOL showCancelButton;
+@property (nonatomic, strong) UISearchController *searchController;
 
 - (id)initWithTableViewStyle:(UITableViewStyle)tableViewStyle;
-- (void)createSearchDisplayControllerForSearchBar:(UISearchBar *)searchBar;
 
 @end
 

@@ -97,7 +97,7 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    if ( ! self.searchController ) {
+    if ( ! self.searchController.active ) {
         [self scrollSelectedPathToVisibleAnimated:NO];
     }
 }

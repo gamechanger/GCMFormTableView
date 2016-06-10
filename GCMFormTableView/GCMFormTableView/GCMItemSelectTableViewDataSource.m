@@ -375,8 +375,25 @@ static NSString* kFooterReuseId = @"footer";
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
   GCMItemSelectSection *itemSection = self.sections[section];
   if ( itemSection.footer ) {
-    CGFloat height = [itemSection.footer integralHeightGivenWidth:[self contentWidthForTableView:tableView]];
-    return height + (IOS7_OR_GREATER ? 20.f : 40.f) + (itemSection.useTextViewFooter ? 10.f : 0.f);
+    if ( itemSection.useTextViewFooter ) {
+      CGFloat xInset = 10.f;
+      CGFloat tvWidth = tableView.frame.size.width - xInset * 2.00f;
+      
+      UITextView *tv = [[UITextView alloc] initWithFrame:CGRectMake(xInset, 5.f, tvWidth, 0)];
+      tv.attributedText = itemSection.footer;
+      tv.editable = NO;
+      tv.dataDetectorTypes = UIDataDetectorTypeLink;
+      CGSize size = [tv sizeThatFits:CGSizeMake(tvWidth, CGFLOAT_MAX)];
+      CGRect frame = tv.frame;
+      frame.size = CGSizeMake(tvWidth, size.height);
+      tv.frame = frame;
+      
+      return tv.frame.size.height + 30;
+      
+    } else {
+      CGFloat height = [itemSection.footer integralHeightGivenWidth:[self contentWidthForTableView:tableView]];
+      return height + (IOS7_OR_GREATER ? 20.f : 40.f) + (itemSection.useTextViewFooter ? 10.f : 0.f);
+    }
   } else {
     return 0.01f;
   }
@@ -431,13 +448,10 @@ static NSString* kFooterReuseId = @"footer";
   GCMItemSelectSection *itemSection = self.sections[section];
   if ( itemSection.footer ) {
     if ( itemSection.useTextViewFooter ) {
-      CGFloat height = [itemSection.footer integralHeightGivenWidth:tableView.bounds.size.width] + 10;
+      CGFloat xInset = 10.f;
+      CGFloat tvWidth = tableView.frame.size.width - xInset * 2.00f;
       
-      CGFloat xInset = [self horizontalHeaderFooterPadding];
-      CGFloat yInset = 5.0f;
-      UITableViewHeaderFooterView *footerView = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height + yInset * 2)];
-      CGFloat tvWidth = footerView.frame.size.width - xInset * 2.00f;
-      UITextView *tv = [[UITextView alloc] initWithFrame:CGRectMake(xInset, yInset, tvWidth, footerView.frame.size.height - yInset * 2)];
+      UITextView *tv = [[UITextView alloc] initWithFrame:CGRectMake(xInset, 5.f, tvWidth, 0)];
       tv.backgroundColor = [UIColor clearColor];
       tv.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
       tv.attributedText = itemSection.footer;
@@ -448,6 +462,11 @@ static NSString* kFooterReuseId = @"footer";
       CGRect frame = tv.frame;
       frame.size = CGSizeMake(tvWidth, size.height);
       tv.frame = frame;
+      
+      CGFloat height = tv.frame.size.height + 30;
+      
+      UITableViewHeaderFooterView *footerView = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0.f, 0.f, tableView.frame.size.width, height)];
+      footerView.backgroundColor = [UIColor clearColor];
       [footerView addSubview:tv];
       return footerView;
     } else {

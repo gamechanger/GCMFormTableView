@@ -482,6 +482,7 @@ static NSString* kFooterReuseId = @"footer";
       label.attributedText = itemSection.footer;
       label.tag = kGCItemSelectFooterLabelTag;
       [footerView addSubview:label];
+      footerView.backgroundView = [UIView new];
       return footerView;
     }
   } else {

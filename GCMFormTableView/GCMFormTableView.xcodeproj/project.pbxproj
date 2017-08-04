@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C13AB8F8A4513F375568514 /* libPods-GCMFormTableView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 788C9B7BB602C00DE5C37558 /* libPods-GCMFormTableView.a */; };
 		89D466DC34A44301AA1F32B6 /* libPods-GCMFormTableViewSenTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B955BE300F44C3AC58AB0C /* libPods-GCMFormTableViewSenTests.a */; };
 		A00C6B3518F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C6B3418F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m */; };
 		A02161DF18F32AEE00DB786B /* GCMItemSelectSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A02161DE18F32AEE00DB786B /* GCMItemSelectSearchDataSource.m */; };
@@ -56,6 +57,7 @@
 		084565443FC60C3BB0F6F5F7 /* Pods-GCMFormTableViewSenTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMFormTableViewSenTests.release.xcconfig"; path = "../Pods/Target Support Files/Pods-GCMFormTableViewSenTests/Pods-GCMFormTableViewSenTests.release.xcconfig"; sourceTree = "<group>"; };
 		15B955BE300F44C3AC58AB0C /* libPods-GCMFormTableViewSenTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GCMFormTableViewSenTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F5D042CA0F74A06AAA5AA6A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		650C77BA27213C4E8B6AB7BB /* Pods-GCMFormTableView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMFormTableView.release.xcconfig"; path = "../Pods/Target Support Files/Pods-GCMFormTableView/Pods-GCMFormTableView.release.xcconfig"; sourceTree = "<group>"; };
 		788C9B7BB602C00DE5C37558 /* libPods-GCMFormTableView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GCMFormTableView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BF4D44695E1087EE5E0B89F /* Pods-GCMFormTableViewSenTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMFormTableViewSenTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-GCMFormTableViewSenTests/Pods-GCMFormTableViewSenTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A00C6B3418F4A1D30040F2EF /* GCMItemSelectSearchDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMItemSelectSearchDataSourceTests.m; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 		AB0A7A1C1846661300ABBBB8 /* GCMItemSelectTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMItemSelectTableViewDataSource.m; sourceTree = "<group>"; };
 		AB0A7A1F1846662000ABBBB8 /* GCMItemSelectTableViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMItemSelectTableViewControllerTests.m; sourceTree = "<group>"; };
 		AB0A7A201846662000ABBBB8 /* GCMItemSelectTableViewDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCMItemSelectTableViewDataSourceTests.m; sourceTree = "<group>"; };
+		C4C5C4DC6CE60D7556766D68 /* Pods-GCMFormTableView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCMFormTableView.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-GCMFormTableView/Pods-GCMFormTableView.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +97,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB0A79591844FEF300ABBBB8 /* Foundation.framework in Frameworks */,
+				3C13AB8F8A4513F375568514 /* libPods-GCMFormTableView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +132,8 @@
 			children = (
 				9BF4D44695E1087EE5E0B89F /* Pods-GCMFormTableViewSenTests.debug.xcconfig */,
 				084565443FC60C3BB0F6F5F7 /* Pods-GCMFormTableViewSenTests.release.xcconfig */,
+				C4C5C4DC6CE60D7556766D68 /* Pods-GCMFormTableView.debug.xcconfig */,
+				650C77BA27213C4E8B6AB7BB /* Pods-GCMFormTableView.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -243,9 +249,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB0A79781844FEF300ABBBB8 /* Build configuration list for PBXNativeTarget "GCMFormTableView" */;
 			buildPhases = (
+				C8F0C0E5F5DA4A31292E1A4C /* [CP] Check Pods Manifest.lock */,
 				AB0A79511844FEF300ABBBB8 /* Sources */,
 				AB0A79521844FEF300ABBBB8 /* Frameworks */,
 				AB0A79531844FEF300ABBBB8 /* CopyFiles */,
+				5CE39F5954F0199902651387 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -359,6 +367,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		5CE39F5954F0199902651387 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-GCMFormTableView/Pods-GCMFormTableView-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		74C1891511AC46D790FAEEBA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -372,6 +395,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-GCMFormTableViewSenTests/Pods-GCMFormTableViewSenTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C8F0C0E5F5DA4A31292E1A4C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GCMFormTableView-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -439,6 +480,7 @@
 /* Begin XCBuildConfiguration section */
 		AB0A79761844FEF300ABBBB8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BF4D44695E1087EE5E0B89F /* Pods-GCMFormTableViewSenTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
@@ -509,6 +551,7 @@
 		};
 		AB0A79791844FEF300ABBBB8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C4C5C4DC6CE60D7556766D68 /* Pods-GCMFormTableView.debug.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/GCMFormTableView.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -524,6 +567,7 @@
 		};
 		AB0A797A1844FEF300ABBBB8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 650C77BA27213C4E8B6AB7BB /* Pods-GCMFormTableView.release.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/GCMFormTableView.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

@@ -9,8 +9,6 @@
 #import "GCMItemSelectViewController.h"
 #import "GCMDeviceInfo.h"
 #import "GCMItemSelectSearchDataSource.h"
-#import "NSObject+RACSelectorSignal.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
 #import "GCMItemSelectViewController.h"
 
 static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
@@ -47,7 +45,7 @@ static NSString *kDataSourceSelectedIndexPathKey = @"selectedIndexPath";
     if ( self ) {
         _tableViewStyle = tableViewStyle;
         _confirmationTitle = @"Next";
-        _cancellationTitle = @"Cancel";        
+        _cancellationTitle = @"Cancel";
     }
     return self;
 }

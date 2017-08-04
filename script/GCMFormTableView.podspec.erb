@@ -10,5 +10,4 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.ios.deployment_target = '6.0'
   s.dependency 'GCMCocoaExtensions', '~> 0.2.0'
-  s.dependency 'ReactiveCocoa', '~> 2.4.7'
 end

@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.author       = { "Jerry Hsu" => "jerry.hsu@gamechanger.io" }
   s.source       = { :git => "https://github.com/gamechanger/GCMFormTableView.git", :tag => "0.6.14" }
   s.source_files = "GCMFormTableView/GCMFormTableView/*.{h,m}"
-  s.license = { :type => 'MIT', :type => 'LICENSE' }
+  s.license = { :type => 'MIT' }
   s.requires_arc = true
   s.ios.deployment_target = '6.0'
   s.dependency 'GCMCocoaExtensions', '~> 0.2.0'

@@ -1,10 +1,12 @@
 platform :ios, "6.0"
 workspace 'GCMFormTableView'
-xcodeproj 'GCMFormTableView/GCMFormTableView.xcodeproj'
+project 'GCMFormTableView/GCMFormTableView.xcodeproj'
 
-podspec :path => 'GCMFormTableView.podspec'
+target :GCMFormTableView do
+  podspec :path => 'GCMFormTableView.podspec'
+end
 
-target :GCMFormTableViewSenTests, :exclusive => true do
+target :GCMFormTableViewSenTests do
   pod 'Kiwi', '2.2.3'
 end
 
